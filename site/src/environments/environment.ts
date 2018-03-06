@@ -5,4 +5,6 @@
 
 export const environment = {
   production: false
+  , mock : true
+  , api : 'http:localhost:8089/api'
 };

@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
-import { Observable } from 'rxjs/Observable';
+import { HttpClient } from '@angular/common/http';
 import { merge } from 'rxjs/observable/merge';
 import { of as observableOf } from 'rxjs/observable/of';
 import { catchError } from 'rxjs/operators/catchError';
@@ -9,17 +8,19 @@ import { map } from 'rxjs/operators/map';
 import { startWith } from 'rxjs/operators/startWith';
 import { switchMap } from 'rxjs/operators/switchMap';
 
+import {Produto} from '../../_model/produto.model';
+import {ProdutoService} from '../produto.service';
 
 @Component({
 	moduleId: module.id,
-	selector: 'app-produto',
-	templateUrl: './produto.component.html',
-	styleUrls: ['./produto.component.css']
+	selector: 'app-produto-lista',
+	templateUrl: './produto-lista.component.html',
+	styleUrls: ['./produto-lista.component.css']
 })
-export class ProdutoComponent implements OnInit {
+export class ProdutoListaComponent implements OnInit {
 
-	displayedColumns = ['created', 'state', 'number', 'title'];
-	exampleDatabase: ExampleHttpDao | null;
+	displayedColumns = ['id', 'estoque', 'produto' ];
+	exampleDatabase: ProdutoService | null;
 	dataSource = new MatTableDataSource();
 
 	resultsLength = 0;
@@ -29,10 +30,10 @@ export class ProdutoComponent implements OnInit {
 	@ViewChild(MatPaginator) paginator: MatPaginator;
 	@ViewChild(MatSort) sort: MatSort;
 
-	constructor(private http: HttpClient) { }
+	constructor(private http : HttpClient) { }
 
 	ngOnInit() {
-		this.exampleDatabase = new ExampleHttpDao(this.http);
+		this.exampleDatabase = new ProdutoService(this.http);
 
 		// If the user changes the sort order, reset back to the first page.
 		this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
@@ -63,28 +64,6 @@ export class ProdutoComponent implements OnInit {
 	}
 }
 
-export interface GithubApi {
-	items: GithubIssue[];
-	total_count: number;
-}
 
-export interface GithubIssue {
-	created_at: string;
-	number: string;
-	state: string;
-	title: string;
-}
 
-/** An example database that the data source uses to retrieve data for the table. */
-export class ExampleHttpDao {
-	constructor(private http: HttpClient) { }
 
-	getRepoIssues(sort: string, order: string, page: number): Observable<GithubApi> {
-		const href = 'https://api.github.com/search/issues';
-		const requestUrl =
-			`${href}?q=repo:angular/material2&sort=${sort}&order=${order}&page=${page + 1}`;
-
-		return this.http.get<GithubApi>(requestUrl);
-	}
-
-}
