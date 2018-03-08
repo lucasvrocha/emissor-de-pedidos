@@ -1,0 +1,53 @@
+<mat-toolbar color="secondary">
+	<button mat-icon-button routerLink='/fornecedor'>
+		<app-icon name='keyboard_backspace' color='black' label='voltar'></app-icon>
+	</button>
+	<button mat-icon-button>
+		<app-icon name='business' color='black' label='fornecedor'></app-icon>
+	</button>
+	<span>Cadastro de Fornecedor</span>
+	<!-- This fills the remaining space of the current row -->
+	<span class="fill-space"></span>
+	<app-icon name='save' color='black'></app-icon>	
+</mat-toolbar>
+<form class="form">
+	<mat-form-field class="full-width">
+		<input matInput placeholder="# Código do Fornecedor" disabled value="Será gerado automáticamente.">
+	</mat-form-field>
+
+	<table class="full-width" cellspacing="0"><tr>
+		<td><mat-form-field class="full-width" hintLabel="Maximo 18 caracteres" required >
+			<input matInput #cnpj maxlength="18" placeholder="CNPJ">
+			<mat-hint align="end">{{cnpj.value?.length || 0}}/18</mat-hint>
+		</mat-form-field></td>
+	</tr></table>
+
+
+	<table class="full-width" cellspacing="0"><tr>
+		<td><mat-form-field class="full-width" hintLabel="Maximo 9 caracteres" required >
+			<input matInput #ie maxlength="9" placeholder="Inscrição Estadual">
+			<mat-hint align="end">{{ie.value?.length || 0}}/9</mat-hint>
+		</mat-form-field></td>
+	</tr></table>
+
+	<table class="full-width" cellspacing="0"><tr>
+		<td><mat-form-field class="full-width" hintLabel="Maximo 50 caracteres" required >
+			<input matInput #razao maxlength="50" placeholder="Razão Social">
+			<mat-hint align="end">{{razao.value?.length || 0}}/50</mat-hint>
+		</mat-form-field></td>
+	</tr></table>
+
+	<table class="full-width" cellspacing="0"><tr>
+		<td><mat-form-field class="full-width" hintLabel="Maximo 50 caracteres" required >
+			<input matInput #fantasia maxlength="50" placeholder="Nome Fantasia">
+			<mat-hint align="end">{{fantasia.value?.length || 0}}/50</mat-hint>
+		</mat-form-field></td>
+	</tr></table>
+
+	<div class="full-width">
+		<button mat-button>Cancelar</button>
+		<button mat-button color="warn">Excluir</button>
+		<span class="fill-space"></span>
+		<button mat-raised-button color="primary">Salvar</button>
+	</div>
+</form>

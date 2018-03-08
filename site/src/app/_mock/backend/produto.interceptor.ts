@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpRequest, HttpResponse, HttpHandler, HttpEvent, HttpInterceptor, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpRequest, HttpResponse, HttpHandler, HttpEvent, HttpInterceptor } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
-import { environment } from '../../environments/environment';
+
 import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/delay';
@@ -9,23 +9,23 @@ import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/materialize';
 import 'rxjs/add/operator/dematerialize';
 
-import { environment as env } from '../../environments/environment';
+import { environment as env } from '../../../environments/environment';
 // --- mocks
-import { PRODUTO } from './produto-mock';
+import { PRODUTO } from '../produto.mock';
 
 
 @Injectable()
-export class FakeBackendInterceptor implements HttpInterceptor {
+export class ProdutoInterceptor implements HttpInterceptor {
 
     private api: string = env.api;
 
     constructor() {
-        if (environment.mock)
+        if (env.mock)
             console.log("AOOooouuuuu the FakeBackEnd isss A LIIIIVE!!!!");
     }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        if (environment.mock === false || request.url.startsWith('assets/'))
+        if (env.mock === false || request.url.startsWith(this.api+'/produto') === false)
             return next.handle(request);
 
         return Observable.of(null).mergeMap(() => {
@@ -73,10 +73,3 @@ export class FakeBackendInterceptor implements HttpInterceptor {
 
 
 }
-
-export let FakeBackendProvider = {
-    // use fake backend in place of Http service for backend-less development
-    provide: HTTP_INTERCEPTORS,
-    useClass: FakeBackendInterceptor,
-    multi: true
-};

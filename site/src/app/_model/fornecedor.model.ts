@@ -3,4 +3,5 @@ export interface Fornecedor {
 	razao: string;
 	cnpj : string;
 	ie : string;
+	fantasia: string;
 }

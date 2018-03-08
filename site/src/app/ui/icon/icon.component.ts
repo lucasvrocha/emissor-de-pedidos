@@ -13,7 +13,6 @@ export class IconComponent implements OnInit {
 	@Input() name: string = 'default';
 	@Input() color: string = 'black';
 	@Input() size: Number = 24;
-	@Input() label: string = undefined;
 
 	private fullName: string;
 
@@ -21,8 +20,10 @@ export class IconComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		this.fullName = this.name + '_' + this.color + '_' + this.size
-		this.fullName = this.name + '_' + this.color + '_' + this.size
+		this.fullName = this.name + '_' + this.color + '_' + this.size;
+		this.iconRegistry.addSvgIcon(
+			this.fullName,
+			this.sanitizer.bypassSecurityTrustResourceUrl('assets/icon/ic_warning_black_24px.svg'));
 		this.iconRegistry.addSvgIcon(
 			this.fullName,
 			this.sanitizer.bypassSecurityTrustResourceUrl('assets/icon/ic_' + this.fullName + 'px.svg'));

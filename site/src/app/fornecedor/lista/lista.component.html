@@ -1,0 +1,68 @@
+<mat-toolbar color="secondary">
+	<button mat-icon-button routerLink=''>
+		<app-icon name='keyboard_backspace' color='black' label='voltar'></app-icon>
+	</button>
+
+	<button mat-icon-button>
+		<app-icon  name='business' color='black' label='novo'></app-icon>
+	</button>
+	<span>Fornecedor</span>
+	<span class="fill-space"></span>
+	<button mat-icon-button routerLink='/fornecedor/novo'>
+		<app-icon name='add_box'></app-icon>	
+	</button>
+</mat-toolbar>
+<div class="example-container mat-elevation-z8">
+	<div class="example-loading-shade" *ngIf="isLoadingResults || isRateLimitReached">
+		<mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+		<div class="example-rate-limit-reached" *ngIf="isRateLimitReached">
+			Emissao de Pedidos API atingiu o limite de requisições. Em 1 minuto voltara a aceitar novas requisições, aguarde.
+		</div>
+	</div>
+
+	<mat-table #table [dataSource]="dataSource" class="example-table" matSort matSortActive="created" matSortDisableClear matSortDirection="asc">
+		<ng-container matColumnDef="id">
+			<mat-header-cell *matHeaderCellDef>#</mat-header-cell>
+			<mat-cell *matCellDef="let row">{{row.id}}</mat-cell>
+		</ng-container>
+
+		<ng-container matColumnDef="cnpj">
+			<mat-header-cell *matHeaderCellDef>CNPJ</mat-header-cell>
+			<mat-cell *matCellDef="let row">{{ row.cnpj }}</mat-cell>
+		</ng-container>
+
+
+		<ng-container matColumnDef="ie">
+			<mat-header-cell *matHeaderCellDef>I.E</mat-header-cell>
+			<mat-cell *matCellDef="let row">{{ row.ie }}</mat-cell>
+		</ng-container>
+
+		<ng-container matColumnDef="fantasia">
+			<mat-header-cell *matHeaderCellDef>Fantasia</mat-header-cell>
+			<mat-cell *matCellDef="let row">{{ row.fantasia }}</mat-cell>
+		</ng-container>
+
+		<ng-container matColumnDef="razao">
+			<mat-header-cell *matHeaderCellDef>Razão Social</mat-header-cell>
+			<mat-cell *matCellDef="let row">{{ row.razao }}</mat-cell>
+		</ng-container>
+
+		<ng-container matColumnDef="edit">
+			<mat-header-cell *matHeaderCellDef mat-sort-header disableClear="true"></mat-header-cell>
+			<mat-cell *matCellDef="let row">
+				<button mat-icon-button routerLink='/fornecedor/{{row.id}}' >
+					<app-icon name='edit' color='black' label='editar'></app-icon>
+				</button>
+				<button mat-icon-button onclick="">
+					<app-icon name='delete' color='black' label='comprar'></app-icon>
+				</button>
+			</mat-cell>
+		</ng-container>
+
+		<mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+		<mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+	</mat-table>
+
+	<mat-paginator [length]="resultsLength" [pageSize]="10">
+	</mat-paginator>
+</div>

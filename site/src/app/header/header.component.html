@@ -1,12 +1,17 @@
 <mat-toolbar color="primary">
-  <span>Emissor de Pedidos</span>
+	<span>Emissor de Pedidos</span>
+	<!-- This fills the remaining space of the current row -->
+	<span class="fill-space"></span>
 
-  <!-- This fills the remaining space of the current row -->
-  <span class="fill-space"></span>
-
-  <span>
-  	<app-icon name='assignment' color='white' label='pedido'></app-icon>
-  	<app-icon name='business' color='white' label='estoque'></app-icon>
-  	<app-icon name='business_center' color='white' label='produto'></app-icon>
-  </span>
+	<span>
+		<button mat-icon-button routerLink='/pedido'>
+			<app-icon aria-label="Abrir a tela de Pedidos" name='add_shopping_cart' color='white' label='pedido'></app-icon>
+		</button>
+		<button mat-icon-button routerLink='/fornecedor'>
+			<app-icon aria-label="Abrir a tela de Fornecedor" name='business' color='white' label='fornecedor'></app-icon>
+		</button>
+		<button mat-icon-button routerLink='/produto'>
+			<app-icon aria-label="Abrir a tela de Produtos" name='business_center' color='white' label='produto'></app-icon>
+		</button>
+	</span>
 </mat-toolbar>

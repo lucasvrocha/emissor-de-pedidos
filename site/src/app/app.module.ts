@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule} from '@angular/common/http';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -16,27 +16,34 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 
 import { AppComponent } from './app.component';
+import { AppRoutingModule } from './app-routing.module';
 import { HeaderComponent } from './header/header.component';
 import { ProdutoListaComponent } from './produto/lista/produto-lista.component';
-import { OrcamentoComponent } from './orcamento/orcamento.component';
 import { IconComponent } from './ui/icon/icon.component';
 
-import { FakeBackendProvider } from './_mock/fakeBackendInterceptor';
 import { ProdutoCadastroComponent } from './produto/cadastro/produto-cadastro.component';
+import { PedidoComponent } from './pedido/pedido.component';
+import { CadastroComponent } from './fornecedor/cadastro/cadastro.component';
+import { ListaComponent } from './fornecedor/lista/lista.component';
+
+import { FakeBackendProvider } from './_mock/backend/fakeBackend.provider';
 
 @NgModule({
 	declarations: [
 		AppComponent,
 		HeaderComponent,
 		ProdutoListaComponent,
-		OrcamentoComponent,
 		IconComponent,
-		ProdutoCadastroComponent
+		ProdutoCadastroComponent,
+		PedidoComponent,
+		CadastroComponent,
+		ListaComponent
 	],
 	imports: [
 		HttpClientModule,
 		BrowserModule,
 		BrowserAnimationsModule,
+		AppRoutingModule,
 		FormsModule,
 		MatToolbarModule,
 		MatProgressBarModule,
@@ -49,9 +56,7 @@ import { ProdutoCadastroComponent } from './produto/cadastro/produto-cadastro.co
 		MatSelectModule,
 		MatButtonModule
 	],
-	providers: [
-		FakeBackendProvider
-	],
+	providers: [FakeBackendProvider],
 	bootstrap: [AppComponent]
 })
 export class AppModule { }

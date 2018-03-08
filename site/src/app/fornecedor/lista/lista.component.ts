@@ -8,19 +8,18 @@ import { map } from 'rxjs/operators/map';
 import { startWith } from 'rxjs/operators/startWith';
 import { switchMap } from 'rxjs/operators/switchMap';
 
-import {Produto} from '../../_model/produto.model';
-import {ProdutoService} from '../produto.service';
+import {Fornecedor} from '../../_model/fornecedor.model';
+import {FornecedorService} from '../fornecedor.service';
 
 @Component({
-	moduleId: module.id,
-	selector: 'app-produto-lista',
-	templateUrl: './produto-lista.component.html',
-	styleUrls: ['./produto-lista.component.css']
+	selector: 'app-lista',
+	templateUrl: './lista.component.html',
+	styleUrls: ['./lista.component.css']
 })
-export class ProdutoListaComponent implements OnInit {
+export class ListaComponent implements OnInit {
 
-	displayedColumns = [ 'id', 'estoque', 'produto', 'edit'];
-	exampleDatabase: ProdutoService | null;
+	displayedColumns = ['id', 'cnpj', 'ie', 'razao', 'fantasia'];
+	exampleDatabase: FornecedorService | null;
 	dataSource = new MatTableDataSource();
 
 	resultsLength = 0;
@@ -30,10 +29,10 @@ export class ProdutoListaComponent implements OnInit {
 	@ViewChild(MatPaginator) paginator: MatPaginator;
 	@ViewChild(MatSort) sort: MatSort;
 
-	constructor(private http : HttpClient) { }
+	constructor(private http: HttpClient) { }
 
 	ngOnInit() {
-		this.exampleDatabase = new ProdutoService(this.http);
+		this.exampleDatabase = new FornecedorService(this.http);
 
 		// If the user changes the sort order, reset back to the first page.
 		this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
@@ -61,8 +60,5 @@ export class ProdutoListaComponent implements OnInit {
 				})
 			).subscribe(data => this.dataSource.data = data);
 	}
+
 }
-
-
-
-
