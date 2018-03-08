@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+import { MyErrorStateMatcher } from '../../_helper/myErrorStateMatcher';
 
 @Component({
 	moduleId: module.id,
@@ -7,8 +9,12 @@ import { Component, OnInit } from '@angular/core';
 	styleUrls: ['./cadastro.component.css']
 })
 export class CadastroComponent implements OnInit {
+	emailFormControl = new FormControl('', [
+		Validators.required,
+		Validators.email,
+	]);
 
-	constructor() { }
+	constructor(public matcher : MyErrorStateMatcher) { }
 
 	ngOnInit() {
 	}

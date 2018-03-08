@@ -14,7 +14,7 @@ export class IconComponent implements OnInit {
 	@Input() color: string = 'black';
 	@Input() size: Number = 24;
 
-	private fullName: string;
+	fullName: string;
 
 	constructor(private iconRegistry: MatIconRegistry,private sanitizer: DomSanitizer) {
 	}
