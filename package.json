@@ -1,5 +1,9 @@
 {
 	"scripts": {
 		"postinstall": "cd site && npm install"
+	},
+	"engines": {
+		"node": "6.11.1",
+		"npm": "3.10.9"
 	}
 }
