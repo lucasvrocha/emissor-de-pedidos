@@ -1,0 +1,64 @@
+<mat-toolbar color="secondary">
+  <button mat-icon-button routerLink=''>
+    <app-icon name='keyboard_backspace' color='black' label='produto'></app-icon>
+  </button>
+
+  <button mat-icon-button>
+    <app-icon  name='business_center' color='black' label='produto'></app-icon>
+  </button>
+  <span>Produto</span>
+  <span class="fill-space"></span>
+  <button mat-icon-button routerLink='/produto/novo'>
+    <app-icon name='add_box'></app-icon>	
+  </button>
+</mat-toolbar>
+<div class="example-container mat-elevation-z8">
+  <div class="example-loading-shade" *ngIf="isLoadingResults || isRateLimitReached">
+    <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+    <div class="example-rate-limit-reached" *ngIf="isRateLimitReached">
+      Emissao de Pedidos API atingiu o limite de requisições. Em 1 minuto voltara a aceitar novas requisições, aguarde.
+    </div>
+  </div>
+
+  <mat-table #table [dataSource]="dataSource" class="example-table" matSort matSortActive="created" matSortDisableClear matSortDirection="asc">
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef>#</mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        {{row.id}}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="produto">
+      <mat-header-cell *matHeaderCellDef>Descrição do Produto</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{ row.descritivo }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="estoque">
+      <mat-header-cell *matHeaderCellDef mat-sort-header disableClear="true">Estoque</mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        {{ row.quantidade }}
+        <button mat-icon-button onclick="">
+          <app-icon name='add_shopping_cart' color='black' label='Comprar'></app-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="edit">
+      <mat-header-cell *matHeaderCellDef mat-sort-header disableClear="true"></mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <button mat-icon-button routerLink='/produto/{{row.id}}' >
+          <app-icon name='edit' color='black' label='produto'></app-icon>
+        </button>
+        <button mat-icon-button onclick="">
+          <app-icon name='delete' color='black' label='Comprar'></app-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+    
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+
+  <mat-paginator [length]="resultsLength" [pageSize]="10">
+  </mat-paginator>
+</div>

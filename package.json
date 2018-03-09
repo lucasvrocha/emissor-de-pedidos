@@ -1,0 +1,10 @@
+{
+	"scripts": {
+		"postinstall": "cd site && npm install",
+		"start" : "cd site && npm run start"
+	},
+	"engines": {
+		"node": "6.11.1",
+		"npm": "3.10.9"
+	}
+}
