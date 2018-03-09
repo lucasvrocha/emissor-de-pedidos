@@ -6,4 +6,5 @@ export interface Usuario {
 	email : string;
 	adm : boolean;
 	jwt : string;
+	foto : string;
 }

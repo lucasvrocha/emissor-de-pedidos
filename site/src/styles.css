@@ -1,8 +1,46 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
+@font-face {
+	font-family: cafeteria-8bit;
+	src: url(/assets/font/8-bit_wonder.ttf);
+}
+
+* {
+	font-family: 'Roboto', Helvetica, sans-serif;
+	line-height: 1.4 !important;
+}
+
 .fill-space {
   /* This fills the remaining space, by using flexbox. 
      Every toolbar row uses a flexbox row layout. */
   flex: 1 1 auto;
+}
+
+.hidden { 
+	visibility: hidden;
+ }
+
+
+/* Set a background color */
+body, html {
+	height: 100%;
+	margin: 0;
+}
+
+a, .pointer {
+	cursor: pointer !important;
+	color: inherit !important;
+	transition: .2s ease;
+}
+
+
+a:focus, a:hover, .pointer {
+	text-decoration: none !important;
+	transition: .2s ease;
+	cursor:pointer;
+}
+
+button{
+	min-height: 30px;
 }
