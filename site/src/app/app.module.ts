@@ -17,7 +17,9 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatCardModule } from '@angular/material/card';
-import {MatDividerModule} from '@angular/material/divider';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -72,7 +74,9 @@ import { MyErrorStateMatcherProvider } from './_helper/myErrorStateMatcher'
 		MatButtonModule,
 		MatCheckboxModule,
 		MatCardModule,
-		MatDividerModule
+		MatDividerModule,
+		MatSidenavModule,
+		MatListModule
 	],
 	providers: [
 		FakeBackendProvider,
