@@ -1,17 +1,5 @@
-<mat-toolbar color="secondary">
-  <button mat-icon-button routerLink=''>
-    <app-icon name='keyboard_backspace' color='black' label='produto'></app-icon>
-  </button>
+<app-toolbar  title="Produtos" iconName='business_center' add=true></app-toolbar>
 
-  <button mat-icon-button>
-    <app-icon  name='business_center' color='black' label='produto'></app-icon>
-  </button>
-  <span>Produto</span>
-  <span class="fill-space"></span>
-  <button mat-icon-button routerLink='/produto/novo'>
-    <app-icon name='add_box'></app-icon>	
-  </button>
-</mat-toolbar>
 <div class="example-container mat-elevation-z8">
   <div class="example-loading-shade" *ngIf="isLoadingResults || isRateLimitReached">
     <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
