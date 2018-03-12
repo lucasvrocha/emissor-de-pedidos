@@ -22,7 +22,7 @@ public class Hello {
     @RequestMapping("/")
     @ResponseBody
     String home() {
-        return "Hello World!";
+        return "Hooooo!";
     }
 
     public static void main(String[] args) throws Exception {
