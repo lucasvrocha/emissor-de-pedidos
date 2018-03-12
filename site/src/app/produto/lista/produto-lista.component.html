@@ -1,17 +1,17 @@
 <app-toolbar  title="Produtos" iconName='business_center' add=true></app-toolbar>
 
-<div class="example-container mat-elevation-z8">
-  <div class="example-loading-shade" *ngIf="isLoadingResults || isRateLimitReached">
+<div class="container mat-elevation-z8">
+  <div class="loading-shade" *ngIf="isLoadingResults || isRateLimitReached">
     <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
-    <div class="example-rate-limit-reached" *ngIf="isRateLimitReached">
+    <div class="rate-limit-reached" *ngIf="isRateLimitReached">
       Emissao de Pedidos API atingiu o limite de requisições. Em 1 minuto voltara a aceitar novas requisições, aguarde.
     </div>
   </div>
 
-  <mat-table #table [dataSource]="dataSource" class="example-table" matSort matSortActive="created" matSortDisableClear matSortDirection="asc">
+  <mat-table #table [dataSource]="dataSource" class="table" matSort matSortActive="created" matSortDisableClear matSortDirection="asc">
     <ng-container matColumnDef="id">
-      <mat-header-cell *matHeaderCellDef>#</mat-header-cell>
-      <mat-cell *matCellDef="let row">
+      <mat-header-cell *matHeaderCellDef [style.max-width.px]='mobileQuery.matches? 32:90'>#</mat-header-cell>
+      <mat-cell *matCellDef="let row" [style.max-width.px]='mobileQuery.matches? 32:90'>
         {{row.id}}
       </mat-cell>
     </ng-container>
@@ -24,21 +24,21 @@
     <ng-container matColumnDef="estoque">
       <mat-header-cell *matHeaderCellDef mat-sort-header disableClear="true">Estoque</mat-header-cell>
       <mat-cell *matCellDef="let row">
-        {{ row.quantidade }}
         <button mat-icon-button onclick="">
           <app-icon name='add_shopping_cart' color='black' label='Comprar'></app-icon>
+          {{ row.quantidade }}
         </button>
       </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="edit">
-      <mat-header-cell *matHeaderCellDef mat-sort-header disableClear="true"></mat-header-cell>
-      <mat-cell *matCellDef="let row">
+      <mat-header-cell *matHeaderCellDef mat-sort-header disableClear="true" [style.max-width.px]='mobileQuery.matches? 32:90'></mat-header-cell>
+      <mat-cell *matCellDef="let row" [style.max-width.px]='mobileQuery.matches? 32:90'>
         <button mat-icon-button routerLink='/produto/{{row.id}}' >
           <app-icon name='edit' color='black' label='produto'></app-icon>
         </button>
-        <button mat-icon-button onclick="">
-          <app-icon name='delete' color='black' label='Comprar'></app-icon>
+        <button  [hidden]='mobileQuery.matches' mat-icon-button onclick="">
+          <app-icon name='delete' color='black' label='deletar'></app-icon>
         </button>
       </mat-cell>
     </ng-container>

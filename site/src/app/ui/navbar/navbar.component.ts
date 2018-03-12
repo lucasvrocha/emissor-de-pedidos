@@ -18,6 +18,7 @@ export class NavbarComponent implements OnInit {
 		this._mobileQueryListener = () => changeDetectorRef.detectChanges();
 		this.mobileQuery.addListener(this._mobileQueryListener);
 	}
+	
 	ngOnInit() {
 	}
 

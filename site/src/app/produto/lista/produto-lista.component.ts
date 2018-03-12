@@ -1,4 +1,6 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, ViewChild, Component, OnInit, OnDestroy } from '@angular/core';
+import { MediaMatcher } from '@angular/cdk/layout';
+
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { HttpClient } from '@angular/common/http';
 import { merge } from 'rxjs/observable/merge';
@@ -17,7 +19,7 @@ import {ProdutoService} from '../produto.service';
 	templateUrl: './produto-lista.component.html',
 	styleUrls: ['./produto-lista.component.css']
 })
-export class ProdutoListaComponent implements OnInit {
+export class ProdutoListaComponent implements OnInit, OnDestroy {
 
 	displayedColumns = [ 'id', 'estoque', 'produto', 'edit'];
 	exampleDatabase: ProdutoService | null;
@@ -30,7 +32,15 @@ export class ProdutoListaComponent implements OnInit {
 	@ViewChild(MatPaginator) paginator: MatPaginator;
 	@ViewChild(MatSort) sort: MatSort;
 
-	constructor(private http : HttpClient) { }
+	mobileQuery: MediaQueryList;
+
+	private _mobileQueryListener: () => void;
+
+	constructor(private http: HttpClient, changeDetectorRef: ChangeDetectorRef, media: MediaMatcher) {
+		this.mobileQuery = media.matchMedia('(max-width: 599px)');
+		this._mobileQueryListener = () => changeDetectorRef.detectChanges();
+		this.mobileQuery.addListener(this._mobileQueryListener);
+	}
 
 	ngOnInit() {
 		this.exampleDatabase = new ProdutoService(this.http);
@@ -60,6 +70,10 @@ export class ProdutoListaComponent implements OnInit {
 					return observableOf([]);
 				})
 			).subscribe(data => this.dataSource.data = data);
+	}
+
+	ngOnDestroy(): void {
+		this.mobileQuery.removeListener(this._mobileQueryListener);
 	}
 }
 

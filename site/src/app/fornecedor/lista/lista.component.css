@@ -1,5 +1,5 @@
 /* Structure */
-.example-container {
+.container {
   display: flex;
   flex-direction: column;
   max-height: 605px;
@@ -7,7 +7,7 @@
   position: relative;
 }
 
-.example-navbar {
+.navbar {
   min-height: 64px;
   display: flex;
   align-items: center;
@@ -15,12 +15,12 @@
   font-size: 20px;
 }
 
-.example-table {
+.table {
   overflow: auto;
   min-height: 300px;
 }
 
-.example-loading-shade {
+.loading-shade {
   position: absolute;
   top: 0;
   left: 0;
@@ -33,26 +33,25 @@
   justify-content: center;
 }
 
-.example-rate-limit-reached {
+.rate-limit-reached {
   color: #980000;
   max-width: 360px;
   text-align: center;
 }
 
-.mat-column-produto{
+.mat-column-descricao{
  text-align: left;
- padding-left: 16px;
 }
 
-.mat-column-estoque {
-  max-width: 124px;
+.mat-column-cnpj {
+  max-width: 160px;
   text-align: left;
 }
 .mat-column-edit{
-  max-width: 124px;
+  max-width: 64px;
 }
 
 .mat-column-id  {
   text-align: left;
-  max-width: 64px;
+   max-width: 32px;
 }
