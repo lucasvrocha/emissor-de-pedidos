@@ -1,5 +1,6 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { MediaMatcher } from '@angular/cdk/layout';
+import { AuthGuard } from '../../auth/auth.guard';
 
 @Component({
 	moduleId: module.id,
@@ -13,7 +14,7 @@ export class NavbarComponent implements OnInit {
 
 	private _mobileQueryListener: () => void;
 
-	constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher) {
+	constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, public guard: AuthGuard) {
 		this.mobileQuery = media.matchMedia('(max-width: 599px)');
 		this._mobileQueryListener = () => changeDetectorRef.detectChanges();
 		this.mobileQuery.addListener(this._mobileQueryListener);
