@@ -33,7 +33,7 @@
 
 	<mat-sidenav-container class="example-sidenav-container">
 		<mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'"	[fixedInViewport]="mobileQuery.matches" fixedTopGap="57">
-			<mat-nav-list>
+			<mat-nav-list (click)='snav.toggle()'>
 				<a mat-list-item routerLink='/pedido'>
 					<app-icon aria-label="Abrir a tela de Pedidos" name='add_shopping_cart' color='black' label='pedido'></app-icon>Pedido
 				</a>

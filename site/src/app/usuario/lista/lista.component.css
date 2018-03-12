@@ -5,7 +5,7 @@
 
 .card {
 	width: 290px;
-	margin: 30px;
+	margin: 15px;
 	display: inline-block;
 }
 
@@ -21,3 +21,5 @@ mat-card-content {
 	margin: 10px;
 	padding: 10px;
 }
+
+
