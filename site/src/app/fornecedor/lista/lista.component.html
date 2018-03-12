@@ -1,48 +1,37 @@
 <app-toolbar  title="Fornecedores" iconName='business' add=true></app-toolbar>
 
-<div class="example-container mat-elevation-z8">
-	<div class="example-loading-shade" *ngIf="isLoadingResults || isRateLimitReached">
+<div class="container mat-elevation-z8">
+	<div class="loading-shade" *ngIf="isLoadingResults || isRateLimitReached">
 		<mat-spinner *ngIf="isLoadingResults"></mat-spinner>
-		<div class="example-rate-limit-reached" *ngIf="isRateLimitReached">
+		<div class="rate-limit-reached" *ngIf="isRateLimitReached">
 			Emissao de Pedidos API atingiu o limite de requisições. Em 1 minuto voltara a aceitar novas requisições, aguarde.
 		</div>
 	</div>
 
-	<mat-table #table [dataSource]="dataSource" class="example-table" matSort matSortActive="created" matSortDisableClear matSortDirection="asc">
+	<mat-table #table [dataSource]="dataSource" class="table" matSort matSortActive="created" matSortDisableClear matSortDirection="asc">
 		<ng-container matColumnDef="id">
 			<mat-header-cell *matHeaderCellDef>#</mat-header-cell>
 			<mat-cell *matCellDef="let row">{{row.id}}</mat-cell>
 		</ng-container>
 
-		<ng-container matColumnDef="cnpj">
-			<mat-header-cell *matHeaderCellDef>CNPJ</mat-header-cell>
-			<mat-cell *matCellDef="let row">{{ row.cnpj }}</mat-cell>
+		<ng-container matColumnDef="cnpj" >
+			<mat-header-cell *matHeaderCellDef [hidden]='mobileQuery.matches' >CNPJ</mat-header-cell>
+			<mat-cell *matCellDef="let row" [hidden]='mobileQuery.matches'>{{ row.cnpj }}</mat-cell>
 		</ng-container>
 
-
-		<ng-container matColumnDef="ie">
-			<mat-header-cell *matHeaderCellDef>I.E</mat-header-cell>
-			<mat-cell *matCellDef="let row">{{ row.ie }}</mat-cell>
-		</ng-container>
-
-		<ng-container matColumnDef="fantasia">
-			<mat-header-cell *matHeaderCellDef>Fantasia</mat-header-cell>
-			<mat-cell *matCellDef="let row">{{ row.fantasia }}</mat-cell>
-		</ng-container>
-
-		<ng-container matColumnDef="razao">
-			<mat-header-cell *matHeaderCellDef>Razão Social</mat-header-cell>
-			<mat-cell *matCellDef="let row">{{ row.razao }}</mat-cell>
+		<ng-container matColumnDef="descricao">
+			<mat-header-cell *matHeaderCellDef>Razão Social / Fantasia </mat-header-cell>
+			<mat-cell *matCellDef="let row"><b>{{ row.razao }}</b> <br>{{row.fantasia}}</mat-cell>
 		</ng-container>
 
 		<ng-container matColumnDef="edit">
 			<mat-header-cell *matHeaderCellDef mat-sort-header disableClear="true"></mat-header-cell>
-			<mat-cell *matCellDef="let row">
+			<mat-cell *matCellDef="let row" [style.max-width.px]='mobileQuery.matches? 32:90' >
 				<button mat-icon-button routerLink='/fornecedor/{{row.id}}' >
 					<app-icon name='edit' color='black' label='editar'></app-icon>
 				</button>
-				<button mat-icon-button onclick="">
-					<app-icon name='delete' color='black' label='comprar'></app-icon>
+				<button [hidden]='mobileQuery.matches' mat-icon-button onclick="">
+					<app-icon name='delete' color='black' label='deletar'></app-icon>
 				</button>
 			</mat-cell>
 		</ng-container>

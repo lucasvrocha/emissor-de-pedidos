@@ -1,4 +1,6 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, ViewChild, Component, OnInit, OnDestroy } from '@angular/core';
+import { MediaMatcher } from '@angular/cdk/layout';
+
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { HttpClient } from '@angular/common/http';
 import { merge } from 'rxjs/observable/merge';
@@ -8,17 +10,18 @@ import { map } from 'rxjs/operators/map';
 import { startWith } from 'rxjs/operators/startWith';
 import { switchMap } from 'rxjs/operators/switchMap';
 
-import {Fornecedor} from '../../_model/fornecedor.model';
-import {FornecedorService} from '../fornecedor.service';
+import { Fornecedor } from '../../_model/fornecedor.model';
+import { FornecedorService } from '../fornecedor.service';
 
 @Component({
+	moduleId: module.id,
 	selector: 'app-lista',
 	templateUrl: './lista.component.html',
 	styleUrls: ['./lista.component.css']
 })
-export class ListaComponent implements OnInit {
+export class ListaComponent implements OnInit, OnDestroy {
 
-	displayedColumns = ['id', 'cnpj', 'ie', 'razao', 'fantasia'];
+	displayedColumns: string[] = ['id', 'cnpj', 'descricao', 'edit'];
 	exampleDatabase: FornecedorService | null;
 	dataSource = new MatTableDataSource();
 
@@ -29,7 +32,16 @@ export class ListaComponent implements OnInit {
 	@ViewChild(MatPaginator) paginator: MatPaginator;
 	@ViewChild(MatSort) sort: MatSort;
 
-	constructor(private http: HttpClient) { }
+
+	mobileQuery: MediaQueryList;
+
+	private _mobileQueryListener: () => void;
+
+	constructor(private http: HttpClient, changeDetectorRef: ChangeDetectorRef, media: MediaMatcher) {
+		this.mobileQuery = media.matchMedia('(max-width: 599px)');
+		this._mobileQueryListener = () => changeDetectorRef.detectChanges();
+		this.mobileQuery.addListener(this._mobileQueryListener);
+	}
 
 	ngOnInit() {
 		this.exampleDatabase = new FornecedorService(this.http);
@@ -61,4 +73,7 @@ export class ListaComponent implements OnInit {
 			).subscribe(data => this.dataSource.data = data);
 	}
 
+	ngOnDestroy(): void {
+		this.mobileQuery.removeListener(this._mobileQueryListener);
+	}
 }

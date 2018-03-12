@@ -1,15 +1,5 @@
-<mat-toolbar color="secondary">
-	<button mat-icon-button routerLink='/produto'>
-		<app-icon name='keyboard_backspace' color='black' label='produto'></app-icon>
-	</button>
-	<button mat-icon-button>
-		<app-icon name='business_center' color='black' label='produto'></app-icon>
-	</button>
-	<span>Cadastro de Produto</span>
-	<!-- This fills the remaining space of the current row -->
-	<span class="fill-space"></span>
-	<app-icon name='save' color='black'></app-icon>	
-</mat-toolbar>
+<app-toolbar  title="Cadastro de Produto" iconName='business_center'></app-toolbar>
+
 <form class="form">
 	<mat-form-field class="full-width">
 		<input matInput placeholder="# Código do produto" disabled value="Será gerado automáticamente.">
