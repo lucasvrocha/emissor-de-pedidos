@@ -1,16 +1,13 @@
 <div  class="example-container" [class.example-is-mobile]="mobileQuery.matches" >
-	<mat-toolbar class='teste' role='header' color="primary" *ngIf='!guard.canActivate()' > 
+	<mat-toolbar class='teste' role='header' color="primary" *ngIf='!guard.isLogged()' > 
 		<span class="fill-space" ></span>
-		<button mat-icon-button>
-			<img class='logo' src="assets/logo/logo-navbar-white.png" alt="logo white edp">
-		</button>
+		<img class='logo' src="assets/logo/logo-navbar-white.png" alt="logo white edp">
+		<h1 class='example-app-name'>Emissor de Pedidos</h1>
 		<span class="fill-space" ></span>
 	</mat-toolbar>
 
-	<mat-toolbar role='header' color="primary" *ngIf='guard.canActivate()' >
-		<button mat-icon-button (click)='snav.toggle()' [hidden]='!mobileQuery.matches' >
-			<app-icon aria-label="Menu do sistema" name='menu' color='white' label='menu'></app-icon>
-		</button>
+	<mat-toolbar role='header' color="primary" *ngIf='guard.isLogged()' >
+		<app-icon aria-label="Menu do sistema" name='menu' color='white' label='menu' (click)='snav.toggle()' [hidden]='!mobileQuery.matches'></app-icon>
 		<span class="fill-space" [hidden]='!mobileQuery.matches'></span>
 		
 		<button mat-icon-button (click)='snav.toggle()'>
@@ -39,7 +36,7 @@
 		</span>
 	</mat-toolbar>
 
-	<mat-sidenav-container class="example-sidenav-container">
+	<mat-sidenav-container class="example-sidenav-container" >
 		<mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'"	[fixedInViewport]="mobileQuery.matches" fixedTopGap="57">
 			<mat-nav-list (click)='snav.toggle()'>
 				<a mat-list-item routerLink='/pedido'>
@@ -57,7 +54,7 @@
 					<app-icon aria-label="Abrir a tela de Usuarios" name='account_box' color='black' label='usuario'></app-icon>
 					Usuario
 				</a>
-				<a mat-list-item >
+				<a mat-list-item routerLink='/login'>
 					<app-icon aria-label="Sair do Emissor de Pedidos" name='exit_to_app' color='black' label='sair'></app-icon>
 					Sair
 				</a>

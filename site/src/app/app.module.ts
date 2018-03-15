@@ -45,10 +45,6 @@ import { AlertComponent } from './ui/alert/alert.component';
 import { AuthGuard } from './auth/auth.guard';
 import { AlertService } from './ui/alert/alert.service';
 import { AuthenticationService } from './auth/auth.service';
-import { UsuarioService } from './usuario/usuario.service';
-
-
-
 
 @NgModule({
 	declarations: [
@@ -91,13 +87,12 @@ import { UsuarioService } from './usuario/usuario.service';
 		MatListModule
 	],
 	providers: [
-		FakeBackendProvider,
 		MyErrorStateMatcherProvider,
+		JwtProviver,
 		AuthGuard,
 		AlertService,
 		AuthenticationService,
-		UsuarioService,
-		JwtProviver
+		FakeBackendProvider
 	],
 	bootstrap: [AppComponent]
 })
