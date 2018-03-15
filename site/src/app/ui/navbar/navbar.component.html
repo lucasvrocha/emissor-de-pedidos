@@ -60,5 +60,7 @@
 				</a>
 			</mat-nav-list>
 		</mat-sidenav>
+		<mat-sidenav-content *ngIf='snav.opened' (click)='snav.toggle()' class='content'></mat-sidenav-content>
+				
 	</mat-sidenav-container>
 </div>
