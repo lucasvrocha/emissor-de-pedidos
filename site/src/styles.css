@@ -22,6 +22,11 @@
  }
 
 
+.pointer {
+  cursor: pointer;
+}
+
+
 /* Set a background color */
 body, html {
 	height: 100%;
