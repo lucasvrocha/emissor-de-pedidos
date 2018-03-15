@@ -6,6 +6,7 @@ import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/materi
 @Injectable()
 export class MyErrorStateMatcher implements ErrorStateMatcher {
 	isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+		console.log("bla");
 		const isSubmitted = form && form.submitted;
 		return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
 	}

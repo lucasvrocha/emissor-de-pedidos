@@ -36,9 +36,15 @@ import { ListaComponent as FornecedorListaComponent } from './fornecedor/lista/l
 import { CadastroComponent as UsuarioCadastroComponent } from './usuario/cadastro/cadastro.component';
 import { ListaComponent as UsuarioListaComponent } from './usuario/lista/lista.component';
 
+import { JwtProviver } from './_helper/jwt.interceptor';
 import { FakeBackendProvider } from './_mock/backend/fakeBackend.provider';
 import { ToolbarComponent } from './ui/toolbar/toolbar.component';
-import { MyErrorStateMatcherProvider } from './_helper/myErrorStateMatcher'
+import { MyErrorStateMatcherProvider } from './_helper/myErrorStateMatcher';
+import { AuthComponent } from './auth/auth.component';
+import { AlertComponent } from './ui/alert/alert.component';
+import { AuthGuard } from './auth/auth.guard';
+import { AlertService } from './ui/alert/alert.service';
+import { AuthenticationService } from './auth/auth.service';
 
 @NgModule({
 	declarations: [
@@ -52,7 +58,9 @@ import { MyErrorStateMatcherProvider } from './_helper/myErrorStateMatcher'
 		FornecedorListaComponent,
 		UsuarioCadastroComponent,
 		UsuarioListaComponent,
-		ToolbarComponent
+		ToolbarComponent,
+		AuthComponent,
+		AlertComponent
 	],
 	imports: [
 		HttpClientModule,
@@ -79,8 +87,12 @@ import { MyErrorStateMatcherProvider } from './_helper/myErrorStateMatcher'
 		MatListModule
 	],
 	providers: [
-		FakeBackendProvider,
-		MyErrorStateMatcherProvider
+		MyErrorStateMatcherProvider,
+		JwtProviver,
+		AuthGuard,
+		AlertService,
+		AuthenticationService,
+		FakeBackendProvider
 	],
 	bootstrap: [AppComponent]
 })

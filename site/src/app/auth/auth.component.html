@@ -1,0 +1,28 @@
+<form class="form" (ngSubmit)="onSubmit()" >
+    <p><strong>Autenticação</strong></p>
+    <table class="full-width" cellspacing="0"><tr>
+        <td><mat-form-field class="full-width" required >
+            <input matInput #usuario maxlength="30" placeholder="Usuário" [formControl]="usuarioControl" [errorStateMatcher]="matcher" [(ngModel)]="model.usuario">
+            <mat-hint align="end">Usuário é obrigatório.</mat-hint>
+            <mat-error *ngIf="usuarioControl.hasError('required')">
+                Favor inserir um usuario valido
+            </mat-error>
+        </mat-form-field></td>
+    </tr></table>
+
+    <table class="full-width" cellspacing="0"><tr>
+        <td><mat-form-field class="full-width" required >
+            <input #senha type='password' matInput placeholder="Senha" [formControl]="senhaControl" [errorStateMatcher]="matcher" [(ngModel)]="model.senha">
+            <mat-hint align="end">Senha é obrigatório</mat-hint>
+            <mat-error *ngIf="senhaControl.hasError('required')">
+                Favor inserir uma senha valida
+            </mat-error>
+        </mat-form-field></td>
+    </tr></table>
+    
+    <div class="menu-action full-width"> 
+        <!-- <button mat-button>Não consigo entrar!</button> -->     
+        <button [disabled]='senhaControl.invalid || usuarioControl.invalid' mat-raised-button color="primary" type='submit'>Entrar</button>
+        
+    </div>    
+</form>

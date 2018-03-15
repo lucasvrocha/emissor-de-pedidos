@@ -1,0 +1,22 @@
+.form {
+	margin: auto;
+	margin-top: 60px;
+	min-width: 150px;
+	max-width: 350px;
+	width: 100%;
+	padding: 10px;
+	align-items: center;
+}
+
+.full-width {
+	width: 100%;
+}
+
+mat-form-field, mat-checkbox {
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+.menu-action{
+	margin-top: 40px !important;
+}

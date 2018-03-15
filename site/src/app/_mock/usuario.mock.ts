@@ -5,7 +5,7 @@ export const USUARIO: Usuario[] = [
 		"id" : 1, 
 		"nome" : "Lucas Vieira Rocha", 
 		"usuario" : "lucas.rocha",
-		"senha" : "adm",
+		"senha" : "lucas",
 		"adm" : true, 
 		"email" : "lucas.rocha@edp.com.br",
 		"jwt" : undefined,

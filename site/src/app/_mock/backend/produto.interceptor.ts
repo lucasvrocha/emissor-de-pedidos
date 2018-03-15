@@ -20,13 +20,16 @@ export class ProdutoInterceptor implements HttpInterceptor {
     private api: string = env.api;
 
     constructor() {
-        if (env.mock)
-            console.log("AOOooouuuuu the FakeBackEnd isss A LIIIIVE!!!!");
+            console.log("Fake-ProdutoInterceptor is runing");
     }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         if (env.mock === false || request.url.startsWith(this.api+'/produto') === false)
             return next.handle(request);
+
+         if (request.headers.get('Authorization') !== 'Bearer fake-jwt-token') {
+            return Observable.throw('Não autorizado');
+        }
 
         return Observable.of(null).mergeMap(() => {
             let response = null;

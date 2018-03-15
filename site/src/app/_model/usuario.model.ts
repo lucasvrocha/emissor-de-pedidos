@@ -8,3 +8,7 @@ export interface Usuario {
 	jwt : string;
 	foto : string;
 }
+
+export class Usuario  implements Usuario {
+	constructor(){};
+}

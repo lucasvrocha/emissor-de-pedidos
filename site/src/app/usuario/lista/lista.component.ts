@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { Usuario } from '../../_model/usuario.model'
 import { USUARIO } from '../../_mock/usuario.mock';
+import { UsuarioService } from '../usuario.service';
+
 
 @Component({
 	selector: 'app-lista',
@@ -9,14 +12,17 @@ import { USUARIO } from '../../_mock/usuario.mock';
 })
 export class ListaComponent implements OnInit {
 
-	user: Usuario;
-	userList : Usuario[];
+	public userList: Usuario[] = [] ;
 
-	constructor() { }
+	private service: UsuarioService | null;
+
+	constructor(private http: HttpClient) { }
 
 	ngOnInit() {
-		this.user = USUARIO[0];
-		this.userList = USUARIO;
+		this.service = new UsuarioService(this.http);
+		this.service.getAll().subscribe(usuarios => {
+			this.userList = usuarios;
+		});
 	}
 
 }
