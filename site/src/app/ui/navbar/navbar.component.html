@@ -1,39 +1,38 @@
 <div  class="example-container" [class.example-is-mobile]="mobileQuery.matches" >
-	<mat-toolbar class='teste' role='header' color="primary" *ngIf='!guard.isLogged()' > 
+	<mat-toolbar role='header' color="primary" *ngIf='!guard.isLogged()' > 
 		<span class="fill-space" ></span>
 		<img class='logo' src="assets/logo/logo-navbar-white.png" alt="logo white edp">
 		<h1 class='example-app-name'>Emissor de Pedidos</h1>
 		<span class="fill-space" ></span>
 	</mat-toolbar>
 
-	<mat-toolbar role='header' color="primary" *ngIf='guard.isLogged()' >
-		<app-icon aria-label="Menu do sistema" name='menu' color='white' label='menu' (click)='snav.toggle()' [hidden]='!mobileQuery.matches'></app-icon>
-		<span class="fill-space" [hidden]='!mobileQuery.matches'></span>
-		
-		<button mat-icon-button (click)='snav.toggle()'>
-			<img class='logo' src="assets/logo/logo-navbar-white.png" alt="logo white edp">
-		</button>
-		<h1 (click)='snav.toggle()' class='example-app-name'>Emissor de Pedidos</h1>
-		<!-- This fills the remaining space of the current row -->
+	<mat-toolbar role='header' color="primary" *ngIf='guard.isLogged()' [hidden]='!mobileQuery.matches' (click)='snav.toggle()'>		
+		<app-icon aria-label="Menu do sistema" name='menu' color='white' label='menu'></app-icon>
 		<span class="fill-space"></span>
+		<img class='logo' src="assets/logo/logo-navbar-white.png" alt="logo white edp">
+		<h1>Emissor de Pedidos</h1>
+		<span class="fill-space"></span>
+	</mat-toolbar>
 
-		<span [hidden]='mobileQuery.matches' >
-			<button mat-icon-button routerLink='/pedido'>
-				<app-icon aria-label="Abrir a tela de Pedidos" name='add_shopping_cart' color='white' label='pedido'></app-icon>
-			</button>
-			<button mat-icon-button routerLink='/fornecedor'>
-				<app-icon aria-label="Abrir a tela de Fornecedor" name='business' color='white' label='fornecedor'></app-icon>
-			</button>
-			<button mat-icon-button routerLink='/produto'>
-				<app-icon aria-label="Abrir a tela de Produtos" name='business_center' color='white' label='produto'></app-icon>
-			</button>
-			<button mat-icon-button routerLink='/usuario'>
-				<app-icon aria-label="Abrir a tela de Usuarios" name='account_box' color='white' label='usuario'></app-icon>
-			</button>
-			<button mat-icon-button  [routerLink]="['/login']">
-				<app-icon aria-label="Sair do Emissor de Pedidos" name='exit_to_app' color='white' label='sair'></app-icon>
-			</button>
-		</span>
+	<mat-toolbar role='header' color="primary" *ngIf='guard.isLogged()' [hidden]='mobileQuery.matches'>
+		<img class='logo pointer' src="assets/logo/logo-navbar-white.png" alt="logo white edp" routerLink='/'>
+		<h1 class='example-app-name pointer' routerLink='/' >Emissor de Pedidos</h1>
+		<span class="fill-space"></span>
+		<button mat-icon-button routerLink='/pedido'>
+			<app-icon aria-label="Abrir a tela de Pedidos" name='add_shopping_cart' color='white' label='pedido'></app-icon>
+		</button>
+		<button mat-icon-button routerLink='/fornecedor'>
+			<app-icon aria-label="Abrir a tela de Fornecedor" name='business' color='white' label='fornecedor'></app-icon>
+		</button>
+		<button mat-icon-button routerLink='/produto'>
+			<app-icon aria-label="Abrir a tela de Produtos" name='business_center' color='white' label='produto'></app-icon>
+		</button>
+		<button mat-icon-button routerLink='/usuario'>
+			<app-icon aria-label="Abrir a tela de Usuarios" name='account_box' color='white' label='usuario'></app-icon>
+		</button>
+		<button mat-icon-button  [routerLink]="['/login']">
+			<app-icon aria-label="Sair do Emissor de Pedidos" name='exit_to_app' color='white' label='sair'></app-icon>
+		</button>
 	</mat-toolbar>
 
 	<mat-sidenav-container class="example-sidenav-container" >
@@ -61,6 +60,6 @@
 			</mat-nav-list>
 		</mat-sidenav>
 		<mat-sidenav-content *ngIf='snav.opened' (click)='snav.toggle()' class='content'></mat-sidenav-content>
-				
+
 	</mat-sidenav-container>
 </div>
