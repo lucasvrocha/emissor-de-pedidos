@@ -25,6 +25,7 @@ export class DialogComponent implements OnInit {
 	]);
 
 	constructor(
+		public matcher : MyErrorStateMatcher,
 		public dialogRef: MatDialogRef<DialogComponent>,
 		@Inject(MAT_DIALOG_DATA) public data: any,
 		private authService: AuthenticationService) { }
