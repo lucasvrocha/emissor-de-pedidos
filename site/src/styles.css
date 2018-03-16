@@ -48,4 +48,5 @@ a:focus, a:hover, .pointer {
 
 button{
 	min-height: 30px;
+	align-items: center;
 }

@@ -20,6 +20,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -45,6 +46,8 @@ import { AlertComponent } from './ui/alert/alert.component';
 import { AuthGuard } from './auth/auth.guard';
 import { AlertService } from './ui/alert/alert.service';
 import { AuthenticationService } from './auth/auth.service';
+import { DialogComponent } from './auth/dialog/dialog.component';
+import { SpinerComponent } from './ui/spiner/spiner.component';
 
 @NgModule({
 	declarations: [
@@ -60,7 +63,12 @@ import { AuthenticationService } from './auth/auth.service';
 		UsuarioListaComponent,
 		ToolbarComponent,
 		AuthComponent,
-		AlertComponent
+		AlertComponent,
+		DialogComponent,
+		SpinerComponent
+	],
+	entryComponents: [
+		DialogComponent
 	],
 	imports: [
 		HttpClientModule,
@@ -84,7 +92,8 @@ import { AuthenticationService } from './auth/auth.service';
 		MatCardModule,
 		MatDividerModule,
 		MatSidenavModule,
-		MatListModule
+		MatListModule,
+		MatDialogModule
 	],
 	providers: [
 		MyErrorStateMatcherProvider,

@@ -1,5 +1,5 @@
 <form class="form" (ngSubmit)="onSubmit()" >
-    <p><strong>Autenticação</strong></p>
+
     <table class="full-width" cellspacing="0"><tr>
         <td><mat-form-field class="full-width" required >
             <input matInput #usuario maxlength="30" placeholder="Usuário" [formControl]="usuarioControl" [errorStateMatcher]="matcher" [(ngModel)]="model.usuario">
@@ -21,8 +21,7 @@
     </tr></table>
     
     <div class="menu-action full-width"> 
-        <!-- <button mat-button>Não consigo entrar!</button> -->     
+        <button mat-button (click)="openDialog()" type='button' >Não consigo entrar!</button>     
         <button [disabled]='senhaControl.invalid || usuarioControl.invalid' mat-raised-button color="primary" type='submit'>Entrar</button>
-        
     </div>    
 </form>

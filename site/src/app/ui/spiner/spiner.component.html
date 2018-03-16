@@ -1,0 +1,12 @@
+<div *ngIf='visible' class='waiting' >
+	<span class='content center'>
+		<mat-spinner *ngIf='!finished' class="center" [diameter]="30"></mat-spinner>
+		<p><app-icon *ngIf='finished' name='done_all' color='black' size=18></app-icon><b>{{message.title}}</b></p>
+		<p *ngIf='message && message.body'> {{message.body}} </p>
+		<span close=''> 
+			<button *ngIf='finished' class='center' (click)='close()' mat-raised-button color="primary" >
+				<app-icon aria-label="Fechar" name='close' color='white' size=24 label='Fechar'></app-icon>{{second >= 0 ? 'Fechando em '+second+' seg' : "Fechar" }}
+			</button>
+		</span>
+	</span>
+</div>
