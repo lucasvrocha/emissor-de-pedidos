@@ -30,36 +30,85 @@
 		<button mat-icon-button routerLink='/usuario'>
 			<app-icon aria-label="Abrir a tela de Usuarios" name='account_box' color='white' label='usuario'></app-icon>
 		</button>
-		<button mat-icon-button  [routerLink]="['/login']">
-			<app-icon aria-label="Sair do Emissor de Pedidos" name='exit_to_app' color='white' label='sair'></app-icon>
+		<button mat-icon-button [matMenuTriggerFor]="menu">
+			<img mat-card-avatar src="{{guard.user().foto}}" class="header-image-icon " alt="Foto do {{guard.user().nome}}">
 		</button>
+		<mat-menu #menu="matMenu">
+			<mat-card  class="card" >
+				<mat-card-header>
+					<img mat-card-avatar src="{{guard.user().foto}}" class="header-image" alt="Foto do {{guard.user().nome}}">
+					<mat-card-title>{{guard.user().nome}}</mat-card-title>
+					<mat-card-subtitle>{{guard.user().email}}</mat-card-subtitle>
+					<mat-card-subtitle *ngIf=guard.user().adm>
+						<app-icon aria-label="Supervisor" name='supervisor_account' color='black' size=24 label='Supervisor'></app-icon>
+						<b>Administrador</b>
+					</mat-card-subtitle>
+					<mat-card-subtitle *ngIf=!guard.user().adm >
+						<app-icon aria-label="Atendente" name='account_box' color='black' size=24 label='Atendente'></app-icon>
+						<b>Atendente</b>
+					</mat-card-subtitle>
+				</mat-card-header>
+				<mat-divider></mat-divider>
+				<mat-card-actions align='end'>
+					<button  mat-button routerLink='./usuario/{{guard.user().id}}'>Alterar informações</button>
+					<button  mat-button  [routerLink]="['/login']">
+						<app-icon aria-label="Sair do Emissor de Pedidos" name='exit_to_app' color='black' label='sair'></app-icon>
+					</button>
+				</mat-card-actions>
+			</mat-card>
+		</mat-menu>
+		
 	</mat-toolbar>
 
 	<mat-sidenav-container class="example-sidenav-container" >
 		<mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'"	[fixedInViewport]="mobileQuery.matches" fixedTopGap="57">
-			<mat-nav-list (click)='snav.toggle()'>
-				<a mat-list-item routerLink='/pedido'>
+			<mat-nav-list (click)='snav.toggle()' *ngIf='guard.isLogged()'>
+				<mat-card  mat-list-item class="card-sidenav" >
+					<mat-card-header>
+						<img mat-card-avatar src="{{guard.user().foto}}" class="header-image" alt="Foto do {{guard.user().nome}}">
+						<mat-card-title>{{guard.user().nome}}</mat-card-title>
+						
+						<mat-card-subtitle *ngIf=guard.user().adm>
+							<app-icon aria-label="Supervisor" name='supervisor_account' color='black' size=24 label='Supervisor'></app-icon>
+							<b>Administrador</b>
+						</mat-card-subtitle>
+						<mat-card-subtitle *ngIf=!guard.user().adm >
+							<app-icon aria-label="Atendente" name='account_box' color='black' size=24 label='Atendente'></app-icon>
+							<b>Atendente</b>
+						</mat-card-subtitle>
+						<mat-card-subtitle>{{guard.user().email}}</mat-card-subtitle>
+					</mat-card-header>
+					<mat-divider></mat-divider>
+					<mat-card-actions align='end' >
+						<button  mat-button  routerLink='./usuario/{{guard.user().id}}' >Alterar informações</button>
+						<button mat-button (click)='snav.toggle()' routerLink="/login" >
+							<app-icon aria-label="Sair do Emissor de Pedidos" name='exit_to_app' color='black' label='sair'></app-icon>
+						</button>
+					</mat-card-actions>
+				</mat-card>
+
+				<a mat-list-item routerLink='/pedido' >
 					<app-icon aria-label="Abrir a tela de Pedidos" name='add_shopping_cart' color='black' label='pedido'></app-icon>Pedido
 				</a>
+				<mat-divider></mat-divider>
 				<a mat-list-item routerLink='/fornecedor'>
 					<app-icon aria-label="Abrir a tela de Fornecedor" name='business' color='black' label='fornecedor'></app-icon>
 					Fornecedor
 				</a>
+				<mat-divider></mat-divider>
 				<a mat-list-item  routerLink='/produto'>
 					<app-icon aria-label="Abrir a tela de Produtos" name='business_center' color='black' label='produto'></app-icon>
 					Produto
 				</a>
+				<mat-divider></mat-divider>
 				<a mat-list-item routerLink='/usuario'>
 					<app-icon aria-label="Abrir a tela de Usuarios" name='account_box' color='black' label='usuario'></app-icon>
 					Usuario
 				</a>
-				<a mat-list-item routerLink='/login'>
-					<app-icon aria-label="Sair do Emissor de Pedidos" name='exit_to_app' color='black' label='sair'></app-icon>
-					Sair
-				</a>
+				<mat-divider></mat-divider>
 			</mat-nav-list>
 		</mat-sidenav>
-		<mat-sidenav-content *ngIf='snav.opened' (click)='snav.toggle()' class='content'></mat-sidenav-content>
+		<mat-sidenav-content *ngIf='snav.opened && guard.isLogged()' (click)='snav.toggle()' class='content'></mat-sidenav-content>
 
 	</mat-sidenav-container>
 </div>

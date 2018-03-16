@@ -9,14 +9,23 @@ import {environment as env } from '../../environments/environment';
 @Injectable()
 export class AuthenticationService {
 
-    storage = localStorage;
+    private user : Usuario;
+    private storage = localStorage;
     authorized : boolean = false;
     private href : string;
 
     constructor(private http: HttpClient) {
         let currentUser = JSON.parse(this.storage.getItem('currentUser'));
         this.authorized = currentUser && currentUser.token ? true : false;
+        this.user = currentUser;
         this.href = '/api/authenticate';
+    }
+
+    currentUser(): Usuario {
+        let currentUser = JSON.parse(this.storage.getItem('currentUser'));
+        if(currentUser === null || currentUser.id !== this.user.id)
+            this.user = currentUser;
+        return this.user;
     }
 
     login(username: string, password: string) {
@@ -27,6 +36,7 @@ export class AuthenticationService {
                     // store user details and jwt token in local storage to keep user logged in between page refreshes
                     this.storage.setItem('currentUser', JSON.stringify(user));
                     this.authorized = true;
+                    this.user = user;
                 }
                 return user;
             });
@@ -35,6 +45,7 @@ export class AuthenticationService {
     logout() {
         this.authorized = false;
         this.storage.removeItem('currentUser');
+        this.user = this.currentUser();
     }
 
     recuperarSenha(email : string) {

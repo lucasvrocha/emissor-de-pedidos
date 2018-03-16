@@ -5,6 +5,7 @@
 
 .card {
 	width: 290px;
+	height: 170px;
 	margin: 15px;
 	display: inline-block;
 }

@@ -1,13 +1,19 @@
-import { Component } from '@angular/core';
+import { Component,ViewChild } from '@angular/core';
 import { AuthGuard } from './auth/auth.guard';
+import {NavbarComponent} from './ui/navbar/navbar.component';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+	selector: 'app-root',
+	templateUrl: './app.component.html',
+	styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'Emissor de Pedido';
 
-  constructor(public guard : AuthGuard){}
+	title = 'Emissor de Pedido';
+	constructor(
+		public guard: AuthGuard
+	) { }
+
+
+	
 }

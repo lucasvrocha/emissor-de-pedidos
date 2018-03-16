@@ -52,6 +52,10 @@ export class AuthInterceptor implements HttpInterceptor {
                     let body = {
                         id: user.id,
                         username: user.usuario,
+                        nome : user.nome,
+                        foto : user.foto,
+                        adm : user.adm,
+                        email : user.email,
                         token: 'fake-jwt-token'
                     };
 
