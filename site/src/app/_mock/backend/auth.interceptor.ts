@@ -40,7 +40,6 @@ export class AuthInterceptor implements HttpInterceptor {
                 }
             }
 
-
             if (request.url.endsWith('/authenticate') && request.method === 'POST') {
                 // find if any user matches login credentials
                 let filteredUsers = users.filter(user => {
@@ -61,6 +60,14 @@ export class AuthInterceptor implements HttpInterceptor {
                     // else return 400 bad request
                     return Observable.throw('Usuario e/ou senha invalido');
                 }
+            }
+
+            if(request.url.endsWith('/authenticate/recuperar') === true && request.method === 'POST'){
+                let body  = {
+                    message : 'E-mail enviado com sucesso', 
+                    success: true
+                }
+                return Observable.of(new HttpResponse({status : 201, body: body}));
             }
 
             // get users

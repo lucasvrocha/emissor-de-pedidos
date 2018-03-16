@@ -1,0 +1,23 @@
+<app-spiner  ></app-spiner>
+<p class='title'><strong>Não consegue entrar no sistema?</strong></p>
+<span class='description'>
+	<p>Não tem problema, iremos enviar um e-mail contendo as instruções para o acesso!</p>
+</span>
+<form class="form" (ngSubmit)="onSubmit()" >
+	<table class="full-width" cellspacing="0"><tr>
+		<td><mat-form-field class="full-width">
+			<input matInput placeholder="E-mail utilizado no cadastro" [formControl]="emailFormControl"
+			[errorStateMatcher]="matcher" [(ngModel)]='email'>
+			<mat-hint></mat-hint>
+			<mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+				Favor inserir um email valido
+			</mat-error>
+			<mat-error *ngIf="emailFormControl.hasError('required')">
+				Email <strong>obrigatório</strong>
+			</mat-error>
+		</mat-form-field></td>
+	</tr></table>
+	<div class="full-width menu-action">
+		<button [disabled]="emailFormControl.hasError('email') || emailFormControl.hasError('required')" mat-raised-button color="primary" type='submit'>Recuperar Senha</button>
+	</div>
+</form>

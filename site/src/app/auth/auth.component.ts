@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { FormGroup, FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 
 import { AlertService } from '../ui/alert/alert.service';
+import { DialogComponent } from './dialog/dialog.component';
 import { AuthenticationService } from './auth.service';
-
-import { FormGroup, FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { MyErrorStateMatcher } from '../_helper/myErrorStateMatcher';
 import { Usuario } from '../_model/usuario.model';
 
@@ -32,7 +33,8 @@ export class AuthComponent implements OnInit {
         private router: Router,
         private authenticationService: AuthenticationService,
         private alertService: AlertService,
-        public matcher: MyErrorStateMatcher) { }
+        public matcher: MyErrorStateMatcher,
+        public dialog: MatDialog) { }
 
     ngOnInit() {
         // reset login status
@@ -57,5 +59,15 @@ export class AuthComponent implements OnInit {
 
     onSubmit() {
         this.login();
+    }
+
+    openDialog(): void {
+        let dialogRef = this.dialog.open(DialogComponent, {
+            data: null
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+            console.log('The dialog was closed', result);
+        });
     }
 }
