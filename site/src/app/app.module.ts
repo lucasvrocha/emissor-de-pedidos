@@ -21,6 +21,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatMenuModule } from '@angular/material/menu';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -93,7 +94,8 @@ import { SpinerComponent } from './ui/spiner/spiner.component';
 		MatDividerModule,
 		MatSidenavModule,
 		MatListModule,
-		MatDialogModule
+		MatDialogModule,
+		MatMenuModule
 	],
 	providers: [
 		MyErrorStateMatcherProvider,

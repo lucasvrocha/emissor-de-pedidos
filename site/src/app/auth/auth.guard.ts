@@ -22,4 +22,8 @@ export class AuthGuard implements CanActivate {
     isLogged(): boolean {
         return this.auth.authorized;
     }
+
+    user() : any {
+        return this.auth.currentUser();
+    }
 }
