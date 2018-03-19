@@ -1,9 +1,9 @@
-import { ChangeDetectorRef, Component, OnChanges, OnInit, OnDestroy, Input } from '@angular/core';
+import { ChangeDetectorRef, Component, OnChanges, OnInit, OnDestroy, Input, ViewChild } from '@angular/core';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { AuthGuard } from '../../auth/auth.guard';
 
 import { Usuario } from '../../_model/usuario.model';
-import {Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
 	moduleId: module.id,
@@ -11,9 +11,11 @@ import {Observable } from 'rxjs/Observable';
 	templateUrl: './navbar.component.html',
 	styleUrls: ['./navbar.component.css']
 })
-export class NavbarComponent implements OnInit,OnChanges, OnDestroy {
+export class NavbarComponent implements OnInit, OnChanges, OnDestroy {
 
 	mobileQuery: MediaQueryList;
+
+	private storage = localStorage;
 
 	private _mobileQueryListener: () => void;
 
@@ -25,6 +27,7 @@ export class NavbarComponent implements OnInit,OnChanges, OnDestroy {
 		this.mobileQuery = media.matchMedia('(max-width: 599px)');
 		this._mobileQueryListener = () => changeDetectorRef.detectChanges();
 		this.mobileQuery.addListener(this._mobileQueryListener);
+
 	}
 
 	ngOnInit() {
@@ -34,7 +37,7 @@ export class NavbarComponent implements OnInit,OnChanges, OnDestroy {
 		this.mobileQuery.removeListener(this._mobileQueryListener);
 	}
 
-	ngOnChanges( changes ) {
+	ngOnChanges(changes) {
 	}
 
 

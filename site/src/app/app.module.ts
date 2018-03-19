@@ -47,8 +47,11 @@ import { AlertComponent } from './ui/alert/alert.component';
 import { AuthGuard } from './auth/auth.guard';
 import { AlertService } from './ui/alert/alert.service';
 import { AuthenticationService } from './auth/auth.service';
-import { DialogComponent } from './auth/dialog/dialog.component';
+import { DialogComponent as AuthDialogComponent } from './auth/dialog/dialog.component';
 import { SpinerComponent } from './ui/spiner/spiner.component';
+import { FullscreenDirective } from './ui/fullscreen/fullscreen.directive';
+import { DialogComponent as FullscreenDialogComponent } from './ui/fullscreen/dialog/dialog.component';
+import { UserComponent } from './ui/navbar/user/user.component';
 
 @NgModule({
 	declarations: [
@@ -65,11 +68,15 @@ import { SpinerComponent } from './ui/spiner/spiner.component';
 		ToolbarComponent,
 		AuthComponent,
 		AlertComponent,
-		DialogComponent,
-		SpinerComponent
+		AuthDialogComponent,
+		SpinerComponent,
+		FullscreenDirective,
+		FullscreenDialogComponent,
+		UserComponent
 	],
 	entryComponents: [
-		DialogComponent
+		AuthDialogComponent,
+		FullscreenDialogComponent
 	],
 	imports: [
 		HttpClientModule,
