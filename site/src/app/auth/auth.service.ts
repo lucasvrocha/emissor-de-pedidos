@@ -4,15 +4,15 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map'
 
 import { Usuario } from '../_model/usuario.model';
-import {environment as env } from '../../environments/environment';
+import { environment as env } from '../../environments/environment';
 
 @Injectable()
 export class AuthenticationService {
 
-    private user : Usuario;
+    private user: Usuario;
     private storage = localStorage;
-    authorized : boolean = false;
-    private href : string;
+    authorized: boolean = false;
+    private href: string;
 
     constructor(private http: HttpClient) {
         let currentUser = JSON.parse(this.storage.getItem('currentUser'));
@@ -23,14 +23,14 @@ export class AuthenticationService {
 
     currentUser(): Usuario {
         let currentUser = JSON.parse(this.storage.getItem('currentUser'));
-        if(currentUser === null || currentUser.id !== this.user.id)
+        if (currentUser === null || currentUser.id !== this.user.id)
             this.user = currentUser;
         return this.user;
     }
 
     login(username: string, password: string) {
         return this.http.post<any>(this.href, { usuario: username, senha: password })
-        .map(user => {
+            .map(user => {
                 // login successful if there's a jwt token in the response
                 if (user && user.token) {
                     // store user details and jwt token in local storage to keep user logged in between page refreshes
@@ -48,9 +48,9 @@ export class AuthenticationService {
         this.user = this.currentUser();
     }
 
-    recuperarSenha(email : string) {
-        console.log(`TODO - recuperar senha do email: ${email} `);    
-        return this.http.post<any>(this.href +"/recuperar", { 'email' : email });
-            
+    recuperarSenha(email: string) {
+        console.log(`TODO - recuperar senha do email: ${email} `);
+        return this.http.post<any>(this.href + "/recuperar", { 'email': email });
+
     }
 }
