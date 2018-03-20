@@ -1,24 +1,30 @@
 <app-toolbar  title="Usuarios" iconName='account_box' add=true></app-toolbar>
-<div class='center'>
-  <mat-card class="card" *ngFor='let user of userList;let i = index'>
-    <mat-card-header>
-      <img mat-card-avatar src="{{user.foto}}" class="header-image" alt="Foto do {{user.nome}}">
-      <mat-card-title>{{user.nome}}</mat-card-title>
-      <mat-card-subtitle>{{user.email}}</mat-card-subtitle>
-      <mat-card-subtitle *ngIf=user.adm >
-        <app-icon aria-label="Supervisor" name='supervisor_account' color='black' size=18 label='Supervisor'></app-icon>
-        <b>Administrador</b>
-      </mat-card-subtitle>
-      <mat-card-subtitle *ngIf=!user.adm >
-        <app-icon aria-label="Atendente" name='account_box' color='black' size=18 label='Atendente'></app-icon>
-        <b>Atendente</b>
-      </mat-card-subtitle>
-    </mat-card-header>
-    <mat-divider></mat-divider>
-    <mat-card-actions>
-      <button mat-button routerLink='./{{user.id}}'>Alterar informações</button>
-    </mat-card-actions>
-  </mat-card>
-  <mat-card class="card hidden" >
-  </mat-card>
+<div class="content-full-height" [class.is-mobile]="media.isMobile()"  media-query #media='media'>
+  <div class='container mat-elevation-z4' >
+    <mat-card class="card" *ngFor='let user of userList;let i = index'>
+      <mat-card-header class='header'>
+        <img mat-card-avatar src="{{user.foto}}" class="img" alt="Foto do {{user.nome}}">
+        <span class='hd-right'>
+          <mat-card-title>{{user.nome}}</mat-card-title>
+          <mat-card-subtitle>{{user.email}}</mat-card-subtitle>
+          <mat-card-subtitle *ngIf=user.adm >
+            <app-icon aria-label="Supervisor" name='supervisor_account' color='black' size=18 label='Supervisor'></app-icon>
+            <b>Administrador</b>
+          </mat-card-subtitle>
+          <mat-card-subtitle *ngIf=!user.adm >
+            <app-icon aria-label="Atendente" name='account_box' color='black' size=18 label='Atendente'></app-icon>
+            <b>Atendente</b>
+          </mat-card-subtitle>
+        </span>
+      </mat-card-header>
+      <mat-divider></mat-divider>
+      <mat-card-actions>
+        <button mat-button routerLink='./{{user.id}}'>Alterar informações</button>
+      </mat-card-actions>
+    </mat-card>
+
+    <mat-card class="card hidden" >
+    </mat-card>
+
+  </div>
 </div>
