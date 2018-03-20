@@ -2,22 +2,32 @@
 .container {
   display: flex;
   flex-direction: column;
-  max-height: 605px;
+  max-height: 100vh;
   min-width: 300px;
   position: relative;
+  height: 100%;
+  width: 100%;
 }
 
-.navbar {
-  min-height: 64px;
-  display: flex;
-  align-items: center;
-  padding-left: 24px;
-  font-size: 20px;
+.content-full-height {
+  position: absolute;
+  top: 128px; /* Header Height */
+  bottom: 20px; /* Footer Height */
+  width: 100%;
+}
+
+.is-mobile {
+  top: 112px; /* Header Height */
+  bottom: 0px; /* Footer Height */
+}
+
+.is-mobile .container{
+  padding-right: 0px !important;
+  padding-left: 0px !important;   
 }
 
 .table {
   overflow: auto;
-  min-height: 300px;
 }
 
 .loading-shade {
@@ -53,5 +63,5 @@
 
 .mat-column-id  {
   text-align: left;
-   max-width: 32px;
+  max-width: 32px;
 }

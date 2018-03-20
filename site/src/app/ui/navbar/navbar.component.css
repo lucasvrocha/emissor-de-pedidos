@@ -1,3 +1,8 @@
+.background { 
+  width: 100%;
+  background-color: rgb(63, 81, 181);
+}
+
 .logo{
 	height: 60%;
 	width: auto;
@@ -26,65 +31,38 @@ h1.example-app-name {
 
 .example-sidenav-container {
   /* When the sidenav is not fixed, stretch the sidenav container to fill the available space. This
-     causes `<mat-sidenav-content>` to act as our scrolling element for desktop layouts. */
+  causes `<mat-sidenav-content>` to act as our scrolling element for desktop layouts. */
   flex: 1;
 }
 
 .example-is-mobile .example-sidenav-container {
   /* When the sidenav is fixed, don't constrain the height of the sidenav container. This allows the
-     `<body>` to be our scrolling element for mobile layouts. */
+  `<body>` to be our scrolling element for mobile layouts. */
   flex: 1 0 auto;
 }
 
 
 .content {
-      height: 100%;
-    width: 100%;
-    position: fixed;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    top: 0;
-    background-color: rgba(0,0,0,.4);
-}
-
-
-.center{
-  text-align: center;
-  display: inline;
-}
-
-.card {
-  display: inline-block;
-  width: 100%;
   height: 100%;
-  margin-bottom: -8px;
-  margin-top: -8px;
-}
-
-.card-sidenav {
-  display: inline-block;
   width: 100%;
-  height: 100%;
-  
-  margin-top: -8px;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  background-color: rgba(0,0,0,.4);
 }
 
-.header-image {
-  background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
-  background-size: cover;
-  height: 40px;
-  width: 40px;
-  margin: 10px;
-}
-.header-image-icon {
-  background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
-  background-size: cover;
-  height: 36px;
-  width: 36px;
+
+.item {
 }
 
-mat-card-content { 
-  margin: 10px;
-  padding: 10px;
+.item .card {
+  margin-top: 0px;
+  padding-top: 0px;
+}
+
+.item .icon  { 
+  margin-right: 15px;
+  margin-left: 15px;
 }

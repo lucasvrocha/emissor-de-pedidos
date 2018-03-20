@@ -1,13 +1,13 @@
 <app-spiner></app-spiner>
-<div  class="example-container" [class.example-is-mobile]="mobileQuery.matches" >
-	<mat-toolbar role='header' color="primary" *ngIf='!guard.isLogged()' > 
+<div  class="example-container background" [class.example-is-mobile]="media.isMobile()" media-query #media='media'>
+	<mat-toolbar  role='header' color="primary" *ngIf='!guard.isLogged()' > 
 		<span class="fill-space" ></span>
 		<img class='logo' src="assets/logo/logo-navbar-white.png" alt="logo white edp">
 		<h1 class='example-app-name'>Emissor de Pedidos</h1>
 		<span class="fill-space" ></span>
 	</mat-toolbar>
 
-	<mat-toolbar role='header' color="primary" *ngIf='guard.isLogged()' [hidden]='!mobileQuery.matches' (click)='snav.toggle()'>		
+	<mat-toolbar role='header' color="primary" *ngIf='guard.isLogged()' [hidden]='!media.isMobile()' (click)='snav.toggle()'>		
 		<app-icon aria-label="Menu do sistema" name='menu' color='white' label='menu'></app-icon>
 		<span class="fill-space"></span>
 		<img class='logo' src="assets/logo/logo-navbar-white.png" alt="logo white edp">
@@ -15,7 +15,7 @@
 		<span class="fill-space"></span>
 	</mat-toolbar>
 
-	<mat-toolbar role='header' color="primary" *ngIf='guard.isLogged()' [hidden]='mobileQuery.matches'>
+	<mat-toolbar class="container" role='header' color="primary" *ngIf='guard.isLogged()' [hidden]='media.isMobile()'>
 		<img class='logo pointer' src="assets/logo/logo-navbar-white.png" alt="logo white edp" routerLink='/'>
 		<h1 class='example-app-name pointer' routerLink='/' >Emissor de Pedidos</h1>
 		<span class="fill-space"></span>
@@ -37,30 +37,29 @@
 		<mat-menu #menu="matMenu">
 			<ui-navbar-user></ui-navbar-user>
 		</mat-menu>
-		
+
 	</mat-toolbar>
 
 	<mat-sidenav-container class="example-sidenav-container" >
-		<mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'"	[fixedInViewport]="mobileQuery.matches" fixedTopGap="57">
-			<mat-nav-list (click)='snav.toggle()' *ngIf='guard.isLogged()'>
-				<ui-navbar-user></ui-navbar-user>
-
-				<a mat-list-item routerLink='/pedido' >
-					<app-icon aria-label="Abrir a tela de Pedidos" name='add_shopping_cart' color='black' label='pedido'></app-icon>Pedido
+		<mat-sidenav #snav [mode]="media.isMobile() ? 'over' : 'side'"	[fixedInViewport]="media.isMobile()" fixedTopGap="57">
+			<mat-nav-list class='no-padding' (click)='snav.toggle()' *ngIf='guard.isLogged()'>
+				<ui-navbar-user class="item card no-radius"></ui-navbar-user>
+				<a class='item' mat-list-item routerLink='/pedido' >
+					<app-icon Class='icon' aria-label="Abrir a tela de Pedidos" name='add_shopping_cart' color='black' label='pedido'></app-icon>Pedido
 				</a>
 				<mat-divider></mat-divider>
-				<a mat-list-item routerLink='/fornecedor'>
-					<app-icon aria-label="Abrir a tela de Fornecedor" name='business' color='black' label='fornecedor'></app-icon>
+				<a class='item' mat-list-item routerLink='/fornecedor'>
+					<app-icon class='icon' aria-label="Abrir a tela de Fornecedor" name='business' color='black' label='fornecedor'></app-icon>
 					Fornecedor
 				</a>
 				<mat-divider></mat-divider>
-				<a mat-list-item  routerLink='/produto'>
-					<app-icon aria-label="Abrir a tela de Produtos" name='business_center' color='black' label='produto'></app-icon>
+				<a class='item' mat-list-item  routerLink='/produto'>
+					<app-icon class='icon' aria-label="Abrir a tela de Produtos" name='business_center' color='black' label='produto'></app-icon>
 					Produto
 				</a>
 				<mat-divider></mat-divider>
-				<a mat-list-item routerLink='/usuario'>
-					<app-icon aria-label="Abrir a tela de Usuarios" name='account_box' color='black' label='usuario'></app-icon>
+				<a class='item' mat-list-item routerLink='/usuario'>
+					<app-icon class='icon' aria-label="Abrir a tela de Usuarios" name='account_box' color='black' label='usuario'></app-icon>
 					Usuario
 				</a>
 				<mat-divider></mat-divider>

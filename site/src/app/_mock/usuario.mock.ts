@@ -30,5 +30,26 @@ export const USUARIO: Usuario[] = [
 		"email" : "clerivaldo.silva@edp.com.br",
 		"jwt" : undefined,
 		"foto" : "https://dummyimage.com/150x150/254853/ededed.gif&text=CS"
+	},
+	{
+		"id" : 4, 
+		"nome" : "Leonardo Fatec", 
+		"usuario" : "leonardo.fatec",
+		"senha" : "leonardo",
+		"adm" : false, 
+		"email" : "leonardo.fatec@edp.com.br",
+		"jwt" : undefined,
+		"foto" : "https://dummyimage.com/150x150/254853/ededed.gif&text=LF"
+	},
+	{
+		"id" : 5, 
+		"nome" : "Alessandro Fatec", 
+		"usuario" : "alessandro.fatec",
+		"senha" : "alessandro",
+		"adm" : false, 
+		"email" : "alessandro.fatec@edp.com.br",
+		"jwt" : undefined,
+		"foto" : "https://dummyimage.com/150x150/254853/ededed.gif&text=AF"
 	}
+
 ]

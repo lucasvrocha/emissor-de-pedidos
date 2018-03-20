@@ -52,6 +52,8 @@ import { SpinerComponent } from './ui/spiner/spiner.component';
 import { FullscreenDirective } from './ui/fullscreen/fullscreen.directive';
 import { DialogComponent as FullscreenDialogComponent } from './ui/fullscreen/dialog/dialog.component';
 import { UserComponent } from './ui/navbar/user/user.component';
+import { MediaQueryDirective } from './ui/media-query/media-query.directive';
+import { FooterComponent } from './ui/footer/footer.component';
 
 @NgModule({
 	declarations: [
@@ -72,7 +74,9 @@ import { UserComponent } from './ui/navbar/user/user.component';
 		SpinerComponent,
 		FullscreenDirective,
 		FullscreenDialogComponent,
-		UserComponent
+		UserComponent,
+		MediaQueryDirective,
+		FooterComponent
 	],
 	entryComponents: [
 		AuthDialogComponent,
