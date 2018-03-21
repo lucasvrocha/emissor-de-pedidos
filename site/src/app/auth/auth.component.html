@@ -22,6 +22,6 @@
     
     <div class="menu-action full-width"> 
         <button mat-button (click)="openDialog()" type='button' >Não consigo entrar!</button>     
-        <button [disabled]='senhaControl.invalid || usuarioControl.invalid' mat-raised-button color="primary" type='submit'>Entrar</button>
+        <button [disabled]='!validForm' mat-raised-button color="primary" type='submit'>Entrar</button>
     </div>    
 </form>

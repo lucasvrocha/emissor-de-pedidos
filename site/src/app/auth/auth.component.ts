@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit,AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { FormGroup, FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
@@ -17,8 +17,9 @@ import { AppComponent } from '../app.component';
     styleUrls: ['./auth.component.css']
 })
 
-export class AuthComponent implements OnInit {
+export class AuthComponent implements OnInit , AfterViewInit{
 
+   
     model: Usuario = new Usuario();
     loading = false;
     returnUrl: string;
@@ -31,6 +32,8 @@ export class AuthComponent implements OnInit {
         Validators.required
     ]);
 
+    validForm : string = 'disabled';
+
     constructor(
         private route: ActivatedRoute,
         private router: Router,
@@ -40,11 +43,13 @@ export class AuthComponent implements OnInit {
         public dialog: MatDialog) { }
 
     ngOnInit() {
-        // reset login status
         this.authService.logout();
-
-        // get return url from route parameters or default to '/'
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+        this.usuarioControl.updateValueAndValidity();
+    }
+
+    ngAfterViewInit() {
+        this.validForm = (this.senhaControl.invalid || this.usuarioControl.invalid) ? 'disabled' : '';
     }
 
     login() {
