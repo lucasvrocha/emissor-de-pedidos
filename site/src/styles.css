@@ -9,25 +9,9 @@
 * {
 	font-family: 'Roboto', Helvetica, sans-serif;
 	line-height: 1.4 !important;
+	color: rgba(0,0,0,0.8);
 }
 
-.fill-space {
-  /* This fills the remaining space, by using flexbox. 
-  Every toolbar row uses a flexbox row layout. */
-  flex: 1 1 auto;
-}
-
-.hidden { 
-	visibility: hidden;
-}
-
-
-.pointer {
-	cursor: pointer;
-}
-
-
-/* Set a background color */
 body, html {
 	height: 100%;
 	margin: 0;
@@ -51,6 +35,32 @@ button{
 	align-items: center;
 }
 
+svg {
+	fill : inherit !important;
+	opacity: inherit !important;
+}
+
+svg:hover {
+	opacity: 1 !important;
+}
+
+
+
+.fill-space {
+  /* This fills the remaining space, by using flexbox. 
+  Every toolbar row uses a flexbox row layout. */
+  flex: 1 1 auto;
+}
+
+.hidden { 
+	visibility: hidden;
+}
+
+
+.pointer {
+	cursor: pointer;
+}
+
 
 .table {
 	margin-bottom: 0rem !important;
@@ -68,13 +78,13 @@ button{
 }
 
 .mat-menu-content {
-    padding-top: 0px !important;
-    padding-bottom: 0px !important;
+	padding-top: 0px !important;
+	padding-bottom: 0px !important;
 }
 
 .no-radius { 
 	border-radius: 0px !important;
- }
+}
 
 .no-margin {
 	margin : 0px !important ;
@@ -83,6 +93,14 @@ button{
 .no-padding {
 	padding: 0px !important ;
 }
+
+.line {
+	white-space: nowrap !important; 
+    overflow: hidden!important;
+    text-overflow: ellipsis!important; 
+
+}
+
 
 @media screen and (min-width: 600px){
 	.scrollbar {

@@ -9,24 +9,68 @@ import { MatIconRegistry } from '@angular/material';
 	styleUrls: ['./icon.component.css']
 })
 export class IconComponent implements OnInit {
+	@Input() icon:  IconModel = undefined;
 
-	@Input() name: string = 'default';
+	@Input() name: string = undefined;
 	@Input() color: string = 'black';
-	@Input() size: Number = 24;
+	@Input() size: number = 24;
+	@Input() opacity : number = 0.8;
 
-	fullName: string;
+	private fullName: string;
 
-	constructor(private iconRegistry: MatIconRegistry,private sanitizer: DomSanitizer) {
+	constructor(private iconRegistry: MatIconRegistry, private sanitizer: DomSanitizer) {
 	}
 
 	ngOnInit() {
-		this.fullName = this.name + '_' + this.color + '_' + this.size;
-		this.iconRegistry.addSvgIcon(
-			this.fullName,
-			this.sanitizer.bypassSecurityTrustResourceUrl('assets/icon/ic_warning_black_24px.svg'));
+		if (this.icon && this.icon.name)
+			this.name = this.icon.name;
+		if (this.icon && this.icon.color)
+			this.color = this.icon.color
+		if (this.icon && this.icon.size)
+			this.size = this.icon.size;
+
+		this.fullName = this.name + '_black_' + this.size;
 		this.iconRegistry.addSvgIcon(
 			this.fullName,
 			this.sanitizer.bypassSecurityTrustResourceUrl('assets/icon/ic_' + this.fullName + 'px.svg'));
 	}
+}
+
+export interface IconModel {
+	name: string ;
+	color: string;
+	size: number;
+	opacity : number ;
+}
+
+export class IconBuilder{
+
+	private icon: IconModel;
+
+	constructor(){
+		this.icon = { name : undefined, color : 'black' , size: 24, opacity : 0.8};
+	}
+
+	withName(name : string){	
+		this.icon.name = name;
+		return this;
+	}
+	withColor(color : string){
+		this.icon.color = color;
+		return this;
+	} 
+	withSize( size: number){
+		this.icon.size = size;
+		return this;
+	}
+	withOpacity( opacity : number){
+		this.icon.opacity = opacity;
+		return this;
+	}
+
+	build() : IconModel{
+		return Object.assign({}, this.icon);;
+	}
+
 
 }

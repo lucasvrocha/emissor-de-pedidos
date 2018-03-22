@@ -4,3 +4,11 @@
 .label{
 	font-size: 0.6em;
 }
+
+.svg { 
+	opacity: 0.9
+}
+
+.svg:hover {
+	opacity: 1;
+}
