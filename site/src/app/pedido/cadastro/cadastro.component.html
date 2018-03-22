@@ -1,1 +1,28 @@
 <app-toolbar iconName='add_shopping_cart' title='Novo Pedido'></app-toolbar>
+<form class="form">
+	<mat-form-field class="full-width">
+		<input matInput placeholder="# Código do pedido" disabled value="Será gerado automáticamente.">
+	</mat-form-field>
+
+	<table class="full-width" cellspacing="0"><tr>
+		<td><mat-form-field class="full-width" hintLabel="Maximo 80 caracteres" required >
+			<input matInput #input maxlength="80" placeholder="Nome do produto">
+			<mat-hint align="end">{{input.value?.length || 0}}/80</mat-hint>
+		</mat-form-field></td>
+	</tr></table>
+
+	<mat-form-field class="full-width">
+		<mat-select placeholder="Fornecedor" [(ngModel)]="selectedValue" name="fornecedor" required >
+			<mat-option *ngFor="let fornecedor of fornecedores" [value]="fornecedor.value">
+				{{fornecedor.viewValue}}
+			</mat-option>
+		</mat-select>
+	</mat-form-field>
+
+	<div class="full-width">
+		<button mat-button>Cancelar</button>
+		<button mat-button color="warn">Excluir</button>
+		<span class="fill-space"></span>
+		<button mat-raised-button color="primary">Salvar</button>
+	</div>
+</form>

@@ -38,7 +38,7 @@ import { CadastroComponent as UsuarioCadastroComponent } from './usuario/cadastr
 import { ListaComponent as UsuarioListaComponent } from './usuario/lista/lista.component';
 import { JwtProviver } from './_helper/jwt.interceptor';
 import { FakeBackendProvider } from './_mock/backend/fakeBackend.provider';
-import { ToolbarComponent, ToolbarBuilder } from './ui/toolbar/toolbar.component';
+import { ToolbarComponent } from './ui/toolbar/toolbar.component';
 import { MyErrorStateMatcherProvider } from './_helper/myErrorStateMatcher';
 import { AuthComponent } from './auth/auth.component';
 import { IconComponent } from './ui/icon/icon.component';

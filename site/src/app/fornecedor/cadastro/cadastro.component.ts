@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { MyErrorStateMatcher } from '../../_helper/myErrorStateMatcher';
-import { IconModel, IconBuilder } from '../../ui/icon/icon.component';
-import { ToolbarModel, ToolbarBuilder } from '../../ui/toolbar/toolbar.component';
+import { IconModel, IconBuilder } from '../../ui/icon';
+import { ToolbarModel, ToolbarBuilder } from '../../ui/toolbar';
 
 
 @Component({
@@ -25,8 +25,8 @@ export class CadastroComponent implements OnInit {
 		tb: ToolbarBuilder) {
 
 		this.toolbar = tb
-			.withTitle({ description: "Cadasatro de Fornecedor", icon: tb.icon('bussines') })
-			.goto({url: './novo', icon :tb.icon('add_box')})
+			.withTitle({ description: "Novo Fornecedor", icon: tb.icon('business') })
+			.forward({url: undefined, icon :tb.icon('save').build()})
 			.build();
 	}
 

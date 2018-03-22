@@ -10,8 +10,8 @@
 		<!-- This fills the remaining space of the current row -->
 		<span class="fill-space"></span>
 		<!-- 	<app-icon  *ngIf="save" name='save' color='black'></app-icon>	 -->
-		<button *ngIf="model.foward" mat-icon-button routerLink='./novo'>
-			<app-icon [icon]='model.foward.icon'></app-icon>	
+		<button *ngIf="model.forward" mat-icon-button routerLink='{{model.forward.url}}'>
+			<app-icon [icon]='model.forward.icon'></app-icon>	
 		</button>
 	</mat-toolbar>
 </div>

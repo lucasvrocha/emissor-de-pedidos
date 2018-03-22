@@ -1,6 +1,8 @@
+import { IconModel } from '../../icon'
+import { ToolbarModel } from '../../toolbar'
+
 export interface ListModel {
-	iconName : string;
-	iconColor: string;
+	toolbar : ToolbarModel;
 	title : string;
 }
 
