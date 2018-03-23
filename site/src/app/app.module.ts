@@ -22,7 +22,10 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatMenuModule } from '@angular/material/menu';
-import {MatExpansionModule} from '@angular/material/expansion';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatStepperModule } from '@angular/material/stepper';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import {MatGridListModule} from '@angular/material/grid-list';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -112,7 +115,10 @@ import { ListComponent } from './ui/frame/list/list.component';
 		MatListModule,
 		MatDialogModule,
 		MatMenuModule,
-		MatExpansionModule
+		MatExpansionModule,
+		MatStepperModule,
+		MatButtonToggleModule,
+		MatGridListModule
 	],
 	providers: [
 		MyErrorStateMatcherProvider,

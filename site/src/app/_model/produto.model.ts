@@ -1,7 +1,8 @@
 export interface Produto {
 	id : number;
-	descritivo: String;
+	descritivo: string;
 	quantidade: number;
 	quantidadeMinima: number;
 	fornecedorId : number;
+	preco : number;
 }

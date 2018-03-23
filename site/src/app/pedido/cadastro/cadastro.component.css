@@ -1,16 +1,188 @@
+/*##### primeira parte */
+
+>>> .mat-stepper-horizontal {
+	height: 100%;
+}
+>>> .mat-horizontal-stepper-header{
+	padding: 0px 15px !important;
+}
+>>> .mat-horizontal-stepper-header-container , 
+>>> .mat-step-header{
+	height: 40px !important;
+}
+
+>>> .mat-stepper-horizontal-line {
+	min-width: 0px !important;
+	margin : 0px !important;
+}
+
+>>> .mat-horizontal-content-container {
+	padding: 12px 0px !important;
+}
+
+>>> .mat-horizontal-stepper-content{
+	/*padding: 0 10px !important;*/
+}
+>>> .mat-button-toggle-vertical{
+	margin: 0px !important;
+	align-items: center !important;
+    display: flex !important;
+    box-shadow: none !important;
+}
+
+>>> .mat-button-toggle-label-content{
+	padding: 0px !important;
+	border:transparent !important;
+}
+>>> .mat-button-toggle {
+    white-space: nowrap;
+    position: relative;
+    height: 56px;
+    align-items: center;
+    display: flex;
+}
+.first-content{
+	margin-top: 40px;
+}
+
+.btn-tipo {
+	height: 60px;
+	width: 240px;
+	border-radius: 0px !important;
+}
+
+/**** segunda parte *****/
 .form {
 	margin: auto;
 	min-width: 150px;
 	max-width: 500px;
-	width: 100%;
-	padding: 10px;
-}
-
-.full-width {
 	width: 100%;
 }
 
 mat-form-field {
 	margin-top: 5px;
 	margin-bottom: 5px;
+}
+
+.form-action{
+	padding: 20px 0;
+}
+
+.mat-column-descricao {
+	min-width: 160px;
+	text-align: left;
+}
+
+.mat-column-action {
+	max-width: 40px;
+}
+
+.card-produto {
+	margin: 12px;
+	padding: 10px;
+	font-size: 0.8rem;
+}
+
+.card-item{
+	background-color: #3f51b5;
+}
+
+.card-item .descricao{
+	background-color: rgba(0,0,0,0.6);
+	position: absolute;
+	bottom: 4px;
+	right: 4px;
+	left: 4px;
+	font-size: 0.9rem;
+	font-weight: 400;
+	color: white;
+
+}
+
+.card-item .img {
+	background-size: cover;
+	height: 96px;
+	width: auto;
+}
+
+
+.card-basket {
+	background-color: yellow;
+	text-align: left;
+}
+.card-basket p {
+	padding: 0px;
+	margin: 0px;
+}
+
+.card-basket .preco{
+	font-size: 1rem;
+	font-weight: 500;
+	padding: 10px 0px;
+}
+
+.card-total {
+	text-align: right;
+	font-weight: 500;
+	font-size: 1rem;
+}
+.card-action {
+}
+
+.card-action .add {
+	background-color: rgba(0,255,0,.4);
+}
+
+.card-action .remove  {
+	background-color: rgba(255,0,0,0.4);
+}
+
+/*######## terceira parte - pagamento */
+
+>>> .mat-form-field-infix {
+	min-width: 125px !important;
+	width: initial !important;
+}
+
+.finalizacao-content{
+	padding: 10px 0px;
+}
+
+.action-form{
+	padding: 10px 0px;
+}
+
+.panel-title{
+
+}
+
+
+
+.is-mobile.panel-title {
+	width: 50px;
+    padding: 0px;
+    margin: 0px;
+    flex-grow: 0;
+}
+
+
+
+.panel-description{
+	text-align: left;
+}
+
+
+.pagamentos {
+	margin: 12px;
+}
+
+.pagamentos p{
+	padding: 0;
+	padding-bottom: 8px;
+	margin: 0;
+}
+
+.pagamentos td {
+	padding: 4px 0px;
+	
 }
