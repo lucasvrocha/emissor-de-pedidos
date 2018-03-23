@@ -22,38 +22,43 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatStepperModule } from '@angular/material/stepper';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import {MatGridListModule} from '@angular/material/grid-list';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
 import { NavbarComponent } from './ui/navbar/navbar.component';
+import { CadastroComponent as PedidoCadastroComponent } from './pedido/cadastro/cadastro.component';
+import { ListaComponent as PedidoListaComponent } from './pedido/lista/lista.component';
 import { ProdutoListaComponent } from './produto/lista/produto-lista.component';
-import { IconComponent } from './ui/icon/icon.component';
 import { ProdutoCadastroComponent } from './produto/cadastro/produto-cadastro.component';
-import { PedidoComponent } from './pedido/pedido.component';
-
 import { CadastroComponent as FornecedorCadastroComponent } from './fornecedor/cadastro/cadastro.component';
 import { ListaComponent as FornecedorListaComponent } from './fornecedor/lista/lista.component';
-
 import { CadastroComponent as UsuarioCadastroComponent } from './usuario/cadastro/cadastro.component';
 import { ListaComponent as UsuarioListaComponent } from './usuario/lista/lista.component';
-
 import { JwtProviver } from './_helper/jwt.interceptor';
 import { FakeBackendProvider } from './_mock/backend/fakeBackend.provider';
 import { ToolbarComponent } from './ui/toolbar/toolbar.component';
 import { MyErrorStateMatcherProvider } from './_helper/myErrorStateMatcher';
 import { AuthComponent } from './auth/auth.component';
-import { AlertComponent } from './ui/alert/alert.component';
-import { AuthGuard } from './auth/auth.guard';
-import { AlertService } from './ui/alert/alert.service';
+import { IconComponent } from './ui/icon/icon.component';
 import { AuthenticationService } from './auth/auth.service';
+import { AuthGuard } from './auth/auth.guard';
 import { DialogComponent as AuthDialogComponent } from './auth/dialog/dialog.component';
+import { AlertComponent } from './ui/alert/alert.component';
+import { AlertService } from './ui/alert/alert.service';
 import { SpinerComponent } from './ui/spiner/spiner.component';
 import { FullscreenDirective } from './ui/fullscreen/fullscreen.directive';
 import { DialogComponent as FullscreenDialogComponent } from './ui/fullscreen/dialog/dialog.component';
 import { UserComponent } from './ui/navbar/user/user.component';
 import { MediaQueryDirective } from './ui/media-query/media-query.directive';
 import { FooterComponent } from './ui/footer/footer.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { ListComponent } from './ui/frame/list/list.component';
+
 
 @NgModule({
 	declarations: [
@@ -62,7 +67,6 @@ import { FooterComponent } from './ui/footer/footer.component';
 		ProdutoListaComponent,
 		IconComponent,
 		ProdutoCadastroComponent,
-		PedidoComponent,
 		FornecedorCadastroComponent,
 		FornecedorListaComponent,
 		UsuarioCadastroComponent,
@@ -76,7 +80,11 @@ import { FooterComponent } from './ui/footer/footer.component';
 		FullscreenDialogComponent,
 		UserComponent,
 		MediaQueryDirective,
-		FooterComponent
+		FooterComponent,
+		PedidoCadastroComponent,
+		PedidoListaComponent,
+		DashboardComponent,
+		ListComponent
 	],
 	entryComponents: [
 		AuthDialogComponent,
@@ -106,7 +114,11 @@ import { FooterComponent } from './ui/footer/footer.component';
 		MatSidenavModule,
 		MatListModule,
 		MatDialogModule,
-		MatMenuModule
+		MatMenuModule,
+		MatExpansionModule,
+		MatStepperModule,
+		MatButtonToggleModule,
+		MatGridListModule
 	],
 	providers: [
 		MyErrorStateMatcherProvider,

@@ -19,8 +19,11 @@
 		<img class='logo pointer' src="assets/logo/logo-navbar-white.png" alt="logo white edp" routerLink='/'>
 		<h1 class='example-app-name pointer' routerLink='/' >Emissor de Pedidos</h1>
 		<span class="fill-space"></span>
+		<button mat-icon-button routerLink='/pedido/novo'>
+			<app-icon aria-label="Criar um novo Pedido" name='add_shopping_cart' color='white' label='Novo Pedido'></app-icon>
+		</button>
 		<button mat-icon-button routerLink='/pedido'>
-			<app-icon aria-label="Abrir a tela de Pedidos" name='add_shopping_cart' color='white' label='pedido'></app-icon>
+			<app-icon aria-label="Abrir a tela de Pedidos" name='assignment' color='white' label='Pedido'></app-icon>
 		</button>
 		<button mat-icon-button routerLink='/fornecedor'>
 			<app-icon aria-label="Abrir a tela de Fornecedor" name='business' color='white' label='fornecedor'></app-icon>
@@ -44,8 +47,12 @@
 		<mat-sidenav #snav [mode]="media.isMobile() ? 'over' : 'side'"	[fixedInViewport]="media.isMobile()" fixedTopGap="57">
 			<mat-nav-list class='no-padding' (click)='snav.toggle()' *ngIf='guard.isLogged()'>
 				<ui-navbar-user class="item card no-radius"></ui-navbar-user>
+				<a class='item' mat-list-item routerLink='/pedido/novo'>
+					<app-icon class='icon' aria-label="Criar um novo Pedido" name='add_shopping_cart' color='black'  label='Novo Pedido'></app-icon>Novo Pedido
+				</a>
+				<mat-divider></mat-divider>
 				<a class='item' mat-list-item routerLink='/pedido' >
-					<app-icon Class='icon' aria-label="Abrir a tela de Pedidos" name='add_shopping_cart' color='black' label='pedido'></app-icon>Pedido
+					<app-icon class='icon' aria-label="Abrir a tela de Pedidos" name='assignment' color='black' label='Pedido'></app-icon>Pedidos
 				</a>
 				<mat-divider></mat-divider>
 				<a class='item' mat-list-item routerLink='/fornecedor'>

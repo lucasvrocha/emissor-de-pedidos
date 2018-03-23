@@ -11,23 +11,6 @@
 	line-height: 1.4 !important;
 }
 
-.fill-space {
-  /* This fills the remaining space, by using flexbox. 
-  Every toolbar row uses a flexbox row layout. */
-  flex: 1 1 auto;
-}
-
-.hidden { 
-	visibility: hidden;
-}
-
-
-.pointer {
-	cursor: pointer;
-}
-
-
-/* Set a background color */
 body, html {
 	height: 100%;
 	margin: 0;
@@ -51,6 +34,60 @@ button{
 	align-items: center;
 }
 
+svg {
+	fill : inherit !important;
+	opacity: inherit !important;
+}
+
+svg:hover {
+	opacity: 1 !important;
+}
+
+.sqr-20 {
+	height: 20px !important ;
+	width: 20px !important;
+}
+
+.sqr .mat-icon {
+	height: inherit !important;
+	width: inherit !important;
+}
+
+.full-width {
+  width: 100% !important ;
+}
+
+.t-right{
+	text-align: right !important;
+}
+
+.t-left {
+	text-align: left !important;
+}
+
+.t-center {
+	text-align: center !important;
+}
+.fill-space {
+  flex: 1 1 auto;
+}
+
+.hidden { 
+	visibility: hidden;
+}
+
+.f-1{
+	font-size: 1rem;
+}
+.f-09{
+	font-size: 0.9rem;
+}
+.f-08{
+	font-size: 0.8rem;
+}
+.pointer {
+	cursor: pointer;
+}
 
 .table {
 	margin-bottom: 0rem !important;
@@ -68,13 +105,17 @@ button{
 }
 
 .mat-menu-content {
-    padding-top: 0px !important;
-    padding-bottom: 0px !important;
+	padding-top: 0px !important;
+	padding-bottom: 0px !important;
+}
+
+.padding-top-1{
+	padding-top: 1rem;
 }
 
 .no-radius { 
 	border-radius: 0px !important;
- }
+}
 
 .no-margin {
 	margin : 0px !important ;
@@ -83,6 +124,19 @@ button{
 .no-padding {
 	padding: 0px !important ;
 }
+
+.no-padding-vertical{
+	padding-top: 0px !important;
+	padding-bottom: 0px !important;
+}
+
+.line {
+	white-space: nowrap !important; 
+    overflow: hidden!important;
+    text-overflow: ellipsis!important; 
+
+}
+
 
 @media screen and (min-width: 600px){
 	.scrollbar {

@@ -7,12 +7,16 @@ import { environment  as env} from '../../environments/environment';
 
 @Injectable()
 export class ProdutoService {
+	private href = env.api + '/produto';
 
 	constructor(private http: HttpClient) { }
 
+	getProdutos() : Observable<Produto[]> {
+		return this.http.get<Produto[]>(this.href);
+	}
+
 	getRepoIssues(sort: string, order: string, page: number): Observable<DataGrid<Produto>> {
-		const href = env.api + '/produto';
-		const requestUrl = `${href}?q=repo:angular/material2&sort=${sort}&order=${order}&page=${page + 1}`;
+		const requestUrl = `${this.href}?q=repo:angular/material2&sort=${sort}&order=${order}&page=${page + 1}`;
 		return this.http.get<DataGrid<Produto>>(requestUrl);
 	}
 

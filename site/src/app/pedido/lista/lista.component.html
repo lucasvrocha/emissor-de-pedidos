@@ -1,0 +1,59 @@
+<ui-frame-list class='frame-list' [model]='frameListModel' media-query #media='media' >
+	<mat-accordion class="headers-align">
+		<mat-expansion-panel  *ngFor='let p of pedidos;let i = index' hideToggle="true" [expanded]="panel === i" (opened)="setPanel(i)">
+			<mat-expansion-panel-header [ngClass]="{'painel-is-opened': panel===i}" >
+				<mat-panel-title class='title line'>		
+					<app-icon class='icon' [icon]='getIcon(p.status)'></app-icon>
+					<div class='line'>
+						{{p.destinatario ? p.destinatario : 'Venda feita no balcão'}}
+						<br>
+						<div class='sub-line'>#{{p.id}} - {{p.status}}</div>
+					</div>
+				</mat-panel-title>
+				<mat-panel-description class='description' >
+					<span>{{p.tipo}}<br>{{getTotal(p.itens) | currency :'R$ '}}</span>
+				</mat-panel-description>
+			</mat-expansion-panel-header>
+
+			<div class="item-container ">
+				<mat-table  [dataSource]="p.itens">
+					<ng-container matColumnDef="descricao">
+						<mat-header-cell *matHeaderCellDef> <strong>Produtos</strong> </mat-header-cell>
+						<mat-cell *matCellDef="let element"> {{element.descricao}} </mat-cell>
+					</ng-container>
+					<ng-container matColumnDef="qtd">
+						<mat-header-cell *matHeaderCellDef> QTD </mat-header-cell>
+						<mat-cell *matCellDef="let element"> {{element.qtd}} </mat-cell>
+					</ng-container>
+					<ng-container matColumnDef="valor">
+						<mat-header-cell *matHeaderCellDef> R$ </mat-header-cell>
+						<mat-cell *matCellDef="let element"> {{element.valor | currency: 'R$ '}} </mat-cell>
+					</ng-container>
+					<ng-container matColumnDef="total">
+						<mat-header-cell *matHeaderCellDef> Total R$ </mat-header-cell>
+						<mat-cell *matCellDef="let element"> {{element.qtd * element.valor | currency: 'R$ '}} </mat-cell>
+					</ng-container>
+					<mat-header-row *matHeaderRowDef="itemColumns"></mat-header-row>
+					<mat-row  class='row' *matRowDef="let row; columns: itemColumns;"></mat-row>
+				</mat-table>
+
+				<span *ngIf='p.pagamentos' class='pagamento-table'>
+					<mat-table class=''  [dataSource]="p.pagamentos">
+						<ng-container matColumnDef="especie">
+							<mat-header-cell *matHeaderCellDef> <strong>Pagamentos</strong></mat-header-cell>
+							<mat-cell *matCellDef="let element"> {{element.especie}} </mat-cell>
+						</ng-container>
+						<ng-container matColumnDef="valor">
+							<mat-header-cell *matHeaderCellDef> Valo	r </mat-header-cell>
+							<mat-cell *matCellDef="let element"> {{element.valor | currency :" R$ "}} </mat-cell>
+						</ng-container>
+
+						<mat-header-row *matHeaderRowDef="pagamentoColumns"></mat-header-row>
+						<mat-row  class='row' *matRowDef="let row; columns: pagamentoColumns;"></mat-row>
+					</mat-table>
+				</span>
+			</div>
+
+		</mat-expansion-panel>
+	</mat-accordion>
+</ui-frame-list>

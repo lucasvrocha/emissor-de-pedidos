@@ -1,0 +1,6 @@
+<app-toolbar  [model]='model.toolbar' ></app-toolbar>
+<div class="content-full-height"  [class.is-mobile]="media.isMobile()"  media-query #media='media'>
+	<div class="container mat-elevation-z4 scrollbar">
+		<ng-content></ng-content>
+	</div>
+</div>	

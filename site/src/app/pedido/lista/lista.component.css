@@ -1,0 +1,111 @@
+ * {
+	font-size: 0.8rem;
+}
+
+.headers-align .mat-expansion-panel-header-title, 
+.headers-align .mat-expansion-panel-header-description {
+}
+
+.headers-align .mat-expansion-panel-header-title{
+	text-align: left;
+}
+
+.headers-align .mat-expansion-panel-header-description {
+	align-items: center;
+	margin: 0px;
+	text-align: right;
+	flex-basis: 0;
+}
+
+.title {
+	align-items: center;
+	width: 100%;
+}
+
+.title .icon {
+	padding-right: 10px;
+}
+
+.title .sub-line{
+	font-size: 0.8rem;
+	font-weight: 500;
+	font-style: italic;
+	color: rgba(0,0,0,0.4);
+}
+
+.description { 
+	white-space: nowrap;
+    
+	text-align: right;
+	font-size: 0.8rem;
+	font-weight: 500;
+	text-transform: uppercase;
+	font-style: italic;
+}
+
+.painel-is-opened,
+.painel-is-opened:hover 
+{
+	background-color: rgba(0,0,0,0.035) !important;
+}
+
+.is-mobile {
+	padding-right: 12px;
+	padding-left: 12px;
+}
+
+
+.item-container {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.8rem;
+}
+
+.item-container .mat-header-row ,
+.item-container .mat-row {
+	font-size: 0.8rem;
+} 
+
+.mat-header-row{
+	height: 36px;
+	padding: 0px 10px;
+}
+
+.mat-row , .mat-header-row { 
+	text-align: center;
+	padding: 10px 0px;
+	min-height: 0px;
+	margin-left: 0px;
+	margin-right: 0px; 
+}
+
+.mat-table {
+	width: 100%;
+}
+
+.mat-column-descricao{
+	text-align: left;
+	text-transform: capitalize;
+	width: 100% ;
+	min-width: 116px ;
+}
+
+.mat-column-qtd{
+	max-width: 80px;
+} 
+.mat-column-valor,
+.mat-column-total {
+  max-width: 110px;
+}
+
+.pagamento-table {
+	text-align: left;
+	margin-top: 25px;
+	max-width: 400px;
+}
+
+.mat-column-especie {
+	text-align: left;
+	text-transform: capitalize;
+}
+

@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatIconRegistry } from '@angular/material';
+import { IconModel } from './icon.model';
 
 @Component({
 	moduleId: module.id,
@@ -9,24 +10,29 @@ import { MatIconRegistry } from '@angular/material';
 	styleUrls: ['./icon.component.css']
 })
 export class IconComponent implements OnInit {
+	@Input() icon: IconModel = undefined;
 
-	@Input() name: string = 'default';
+	@Input() name: string = undefined;
 	@Input() color: string = 'black';
-	@Input() size: Number = 24;
+	@Input() size: number = 24;
+	@Input() opacity: number = 0.8;
 
 	fullName: string;
 
-	constructor(private iconRegistry: MatIconRegistry,private sanitizer: DomSanitizer) {
+	constructor(private iconRegistry: MatIconRegistry, private sanitizer: DomSanitizer) {
 	}
 
 	ngOnInit() {
-		this.fullName = this.name + '_' + this.color + '_' + this.size;
-		this.iconRegistry.addSvgIcon(
-			this.fullName,
-			this.sanitizer.bypassSecurityTrustResourceUrl('assets/icon/ic_warning_black_24px.svg'));
+		if (this.icon && this.icon.name)
+			this.name = this.icon.name;
+		if (this.icon && this.icon.color)
+			this.color = this.icon.color
+		if (this.icon && this.icon.size)
+			this.size = this.icon.size;
+
+		this.fullName = this.name + '_black_' + this.size;
 		this.iconRegistry.addSvgIcon(
 			this.fullName,
 			this.sanitizer.bypassSecurityTrustResourceUrl('assets/icon/ic_' + this.fullName + 'px.svg'));
 	}
-
 }

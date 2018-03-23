@@ -1,0 +1,144 @@
+<ui-frame-list  [model]='frame' media-query #media='media'  >
+	<mat-horizontal-stepper  [linear]="true" #stepper="matHorizontalStepper">
+		<ng-template matStepperIcon="edit">
+			<app-icon [icon]='{name:"edit", color: "white", size:18, opacity: 1}'></app-icon>
+		</ng-template>
+		<ng-template matStepperIcon="done">
+			<app-icon [icon]='{name:"done", color: "white", size:16, opacity: 1}'></app-icon>
+		</ng-template>
+		<mat-step   [stepControl]="firstFormGroup">
+			<div class='first-content'>
+				<ng-template  matStepLabel>{{group.value}}</ng-template>
+				<mat-button-toggle-group #group="matButtonToggleGroup" vertical >
+					<mat-button-toggle value="venda">
+						<button class='btn-tipo' matStepperNext (click)='group.value="venda"'  mat-raised-button color="primary">Venda</button>
+					</mat-button-toggle>
+					<mat-button-toggle value="compra">
+						<button class='btn-tipo' matStepperNext (click)='group.value="compra"' mat-raised-button>Compra</button>
+					</mat-button-toggle>
+					<mat-button-toggle value="devolucao" >
+						<button class='btn-tipo' matStepperNext (click)='group.value="devolucao"' mat-raised-button color="accent">Devolução</button>
+					</mat-button-toggle>
+				</mat-button-toggle-group>
+			</div>
+		</mat-step>
+
+
+		<mat-step [stepControl]="secondFormGroup">
+			<ng-template matStepLabel>Itens</ng-template>
+			<div>
+				<mat-card class='card-produto' *ngFor='let p of produtos'>
+					<mat-grid-list cols="5" rowHeight="50px">
+						<mat-grid-tile class='card-item' [colspan]="3" [rowspan]="2">
+							<img mat-card-avatar src="/assets/logo/logo-navbar-white.png" class="img" alt="Foto do produto {{p.descritivo}}">
+							<div class='descricao'>
+								#{{p.id}} - {{p.descritivo}}
+							</div>
+						</mat-grid-tile>
+						<mat-grid-tile class='card-basket' [colspan]="2" [rowspan]="2">
+							<div>
+								<p [style.color]='estoque(p)<=0?"red":"inherit"'> Estoque: {{estoque(p)}} </p> 
+								<p>Quantidade: {{basket(p)}} </p>
+								<p class='preco'>{{p.preco | currency : 'R$ '}}</p>
+							</div>
+						</mat-grid-tile>
+						<mat-grid-tile class='card-total' [colspan]="3" [rowspan]="1">
+							{{total(p) | currency : 'R$ '}}
+						</mat-grid-tile>
+						<mat-grid-tile class='card-action' [colspan]="2" [rowspan]="1">
+							<div class='removse'>
+								<button mat-icon-button [disabled]='basket(p)<=0' (click)='remove(p)'> <app-icon name='remove' [color]='basket(p)<=0?"grey":"red"' opacity=1></app-icon></button>
+							</div>
+							<div class='adds'>
+								<button mat-icon-button [disabled]='estoque(p)<=0' (click)='add(p)'> <app-icon name='add' [color]='estoque(p)<=0?"grey":"green"' opacity=1></app-icon></button>
+							</div>
+						</mat-grid-tile>
+					</mat-grid-list>								
+				</mat-card>
+			</div>
+		</mat-step>
+
+
+		<mat-step>
+			<ng-template matStepLabel>Pagamento</ng-template>
+			<div class='finalizacao-content'>
+				<p class='f-09'>Escolha abaixo a forma de pagamento</p>
+				<mat-accordion>
+					<mat-expansion-panel>
+						<mat-expansion-panel-header>
+							<mat-panel-title class='panel-title'  [class.is-mobile.panel-title]='media.isMobile()'>
+								<app-icon name='attach_money'></app-icon>
+								<ng-container *ngIf='!media.isMobile()'><strong>Dinheiro</strong></ng-container>
+							</mat-panel-title>
+							<mat-panel-description class='panel-description'>
+								<ng-container *ngIf='media.isMobile()'>Dinheiro {{pagamentos.dinheiro | currency : 'R$ '}}
+								</ng-container>
+							</mat-panel-description>
+						</mat-expansion-panel-header>
+
+						<mat-form-field>
+							<input matInput type='number' placeholder="Valor" [(ngModel)]='pagamentos.dinheiro'>
+						</mat-form-field>
+						<app-icon name='add'></app-icon>
+						<p>Restam {{ totalBasket() - totalPagamentos() | currency : "R$ "}}</p>
+					</mat-expansion-panel>
+					<mat-expansion-panel>
+						<mat-expansion-panel-header>
+							<mat-panel-title class='panel-title'  [class.is-mobile.panel-title]='media.isMobile()'>
+								<app-icon name='credit_card'></app-icon>
+								<ng-container *ngIf='!media.isMobile()'><strong>Cartão de Crédito</strong></ng-container>
+							</mat-panel-title>
+							<mat-panel-description class='panel-description'*ngIf='pagamentos.cartao.valor <= 0'>
+								Parcelamento em até 10x
+							</mat-panel-description>
+							<mat-panel-description class='panel-description' *ngIf='pagamentos.cartao.valor > 0'>
+								Parcelado {{pagamentos.cartao.valor | currency : 'R$ '}} em {{pagamentos.cartao.parcelas}} vezes
+							</mat-panel-description>
+
+
+						</mat-expansion-panel-header>
+
+						<table class="" cellspacing="0"><tr>
+							<td><mat-form-field class="full-width">
+								<input matInput placeholder="Valor" [(ngModel)]='pagamentos.cartao.valor'>
+							</mat-form-field></td>
+							<td><mat-form-field class="full-width">
+								<mat-select type='number' placeholder="Parcela" [(ngModel)]='pagamentos.cartao.parcelas'>
+									<mat-option *ngFor="let parcela of parcelas" [value]="parcela.value">
+										{{ parcela.viewValue }}
+									</mat-option>
+								</mat-select>
+							</mat-form-field></td>
+							<td><app-icon name='add'></app-icon></td>
+						</tr></table>
+
+						<p>Restam {{ totalBasket() - totalPagamentos() | currency : "R$ "}}</p>
+
+					</mat-expansion-panel>
+				</mat-accordion>
+				<div class='pagamentos f-08 t-left'>
+					<mat-card class=''>
+						<table class="full-width " cellspacing="0"><tr>
+							<td class='f-1'>
+								<p>A Pagar: {{totalBasket() | currency : 'R$ '}}</p>
+								<p>A Receber: {{totalPagamentos() | currency : 'R$ '}}</p>
+								<p>Restam:<b> {{ totalBasket() - totalPagamentos() | currency : "R$ "}}</b></p>
+							</td>
+							<td>
+							</td>
+						</tr></table>
+						<mat-divider></mat-divider>
+
+						<div class='full-width t-center action-form'>
+							<button mat-button matStepperPrevious>Voltar</button>
+							<button mat-raised-button color="primary" routerLink='../' >Finalizar</button>
+						</div>
+					</mat-card>
+				</div>
+			</div>
+		</mat-step>
+	</mat-horizontal-stepper>
+
+</ui-frame-list>
+
+

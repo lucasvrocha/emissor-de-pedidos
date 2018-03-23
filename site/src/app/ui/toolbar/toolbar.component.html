@@ -1,17 +1,17 @@
 <div class='background' color='secondary'>
 	<mat-toolbar class="container " role="header" color="secondary">
 		<button mat-icon-button routerLink='../'>
-			<app-icon name='keyboard_backspace' color='black' label='voltar'></app-icon>
+			<app-icon [icon]='model.back.icon' label='voltar'></app-icon>
 		</button>
 		<button mat-icon-button>
-			<app-icon name='{{iconName}}' color='{{iconColor}}' size={{iconSize}}></app-icon>
+			<app-icon [icon]='model.title.icon'></app-icon>
 		</button>
-		<h2>{{title}}</h2>
+		<h2>{{model.title.description}}</h2>
 		<!-- This fills the remaining space of the current row -->
 		<span class="fill-space"></span>
 		<!-- 	<app-icon  *ngIf="save" name='save' color='black'></app-icon>	 -->
-		<button *ngIf="add" mat-icon-button routerLink='./novo'>
-			<app-icon name='add_box'></app-icon>	
+		<button *ngIf="model.forward" mat-icon-button routerLink='{{model.forward.url}}'>
+			<app-icon [icon]='model.forward.icon'></app-icon>	
 		</button>
 	</mat-toolbar>
 </div>
