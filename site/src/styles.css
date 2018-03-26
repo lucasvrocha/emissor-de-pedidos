@@ -130,6 +130,10 @@ svg:hover {
 	padding-bottom: 0px !important;
 }
 
+.no-visible {
+	visibility: hidden;
+}
+
 .line {
 	white-space: nowrap !important; 
     overflow: hidden!important;

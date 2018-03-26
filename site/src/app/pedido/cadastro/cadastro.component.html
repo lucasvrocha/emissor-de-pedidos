@@ -8,7 +8,15 @@
 		</ng-template>
 		<mat-step   [stepControl]="firstFormGroup">
 			<div class='first-content'>
-				<ng-template  matStepLabel>{{group.value}}</ng-template>
+				<ng-template  matStepLabel>
+					<span class='title'>
+						<ng-container *ngIf='group.value'>{{group.value}}</ng-container>
+						<ng-container *ngIf='!group.value'>Tipo de Pedido</ng-container>
+					</span>
+
+				</ng-template>
+				<p>Escolha o tipo de pedido</p>
+				<br>
 				<mat-button-toggle-group #group="matButtonToggleGroup" vertical >
 					<mat-button-toggle value="venda">
 						<button class='btn-tipo' matStepperNext (click)='group.value="venda"'  mat-raised-button color="primary">Venda</button>
@@ -25,8 +33,8 @@
 
 
 		<mat-step [stepControl]="secondFormGroup">
-			<ng-template matStepLabel>Itens</ng-template>
-			<div>
+			<ng-template matStepLabel><span class='title'>Itens</span></ng-template>
+			<div class='list-produto' >
 				<mat-card class='card-produto' *ngFor='let p of produtos'>
 					<mat-grid-list cols="5" rowHeight="50px">
 						<mat-grid-tile class='card-item' [colspan]="3" [rowspan]="2">
@@ -55,12 +63,13 @@
 						</mat-grid-tile>
 					</mat-grid-list>								
 				</mat-card>
+				<mat-card class='card-produto no-visible '></mat-card>
 			</div>
 		</mat-step>
 
 
 		<mat-step>
-			<ng-template matStepLabel>Pagamento</ng-template>
+			<ng-template matStepLabel><span class='title'>Pagamento</span></ng-template>
 			<div class='finalizacao-content'>
 				<p class='f-09'>Escolha abaixo a forma de pagamento</p>
 				<mat-accordion>
@@ -71,7 +80,7 @@
 								<ng-container *ngIf='!media.isMobile()'><strong>Dinheiro</strong></ng-container>
 							</mat-panel-title>
 							<mat-panel-description class='panel-description'>
-								<ng-container *ngIf='media.isMobile()'>Dinheiro {{pagamentos.dinheiro | currency : 'R$ '}}
+								<ng-container *ngIf='media.isMobile()'>Dinheiro<strong *ngIf='pagamentos.dinheiro>0'>: {{pagamentos.dinheiro | currency : 'R$ '}}</strong>
 								</ng-container>
 							</mat-panel-description>
 						</mat-expansion-panel-header>
@@ -80,30 +89,26 @@
 							<input matInput type='number' placeholder="Valor" [(ngModel)]='pagamentos.dinheiro'>
 						</mat-form-field>
 						<app-icon name='add'></app-icon>
-						<p>Restam {{ totalBasket() - totalPagamentos() | currency : "R$ "}}</p>
+						<p>Restam {{ totalReceber() | currency : "R$ "}}</p>
 					</mat-expansion-panel>
+
 					<mat-expansion-panel>
 						<mat-expansion-panel-header>
 							<mat-panel-title class='panel-title'  [class.is-mobile.panel-title]='media.isMobile()'>
 								<app-icon name='credit_card'></app-icon>
-								<ng-container *ngIf='!media.isMobile()'><strong>Cartão de Crédito</strong></ng-container>
+								<ng-container *ngIf='!media.isMobile()'><strong>Cartão de Débito</strong></ng-container>
 							</mat-panel-title>
-							<mat-panel-description class='panel-description'*ngIf='pagamentos.cartao.valor <= 0'>
-								Parcelamento em até 10x
+							<mat-panel-description class='panel-description'>
+								Débito<strong *ngIf='pagamentos.debito >0'>: {{pagamentos.debito | currency : "R$ "}}</strong>
 							</mat-panel-description>
-							<mat-panel-description class='panel-description' *ngIf='pagamentos.cartao.valor > 0'>
-								Parcelado {{pagamentos.cartao.valor | currency : 'R$ '}} em {{pagamentos.cartao.parcelas}} vezes
-							</mat-panel-description>
-
-
+							
 						</mat-expansion-panel-header>
-
 						<table class="" cellspacing="0"><tr>
 							<td><mat-form-field class="full-width">
-								<input matInput placeholder="Valor" [(ngModel)]='pagamentos.cartao.valor'>
+								<input matInput type='number' placeholder="Valor" [(ngModel)]='pagamentos.credito.valor'>
 							</mat-form-field></td>
 							<td><mat-form-field class="full-width">
-								<mat-select type='number' placeholder="Parcela" [(ngModel)]='pagamentos.cartao.parcelas'>
+								<mat-select type='number' placeholder="Parcela" [(ngModel)]='pagamentos.credito.parcelas'>
 									<mat-option *ngFor="let parcela of parcelas" [value]="parcela.value">
 										{{ parcela.viewValue }}
 									</mat-option>
@@ -111,30 +116,74 @@
 							</mat-form-field></td>
 							<td><app-icon name='add'></app-icon></td>
 						</tr></table>
+						<p>Restam {{ totalReceber() | currency : "R$ "}}</p>
+					</mat-expansion-panel>
 
-						<p>Restam {{ totalBasket() - totalPagamentos() | currency : "R$ "}}</p>
+					<mat-expansion-panel>
+						<mat-expansion-panel-header>
+							<mat-panel-title class='panel-title'  [class.is-mobile.panel-title]='media.isMobile()'>
+								<app-icon name='credit_card'></app-icon>
+								<ng-container *ngIf='!media.isMobile()'><strong>Cartão de Crédito</strong></ng-container>
+							</mat-panel-title>
+							<mat-panel-description class='panel-description'*ngIf='pagamentos.credito.valor <= 0'>
+								Crédito em até 10x
+							</mat-panel-description>
+							<mat-panel-description class='panel-description' *ngIf='pagamentos.credito.valor > 0'>
+								Crédito {{pagamentos.credito.valor | currency : 'R$ '}} em {{pagamentos.credito.parcelas}} vezes
+							</mat-panel-description>
+						</mat-expansion-panel-header>
+						<table class="" cellspacing="0"><tr>
+							<td><mat-form-field class="full-width">
+								<input matInput type='number' placeholder="Valor" [(ngModel)]='pagamentos.credito.valor'>
+							</mat-form-field></td>
+							<td><mat-form-field class="full-width">
+								<mat-select type='number' placeholder="Parcela" [(ngModel)]='pagamentos.credito.parcelas'>
+									<mat-option *ngFor="let parcela of parcelas" [value]="parcela.value">
+										{{ parcela.viewValue }}
+									</mat-option>
+								</mat-select>
+							</mat-form-field></td>
+							<td><app-icon name='add'></app-icon></td>
+						</tr></table>
+						<p>Restam {{ totalReceber() | currency : "R$ "}}</p>
+					</mat-expansion-panel>
 
+					
+					<mat-expansion-panel>
+						<mat-expansion-panel-header>
+							<mat-panel-title class='panel-title'  [class.is-mobile.panel-title]='media.isMobile()'>
+								<app-icon name='done_all' [color]='totalReceber()>0?"red":"green"'></app-icon>
+								<ng-container *ngIf='!media.isMobile()'><strong>Finalização</strong></ng-container>
+							</mat-panel-title>
+							<mat-panel-description class='panel-description'*ngIf='totalReceber() >= 0'>
+								A Receber:&#160; <b> {{totalReceber() | currency : "R$ "}}</b>
+							</mat-panel-description>
+							<mat-panel-description class='panel-description'*ngIf='totalReceber() < 0'>
+								Troco:&#160;<b> {{totalReceber() | currency : "R$ "}}</b>
+							</mat-panel-description>
+
+						</mat-expansion-panel-header>
+						<div class='pagamentos f-08 t-left'>
+							
+								<table class="full-width " cellspacing="0"><tr>
+									<td class='f-1'>
+										<p>A Pagar: {{totalBasket() | currency : 'R$ '}}</p>
+										<p>A Receber: {{totalPagamentos() | currency : 'R$ '}}</p>
+										<p>Restam:<b> {{totalReceber() | currency : "R$ "}}</b></p>
+									</td>
+									<td>
+									</td>
+								</tr></table>
+								<mat-divider></mat-divider>
+
+								<div class='full-width t-center action-form'>
+									<button mat-button matStepperPrevious>Voltar</button>
+									<button mat-raised-button color="primary" routerLink='../' >Finalizar</button>
+								</div>
+							
+						</div>
 					</mat-expansion-panel>
 				</mat-accordion>
-				<div class='pagamentos f-08 t-left'>
-					<mat-card class=''>
-						<table class="full-width " cellspacing="0"><tr>
-							<td class='f-1'>
-								<p>A Pagar: {{totalBasket() | currency : 'R$ '}}</p>
-								<p>A Receber: {{totalPagamentos() | currency : 'R$ '}}</p>
-								<p>Restam:<b> {{ totalBasket() - totalPagamentos() | currency : "R$ "}}</b></p>
-							</td>
-							<td>
-							</td>
-						</tr></table>
-						<mat-divider></mat-divider>
-
-						<div class='full-width t-center action-form'>
-							<button mat-button matStepperPrevious>Voltar</button>
-							<button mat-raised-button color="primary" routerLink='../' >Finalizar</button>
-						</div>
-					</mat-card>
-				</div>
 			</div>
 		</mat-step>
 	</mat-horizontal-stepper>

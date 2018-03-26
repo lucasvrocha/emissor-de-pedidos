@@ -25,7 +25,8 @@ export class CadastroComponent implements OnInit {
 
 	pagamentos : Pagamentos = {
 		dinheiro : 0, 
-		cartao : {valor : 0, parcelas : 0}
+		debito : 0,
+		credito : {valor : 0, parcelas : 0}
 	}
 
 	parcelas = [
@@ -94,13 +95,17 @@ export class CadastroComponent implements OnInit {
 	}
 
 	totalPagamentos() {
-		return this.pagamentos.dinheiro  + this.pagamentos.cartao.valor;
+		return this.pagamentos.dinheiro  + this.pagamentos.credito.valor;
 	}
 
 	totalBasket() {
 		let soma = 0;
 		this.itensData.map(i => { soma += this.valorTotal(i) });
 		return soma;
+	}
+
+	totalReceber(){
+		return this.totalBasket() - this.totalPagamentos();
 	}
 
 	private valorTotal(i: DataItem) {
@@ -130,4 +135,4 @@ export class CadastroComponent implements OnInit {
 
 
 interface DataItem { codigo: number; descricao: string; qtd: number; valor: number };
-interface Pagamentos { dinheiro : number, cartao : {valor :number , parcelas : number}};
+interface Pagamentos { dinheiro : number, debito : number , credito : {valor :number , parcelas : number}};
