@@ -5,6 +5,7 @@
  */
 package hello;
 
+import java.io.Serializable;
 import org.springframework.boot.*;
 import org.springframework.boot.autoconfigure.*;
 import org.springframework.stereotype.*;
@@ -18,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
  import javax.persistence.Id;
 
 @Entity
-public class Fornecedor {
+public class Fornecedor implements Serializable {
     
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO) 
