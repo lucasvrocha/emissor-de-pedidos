@@ -3,7 +3,7 @@ export interface Pedido {
 	tipo: string;
 	itens: PedidoItem[];
 	pagamentos: PedidoPagamento[];
-	destinatario: string;
+	fornecedorId: number;
 	status: string;
 
 }

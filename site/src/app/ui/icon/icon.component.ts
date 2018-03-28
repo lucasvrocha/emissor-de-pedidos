@@ -40,7 +40,7 @@ export class IconComponent implements OnInit, OnChanges {
 	}
 
 	register(){
-		this.fullName = this.name + '_black_' + this.size;
+		this.fullName = this.name + '_black_' + 24;
 		this.iconRegistry.addSvgIcon(
 			this.fullName,
 			this.sanitizer.bypassSecurityTrustResourceUrl('assets/icon/ic_' + this.fullName + 'px.svg'));

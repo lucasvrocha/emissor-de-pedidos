@@ -12,6 +12,7 @@ import 'rxjs/add/operator/dematerialize';
 import { environment as env } from '../../../environments/environment';
 // --- mocks
 import { PRODUTO } from '../produto.mock';
+import { Produto } from '../../_model/produto.model';
 
 
 @Injectable()
@@ -33,7 +34,25 @@ export class ProdutoInterceptor implements HttpInterceptor {
 
         return Observable.of(null).mergeMap(() => {
             let response = null;
-            if (this.getProdutoPorId(request)) {
+            if (this.getProdutoDataGrid(request)) {
+                response = new HttpResponse({
+                    status: 200, body: {
+                        total: PRODUTO.length,
+                        items: PRODUTO
+                    }
+                });
+
+            }else if(this.getProdutoByFornecedor(request)){
+                 let urlParts = request.url.split('/');
+                let id = urlParts[urlParts.length - 1];
+                console.log("id",id);
+                let produto : Produto[]= null;
+                if (id !== undefined)
+                    produto = PRODUTO.filter(x => ''+x.fornecedorId === id );
+
+                response = new HttpResponse({status : 200 , body : produto });
+
+            }  else if (this.getProdutoPorId(request)) {
                 let urlParts = request.url.split('/');
                 let id = urlParts[urlParts.length - 1];
 
@@ -42,14 +61,6 @@ export class ProdutoInterceptor implements HttpInterceptor {
                     produto = PRODUTO.find(x => '' + x.id === id);
 
                 response = new HttpResponse({ status: produto === null ? 404 : 200, body: produto });
-            } else if (this.getProdutoDataGrid(request)) {
-                response = new HttpResponse({
-                    status: 200, body: {
-                        total: PRODUTO.length,
-                        items: PRODUTO
-                    }
-                });
-
             } else if (this.getProduto(request)) {
                 response = new HttpResponse({ status: 200, body: PRODUTO });
             }
@@ -69,9 +80,15 @@ export class ProdutoInterceptor implements HttpInterceptor {
     getProdutoDataGrid(request: HttpRequest<any>) {
         return this.getProduto(request) && request.url.indexOf('q=repo:angular/material2', 0) >= 0;
     }
+
     getProduto(request: HttpRequest<any>) {
         return (request.url.startsWith(this.api + '/produto') && request.method === 'GET');
     }
+
+    getProdutoByFornecedor(request: HttpRequest<any>) {
+        return (request.url.startsWith(this.api + '/produto/fornecedor/') && request.method === 'GET');
+    }
+
 
 
 

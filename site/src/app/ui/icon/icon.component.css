@@ -8,7 +8,11 @@
 .svg { 
 	opacity: 0.9;
 	display: flex;
+        height: inherit !important;
+    width: inherit !important;
 }
+
+
 
 .svg:hover {
 	opacity: 1;

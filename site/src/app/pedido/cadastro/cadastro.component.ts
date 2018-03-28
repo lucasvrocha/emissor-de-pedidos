@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatTableDataSource } from '@angular/material';
+
 import { ListModel } from '../../ui/frame';
 import { ToolbarBuilder } from '../../ui/toolbar';
 import { ProdutoService, Produto } from '../../produto';
+import { FornecedorService, Fornecedor } from '../../fornecedor';
+
 import { Pedido, PedidoItem, PedidoPagamento } from '../../_model/pedido.model';
 
 @Component({
@@ -10,7 +14,7 @@ import { Pedido, PedidoItem, PedidoPagamento } from '../../_model/pedido.model';
 	selector: 'app-cadastro',
 	templateUrl: './cadastro.component.html',
 	styleUrls: ['./cadastro.component.css', '../lista/lista.component.css'],
-	providers: [ToolbarBuilder, ProdutoService]
+	providers: [ToolbarBuilder, ProdutoService, FornecedorService]
 })
 export class CadastroComponent implements OnInit {
 	frame: ListModel;
@@ -19,35 +23,29 @@ export class CadastroComponent implements OnInit {
 	secondFormGroup: FormGroup;
 	thirdFormGroup: FormGroup;
 
+	dataSourceItens = new MatTableDataSource();
+	dataSourcePagamentos = new MatTableDataSource();
+
 	produtos: Produto[];
+	fornecedores: Fornecedor[];
 
 	itemColumns = ['descricao', 'qtd', 'valor', 'total'];
 	pagamentoColumns = ['especie', 'valor'];
 
-
 	pedido: Pedido = {
 		id: undefined,
 		tipo: undefined,
-		itens: [{id : 11, produtoId : 1, descricao: 'descricao do item 1' , valor : 1.99 , qtd : 1} ,
-			{id : 12, produtoId : 2, descricao: 'descricao do item 2' , valor : 2.50 , qtd : 2} ,
-			{id : 13, produtoId : 3, descricao: 'descricao do item 3' , valor : 3.00 , qtd : 3} ],
-		pagamentos: [
-			{ id: undefined, especie: 'dinheiro', parcelas: 0, valor: 0 },
-			{ id: undefined, especie: 'debito', parcelas: 0, valor: 0 },
-			{ id: undefined, especie: 'credito', parcelas: 0, valor: 0 }
-			],
-		destinatario: undefined,
+		itens: [],
+		pagamentos: [],
+		fornecedorId: undefined,
 		status: ""
 	};
 
-	pagamentos = {
-		dinheiro : this.pedido.pagamentos[0].valor,
-		debito : this.pedido.pagamentos[1].valor,
-		credito : {
-			valor : this.pedido.pagamentos[2].valor,
-			parcelas : this.pedido.pagamentos[2].parcelas
-		}
-	}
+	pagamentos: PedidoPagamento[] = [
+		{ id: undefined, especie: 'dinheiro', parcelas: 0, valor: 0 },
+		{ id: undefined, especie: 'debito', parcelas: 0, valor: 0 },
+		{ id: undefined, especie: 'credito', parcelas: 0, valor: 0 }
+	]
 
 	parcelas = [
 		{ value: 1, viewValue: '1x' },
@@ -65,7 +63,8 @@ export class CadastroComponent implements OnInit {
 	constructor(
 		private _formBuilder: FormBuilder,
 		private tb: ToolbarBuilder,
-		private produtoService: ProdutoService
+		private produtoService: ProdutoService,
+		private fornecedorService: FornecedorService
 	) { }
 
 	ngOnInit() {
@@ -77,11 +76,15 @@ export class CadastroComponent implements OnInit {
 		this.frame = {
 			title: 'Novo Pedido',
 			toolbar: this.tb
-				.withTitle({ description: 'Novo Pedido', icon: this.tb.icon('assignment').build() })
+				.withTitle({ description: 'Novo Pedido', icon: this.tb.icon('add_shopping_cart').build() })
 				.build()
 		};
 
-		this.produtoService.getProdutos().subscribe(produtos => this.produtos = produtos);
+		//this.produtoService.getProdutos(null).subscribe(produtos => { this.produtos = produtos });
+		this.fornecedorService.getFornecedores().subscribe(fornecedores => this.fornecedores = fornecedores);
+
+		this.dataSourceItens.data = this.pedido.itens;
+		this.dataSourcePagamentos.data = this.pedido.pagamentos;
 	}
 
 	estoque(produto: Produto) {
@@ -101,14 +104,36 @@ export class CadastroComponent implements OnInit {
 		} else {
 			this.pedido.itens.push(this.pipe(produto));
 		}
-		console.log("this.pedidos.iten", this.pedido.itens);
+		this.updateDataSourceItens();
 	}
 
 	remove(produto: Produto) {
 		let i = this.pedido.itens.filter(i => i.produtoId === produto.id);
 		for (let p of i) {
-			p.qtd <= 0 ? this.splice(p, this.pedido.itens) : p.qtd--;
+			p.qtd <= 0 ? this.splice(i, this.pedido.itens) : p.qtd--;
 		}
+		this.updateDataSourceItens();
+	}
+
+	updateProdutos() {
+		let param = this.pedido.tipo === 'venda' ? undefined : { fornecedorId: this.pedido.fornecedorId };
+
+		this.produtoService
+			.getProdutos(param)
+			.subscribe(produtos => {
+				console.log(produtos.length);
+				
+				this.produtos = produtos;
+				console.log(this.produtos);
+			});
+	}
+
+	updatePagamento() {
+		this.dataSourcePagamentos.data = this.pedido.pagamentos = this.pagamentos.filter(p => p.valor > 0);
+	}
+
+	updateDataSourceItens() {
+		this.dataSourceItens.data = this.pedido.itens.filter(i => i.qtd > 0);
 	}
 
 	total(produto: Produto) {
@@ -118,19 +143,19 @@ export class CadastroComponent implements OnInit {
 
 	totalPagamentos() {
 		let soma = 0;
-		this.pedido.pagamentos.map(p => soma +=p.valor);
+		this.pedido.pagamentos.map(p => soma += p.valor);
 		return soma;
 	}
 
 	totalBasket() {
-		let soma =0;
-		this.pedido.itens.map(i=>soma += i.valor * i.qtd);
+		let soma = 0;
+		this.pedido.itens.map(i => soma += i.valor * i.qtd);
 		return soma;
 	}
 
 	totalItens() {
-		let soma = 0; 
-		this.pedido.itens.map( i=> soma += i.qtd);
+		let soma = 0;
+		this.pedido.itens.map(i => soma += i.qtd);
 		return soma;
 	}
 
@@ -138,9 +163,9 @@ export class CadastroComponent implements OnInit {
 		return this.totalBasket() - this.totalPagamentos();
 	}
 
-	getPagamento( pagamento : string ){
-		let soma = 0 ;
-		this.pedido.pagamentos.map(p=>soma += p.especie === pagamento ? p.valor : 0);
+	getPagamento(pagamento: string) {
+		let soma = 0;
+		this.pedido.pagamentos.map(p => soma += p.especie === pagamento ? p.valor : 0);
 		return soma;
 	}
 

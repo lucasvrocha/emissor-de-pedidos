@@ -112,6 +112,10 @@ svg:hover {
 	padding-bottom: 0px !important;
 }
 
+.margin-auto{
+	margin: auto;
+}
+
 .padding-top-1{
 	padding-top: 1rem;
 }
