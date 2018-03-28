@@ -43,6 +43,8 @@ svg:hover {
 	opacity: 1 !important;
 }
 
+
+
 .sqr-20 {
 	height: 20px !important ;
 	width: 20px !important;
@@ -51,6 +53,7 @@ svg:hover {
 .sqr .mat-icon {
 	height: inherit !important;
 	width: inherit !important;
+	display: flex;
 }
 
 .full-width {
@@ -131,7 +134,7 @@ svg:hover {
 }
 
 .no-visible {
-	visibility: hidden;
+	visibility: hidden !important;
 }
 
 .line {

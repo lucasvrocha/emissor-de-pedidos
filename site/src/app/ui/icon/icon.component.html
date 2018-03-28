@@ -1,1 +1,9 @@
-<mat-icon class='icon center svg' [style.fill]='color' [style.opacity]='opacity' svgIcon={{fullName}}></mat-icon>
+<div *ngIf='iconContent' class='sub-icon' [style.height.px]='size*0.7' [style.width.px]='size*0.7'>
+	<mat-icon class='icon center svg' [style.fill]='color' [style.opacity]='1' svgIcon={{fullName}}>
+	</mat-icon>
+</div>
+
+<span *ngIf='!iconContent' style='display:inline-block;vertical-align: middle; position: relative;' [style.height.px]='size' [style.width.px]='size'>
+	<mat-icon class='icon center svg' [style.fill]='color' [style.opacity]='opacity' svgIcon={{fullName}}></mat-icon>
+	<ng-content></ng-content>
+</span>

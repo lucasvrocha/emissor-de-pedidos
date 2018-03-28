@@ -10,8 +10,8 @@ export const PEDIDOS: Pedido[] = [
 			{id : 13, produtoId : 3, descricao: 'descricao do item 3' , valor : 3.00 , qtd : 3} 
 		],
 		pagamentos: [
-			{id: 11 , valor: 5, especie : 'dinheiro', pagamentoId : 1},
-			{id: 12 , valor: 10.99, especie : 'dinheiro', pagamentoId : 1}
+			{id: 11 , valor: 5, especie : 'dinheiro' , parcelas : 0},
+			{id: 12 , valor: 10.99, especie : 'dinheiro', parcelas : 0}
 		],
 		destinatario : undefined,
 		status : "finalizado"
@@ -48,7 +48,7 @@ export const PEDIDOS: Pedido[] = [
 			{id : 43, produtoId : 3, descricao: 'descricao do item 3' , valor : 3.00 , qtd : 3} 
 		],
 		pagamentos: [
-			{id: 41 , valor: 15.99, especie : 'dinheiro', pagamentoId : 1}
+			{id: 41 , valor: 15.99, especie : 'dinheiro' , parcelas : 0}
 		],
 		destinatario: undefined,
 		status : "cancelado"

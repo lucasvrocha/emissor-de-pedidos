@@ -1,8 +1,25 @@
 export interface Pedido {
 	id: number;
 	tipo: string;
-	itens: { id: number, produtoId: number, descricao: string, qtd: number, valor: number }[];
-	pagamentos: { id: number, especie: string, pagamentoId: number, valor: number }[];
-	destinatario : string;
+	itens: PedidoItem[];
+	pagamentos: PedidoPagamento[];
+	destinatario: string;
 	status: string;
+
 }
+
+export interface PedidoItem {
+	id: number,
+	produtoId: number,
+	descricao: string,
+	qtd: number,
+	valor: number
+}
+
+export interface PedidoPagamento {
+	id: number,
+	especie: string,
+	parcelas : number;
+	valor: number
+}
+

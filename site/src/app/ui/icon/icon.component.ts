@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, OnChanges, Input } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatIconRegistry } from '@angular/material';
 import { IconModel } from './icon.model';
@@ -9,7 +9,7 @@ import { IconModel } from './icon.model';
 	templateUrl: './icon.component.html',
 	styleUrls: ['./icon.component.css']
 })
-export class IconComponent implements OnInit {
+export class IconComponent implements OnInit, OnChanges {
 	@Input() icon: IconModel = undefined;
 
 	@Input() name: string = undefined;
@@ -18,6 +18,8 @@ export class IconComponent implements OnInit {
 	@Input() opacity: number = 0.8;
 
 	fullName: string;
+
+	@Input() iconContent : boolean = false;
 
 	constructor(private iconRegistry: MatIconRegistry, private sanitizer: DomSanitizer) {
 	}
@@ -30,6 +32,14 @@ export class IconComponent implements OnInit {
 		if (this.icon && this.icon.size)
 			this.size = this.icon.size;
 
+		this.register();
+	}
+
+	ngOnChanges(){
+		this.register();
+	}
+
+	register(){
 		this.fullName = this.name + '_black_' + this.size;
 		this.iconRegistry.addSvgIcon(
 			this.fullName,

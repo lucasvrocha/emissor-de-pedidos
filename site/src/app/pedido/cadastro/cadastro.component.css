@@ -91,9 +91,17 @@ mat-form-field {
 	margin: auto;
 }
 
+.title-txt{
+	margin-left: 10px;
+}
+
+.is-mobile .card-produto {
+	margin : 3px;
+}
+
 .card-produto {
-	margin: 12px;
-	padding: 10px;
+	margin: 10px;
+	padding: 0px;
 	font-size: 0.8rem;
 	width: 100%;
 	max-width: 340px;
@@ -165,28 +173,35 @@ mat-form-field {
 	padding: 10px 5px;
 }
 
-
 .action-form{
 	padding: 10px 0px;
 }
 
-.panel-title{
-
-}
-
-
-
 .is-mobile.panel-title {
-	width: 50px;
 	padding: 0px;
 	margin: 0px;
 	flex-grow: 0;
 }
 
 
-
-.panel-description{
+.panel-title{
+	text-transform: capitalize;
 	text-align: left;
+}
+.panel-title strong{
+	margin-left: 10px
+}
+
+
+.panel-description {
+	display: inline-block;
+	text-align: left;
+	margin-left: 10px;
+}
+
+.panel-title:first-letter,
+.panel-description:first-letter{
+	text-transform: capitalize;
 }
 
 

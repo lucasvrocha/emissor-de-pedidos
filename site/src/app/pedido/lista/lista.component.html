@@ -1,5 +1,5 @@
 <ui-frame-list class='frame-list' [model]='frameListModel' media-query #media='media' >
-	<mat-accordion class="headers-align">
+	<mat-accordion class="body headers-align">
 		<mat-expansion-panel  *ngFor='let p of pedidos;let i = index' hideToggle="true" [expanded]="panel === i" (opened)="setPanel(i)">
 			<mat-expansion-panel-header [ngClass]="{'painel-is-opened': panel===i}" >
 				<mat-panel-title class='title line'>		
