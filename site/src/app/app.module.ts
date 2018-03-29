@@ -1,8 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule} from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
+import { MediaMatcher } from '@angular/cdk/layout';
+
 
 import { CurrencyMaskModule } from "ng2-currency-mask";
 import { CurrencyMaskConfig, CURRENCY_MASK_CONFIG } from "ng2-currency-mask/src/currency-mask.config";
@@ -26,7 +28,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatExpansionModule } from '@angular/material/expansion';
-import { MatStepperModule } from '@angular/material/stepper';
+import { MatStepperModule, MatStepper } from '@angular/material/stepper';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatGridListModule } from '@angular/material/grid-list';
 
@@ -79,7 +81,7 @@ import { ListComponent } from './ui/frame/list/list.component';
 		AlertComponent,
 		AuthDialogComponent,
 		SpinerComponent,
-		FullscreenDirective,
+		FullscreenDirective,	
 		FullscreenDialogComponent,
 		UserComponent,
 		MediaQueryDirective,
@@ -130,6 +132,7 @@ import { ListComponent } from './ui/frame/list/list.component';
 		AuthGuard,
 		AlertService,
 		AuthenticationService,
+		MatStepper,
 		FakeBackendProvider,
 		{
 			provide: CURRENCY_MASK_CONFIG, useValue: {

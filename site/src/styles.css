@@ -116,6 +116,10 @@ svg:hover {
 	margin: auto;
 }
 
+.inherit-all {
+	all:inherit !important;
+}
+
 .padding-top-1{
 	padding-top: 1rem;
 }

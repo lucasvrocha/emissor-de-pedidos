@@ -1,9 +1,10 @@
-import { ChangeDetectorRef, Directive, OnDestroy } from '@angular/core';
+import { ChangeDetectorRef, Directive, OnDestroy , Injectable,  Self} from '@angular/core';
 import { MediaMatcher } from '@angular/cdk/layout';
-
+@Injectable()
 @Directive({
 	selector: '[media-query]',
-	exportAs : 'media'
+	exportAs : 'media',
+	providers : []
 })
 export class MediaQueryDirective implements OnDestroy {
 
@@ -11,8 +12,8 @@ export class MediaQueryDirective implements OnDestroy {
 	private _mobileQueryListener: () => void;
 
 	constructor(
-		changeDetectorRef: ChangeDetectorRef,
-		media: MediaMatcher
+		 changeDetectorRef: ChangeDetectorRef,
+		 media: MediaMatcher
 		) {
 		this.mobileQuery = media.matchMedia('(max-width: 599px)');
 		this._mobileQueryListener = () => changeDetectorRef.detectChanges();

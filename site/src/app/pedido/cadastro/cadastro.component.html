@@ -1,4 +1,25 @@
-<ui-frame-list  [model]='frame' media-query #media='media'  >
+<ui-frame-list  media-query #media='media'  >
+	<ng-container back> 
+		<button mat-icon-button routerLink='../'>
+			<app-icon name='arrow_back' label='voltar'></app-icon>
+		</button>
+	</ng-container>
+	<ng-container title>
+		<button mat-icon-button>
+			<app-icon [icon]='frame.toolbar.title.icon'></app-icon>
+		</button>
+		<h2>Novo Pedido</h2>
+	</ng-container>
+	<ng-container options>
+		<button mat-icon-button (click)='stepper.previous()'>
+			<app-icon name='keyboard_arrow_left'></app-icon>
+		</button>
+
+		<button mat-icon-button (click)='stepper.next()'>
+			<app-icon name='keyboard_arrow_right'></app-icon>
+		</button>
+	</ng-container>
+
 	<mat-horizontal-stepper  [linear]="true" #stepper="matHorizontalStepper">
 		<ng-template matStepperIcon="edit">
 			<app-icon [icon]='{name:"edit", color: "white", size:18, opacity: 1}'></app-icon>
@@ -211,7 +232,7 @@
 
 						<div class='full-width t-center action-form'>
 							<button mat-button matStepperPrevious>Voltar</button>
-							<button mat-raised-button color="primary" routerLink='/pedido' >Finalizar</button>
+							<button mat-raised-button color="primary" routerLink='../' >Finalizar</button>
 						</div>
 					</div>
 

@@ -14,19 +14,15 @@ export class ListComponent implements OnInit {
 
 	@Input() model: ListModel;
 
+	toolbar : ToolbarModel;
+
 	constructor(private tb: ToolbarBuilder) {
 	}
 
 	ngOnInit() {
-		console.log("this.model", this.model);
-		if (this.model===undefined)
-			this.model = {
-				title : undefined, 
-				toolbar : this.tb.build()
-			} ;
+		if (this.model!==undefined)
+			this.toolbar = this.model.toolbar;
 	}
 
-	setModel(model: ListModel) {
-		this.model = model;
-	}
+	
 }

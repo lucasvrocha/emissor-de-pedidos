@@ -37,14 +37,14 @@
 					<mat-row  class='row' *matRowDef="let row; columns: itemColumns;"></mat-row>
 				</mat-table>
 
-				<span *ngIf='p.pagamentos' class='pagamento-table'>
+				<span *ngIf='p.pagamentos' class='pagamento-table margin-auto'>
 					<mat-table class=''  [dataSource]="p.pagamentos">
 						<ng-container matColumnDef="especie">
-							<mat-header-cell *matHeaderCellDef> <strong>Pagamentos</strong></mat-header-cell>
+							<mat-header-cell *matHeaderCellDef><strong>Pagamentos</strong></mat-header-cell>
 							<mat-cell *matCellDef="let element"> {{element.especie}} </mat-cell>
 						</ng-container>
 						<ng-container matColumnDef="valor">
-							<mat-header-cell *matHeaderCellDef> Valo	r </mat-header-cell>
+							<mat-header-cell *matHeaderCellDef>Valor</mat-header-cell>
 							<mat-cell *matCellDef="let element"> {{element.valor | currency :" R$ "}} </mat-cell>
 						</ng-container>
 

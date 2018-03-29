@@ -18,7 +18,6 @@ export class AppComponent implements OnInit{
 	constructor(
 		public guard: AuthGuard,
 		public dialog : MatDialog
-
 	) { }
 
 	ngOnInit() {
