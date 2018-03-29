@@ -43,6 +43,8 @@ svg:hover {
 	opacity: 1 !important;
 }
 
+
+
 .sqr-20 {
 	height: 20px !important ;
 	width: 20px !important;
@@ -51,6 +53,7 @@ svg:hover {
 .sqr .mat-icon {
 	height: inherit !important;
 	width: inherit !important;
+	display: flex;
 }
 
 .full-width {
@@ -109,6 +112,14 @@ svg:hover {
 	padding-bottom: 0px !important;
 }
 
+.margin-auto{
+	margin: auto;
+}
+
+.inherit-all {
+	all:inherit !important;
+}
+
 .padding-top-1{
 	padding-top: 1rem;
 }
@@ -128,6 +139,10 @@ svg:hover {
 .no-padding-vertical{
 	padding-top: 0px !important;
 	padding-bottom: 0px !important;
+}
+
+.no-visible {
+	visibility: hidden !important;
 }
 
 .line {

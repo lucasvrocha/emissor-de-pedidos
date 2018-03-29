@@ -1,8 +1,13 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule} from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { CommonModule } from '@angular/common'
+import { CommonModule } from '@angular/common';
+import { MediaMatcher } from '@angular/cdk/layout';
+
+
+import { CurrencyMaskModule } from "ng2-currency-mask";
+import { CurrencyMaskConfig, CURRENCY_MASK_CONFIG } from "ng2-currency-mask/src/currency-mask.config";
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -23,9 +28,9 @@ import { MatListModule } from '@angular/material/list';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatExpansionModule } from '@angular/material/expansion';
-import { MatStepperModule } from '@angular/material/stepper';
-import {MatButtonToggleModule} from '@angular/material/button-toggle';
-import {MatGridListModule} from '@angular/material/grid-list';
+import { MatStepperModule, MatStepper } from '@angular/material/stepper';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -76,7 +81,7 @@ import { ListComponent } from './ui/frame/list/list.component';
 		AlertComponent,
 		AuthDialogComponent,
 		SpinerComponent,
-		FullscreenDirective,
+		FullscreenDirective,	
 		FullscreenDialogComponent,
 		UserComponent,
 		MediaQueryDirective,
@@ -97,6 +102,7 @@ import { ListComponent } from './ui/frame/list/list.component';
 		CommonModule,
 		AppRoutingModule,
 		FormsModule,
+		CurrencyMaskModule,
 		ReactiveFormsModule,
 		MatToolbarModule,
 		MatProgressBarModule,
@@ -126,7 +132,19 @@ import { ListComponent } from './ui/frame/list/list.component';
 		AuthGuard,
 		AlertService,
 		AuthenticationService,
-		FakeBackendProvider
+		MatStepper,
+		FakeBackendProvider,
+		{
+			provide: CURRENCY_MASK_CONFIG, useValue: {
+				align: "right",
+				allowNegative: true,
+				decimal: ",",
+				precision: 2,
+				prefix: "R$ ",
+				suffix: "",
+				thousands: "."
+			}
+		} 
 	],
 	bootstrap: [AppComponent]
 })

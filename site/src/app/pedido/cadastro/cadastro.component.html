@@ -1,4 +1,25 @@
-<ui-frame-list  [model]='frame' media-query #media='media'  >
+<ui-frame-list  media-query #media='media'  >
+	<ng-container back> 
+		<button mat-icon-button routerLink='../'>
+			<app-icon name='arrow_back' label='voltar'></app-icon>
+		</button>
+	</ng-container>
+	<ng-container title>
+		<button mat-icon-button>
+			<app-icon [icon]='frame.toolbar.title.icon'></app-icon>
+		</button>
+		<h2>Novo Pedido</h2>
+	</ng-container>
+	<ng-container options>
+		<button mat-icon-button (click)='stepper.previous()'>
+			<app-icon name='keyboard_arrow_left'></app-icon>
+		</button>
+
+		<button mat-icon-button (click)='stepper.next()'>
+			<app-icon name='keyboard_arrow_right'></app-icon>
+		</button>
+	</ng-container>
+
 	<mat-horizontal-stepper  [linear]="true" #stepper="matHorizontalStepper">
 		<ng-template matStepperIcon="edit">
 			<app-icon [icon]='{name:"edit", color: "white", size:18, opacity: 1}'></app-icon>
@@ -8,27 +29,56 @@
 		</ng-template>
 		<mat-step   [stepControl]="firstFormGroup">
 			<div class='first-content'>
-				<ng-template  matStepLabel>{{group.value}}</ng-template>
+				<ng-template  matStepLabel>
+					<span class='title'>
+						<ng-container *ngIf='group.value'>{{group.value}}</ng-container>
+						<ng-container *ngIf='!group.value'>Tipo de Pedido</ng-container>
+					</span>
+
+				</ng-template>
+				<p>Escolha o tipo de pedido</p>
+				<br>
 				<mat-button-toggle-group #group="matButtonToggleGroup" vertical >
 					<mat-button-toggle value="venda">
-						<button class='btn-tipo' matStepperNext (click)='group.value="venda"'  mat-raised-button color="primary">Venda</button>
+						<button class='btn-tipo' matStepperNext (click)='pedido.tipo=group.value="venda";updateProdutos();'  mat-raised-button color="primary">Venda</button>
 					</mat-button-toggle>
 					<mat-button-toggle value="compra">
-						<button class='btn-tipo' matStepperNext (click)='group.value="compra"' mat-raised-button>Compra</button>
+						<button class='btn-tipo' (click)='pedido.tipo=group.value="compra"' mat-raised-button>Compra</button>
 					</mat-button-toggle>
 					<mat-button-toggle value="devolucao" >
-						<button class='btn-tipo' matStepperNext (click)='group.value="devolucao"' mat-raised-button color="accent">Devolução</button>
+						<button class='btn-tipo' (click)='pedido.tipo=group.value="devolucao"' mat-raised-button color="accent">Devolução</button>
 					</mat-button-toggle>
 				</mat-button-toggle-group>
+				
+				<ng-container *ngIf='pedido.tipo && pedido.tipo!=="venda"'>
+					<br>
+					<br>
+					<p>Escolha um Fornecedor</p>
+					<mat-form-field class="full-width">
+						<mat-select type='text' placeholder="Fornecedor" [(ngModel)]='pedido.fornecedorId'>
+							<mat-option *ngFor="let fornecedor of fornecedores" [value]="fornecedor.id">
+								#{{fornecedor.id}} - {{ fornecedor.razao }}
+							</mat-option>
+						</mat-select>
+					</mat-form-field>
+					<button mat-raised-button [disabled]='!pedido.fornecedorId' color="primary" matStepperNext (click)='updateProdutos()'>Adicionar Produtos</button>
+				</ng-container>
+
 			</div>
 		</mat-step>
 
 
 		<mat-step [stepControl]="secondFormGroup">
-			<ng-template matStepLabel>Itens</ng-template>
-			<div>
-				<mat-card class='card-produto' *ngFor='let p of produtos'>
-					<mat-grid-list cols="5" rowHeight="50px">
+			<ng-template matStepLabel><span class='title'>Itens</span></ng-template>
+			<div class='list-produto' >
+				<ng-container *ngIf='!produtos || produtos.length == 0' >
+					<br>
+					Nenhum produto encontrado
+					<br><br>
+					<button mat-raised-button color="primary" matStepperPrevious>Voltar</button>
+				</ng-container>
+				<mat-card class='card-produto' [class.no-padding]='media.isMobile()' *ngFor='let p of produtos'>
+					<mat-grid-list cols="5" rowHeight="60px">
 						<mat-grid-tile class='card-item' [colspan]="3" [rowspan]="2">
 							<img mat-card-avatar src="/assets/logo/logo-navbar-white.png" class="img" alt="Foto do produto {{p.descritivo}}">
 							<div class='descricao'>
@@ -37,8 +87,9 @@
 						</mat-grid-tile>
 						<mat-grid-tile class='card-basket' [colspan]="2" [rowspan]="2">
 							<div>
-								<p [style.color]='estoque(p)<=0?"red":"inherit"'> Estoque: {{estoque(p)}} </p> 
-								<p>Quantidade: {{basket(p)}} </p>
+								<p [style.color]='estoque(p)<=0?"red":"inherit"'> Estoque: {{estoque(p)}}</p> 
+								<p [style.color]='estoque(p)<=p.quantidadeMinima?"red":"inherit"'> Est. Minimo: {{p.quantidadeMinima}} </p> 
+								<p class='quantidade'>Qtd: <b>{{basket(p)}}</b> </p>
 								<p class='preco'>{{p.preco | currency : 'R$ '}}</p>
 							</div>
 						</mat-grid-tile>
@@ -46,98 +97,150 @@
 							{{total(p) | currency : 'R$ '}}
 						</mat-grid-tile>
 						<mat-grid-tile class='card-action' [colspan]="2" [rowspan]="1">
-							<div class='removse'>
+							<div class=''>
 								<button mat-icon-button [disabled]='basket(p)<=0' (click)='remove(p)'> <app-icon name='remove' [color]='basket(p)<=0?"grey":"red"' opacity=1></app-icon></button>
 							</div>
-							<div class='adds'>
+							<div class=''>
 								<button mat-icon-button [disabled]='estoque(p)<=0' (click)='add(p)'> <app-icon name='add' [color]='estoque(p)<=0?"grey":"green"' opacity=1></app-icon></button>
 							</div>
 						</mat-grid-tile>
 					</mat-grid-list>								
 				</mat-card>
+				<mat-card class='card-produto no-visible '></mat-card>
 			</div>
 		</mat-step>
 
 
 		<mat-step>
-			<ng-template matStepLabel>Pagamento</ng-template>
+			<ng-template matStepLabel><span class='title'>{{pedido.tipo==="venda"? "Pagamento" : "Finalização"}}</span></ng-template>
+
 			<div class='finalizacao-content'>
-				<p class='f-09'>Escolha abaixo a forma de pagamento</p>
+				<p *ngIf='pedido.tipo==="venda"' class='f-09'>Escolha abaixo a forma de pagamento</p>
+				<p *ngIf='pedido.tipo!=="venda"' class='f-09'>Confira o pedido antes de finalizar</p>
 				<mat-accordion>
-					<mat-expansion-panel>
-						<mat-expansion-panel-header>
-							<mat-panel-title class='panel-title'  [class.is-mobile.panel-title]='media.isMobile()'>
-								<app-icon name='attach_money'></app-icon>
-								<ng-container *ngIf='!media.isMobile()'><strong>Dinheiro</strong></ng-container>
-							</mat-panel-title>
-							<mat-panel-description class='panel-description'>
-								<ng-container *ngIf='media.isMobile()'>Dinheiro {{pagamentos.dinheiro | currency : 'R$ '}}
+					<ng-container *ngIf='pedido.tipo==="venda"' >
+						<mat-expansion-panel *ngFor='let pagamento of pagamentos'>
+							<mat-expansion-panel-header>
+								<mat-panel-title class='panel-title'  [class.is-mobile.panel-title]='media.isMobile()'>
+									<app-icon [name]='pagamento.especie ==="dinheiro" ? "attach_money":"credit_card"'></app-icon>
+									<ng-container *ngIf='!media.isMobile()'><strong>{{pagamento.especie}}</strong></ng-container>
+								</mat-panel-title>
+								<mat-panel-description class='panel-description'>
+									<ng-container *ngIf='media.isMobile()'>{{pagamento.especie}}
+										<strong *ngIf='pagamento.valor>0'>: {{pagamento.valor | currency : 'R$ '}}</strong>
+										<ng-container *ngIf='pagamento.especie === "credito"'> 										<ng-container *ngIf='pagamento.parcelas == 0'> em até {{parcelas.length}} vezes</ng-container>
+										<ng-container *ngIf='pagamento.parcelas > 0'> em {{pagamento.parcelas}} x {{pagamento.valor/pagamento.parcelas | currency : "R$ "}}</ng-container>
+									</ng-container>
 								</ng-container>
 							</mat-panel-description>
 						</mat-expansion-panel-header>
 
-						<mat-form-field>
-							<input matInput type='number' placeholder="Valor" [(ngModel)]='pagamentos.dinheiro'>
-						</mat-form-field>
-						<app-icon name='add'></app-icon>
-						<p>Restam {{ totalBasket() - totalPagamentos() | currency : "R$ "}}</p>
+						<ng-container *ngIf='pagamento.especie !== "credito"'	>
+							<mat-form-field>
+								<span matPrefix>R$ &nbsp;</span>
+								<input matInput type='number'  step="0.01"  (keyup)="updatePagamento()"  placeholder="Valor" [(ngModel)]='pagamento.valor'>
+								<app-icon name='clear' matSuffix  (click)='pagamento.valor=0.00;updatePagamento()'></app-icon>
+							</mat-form-field>
+						</ng-container>
+						<ng-container *ngIf='pagamento.especie === "credito"'>
+							<table class="margin-auto" cellspacing="0"><tr>
+								<td><mat-form-field class="full-width">
+									<span matPrefix>R$ &nbsp;</span>
+									<input matInput type='number' step="0.01" placeholder="Valor" (keyup)="updatePagamento()"  [(ngModel)]='pagamento.valor'>
+								</mat-form-field></td>
+								<td><mat-form-field class="full-width">
+									<mat-select type='number' placeholder="Parcela" (change)='updatePagamento()' [(ngModel)]='pagamento.parcelas'>
+										<mat-option *ngFor="let parcela of parcelas" [value]="parcela.value">
+											{{ parcela.viewValue }}
+										</mat-option>
+									</mat-select>
+
+								</mat-form-field></td>
+								<td><button mat-icon-button (click)='pagamento.parcelas=0;pagamento.valor=0;updatePagamento()'><app-icon name='clear'></app-icon></button></td>
+							</tr></table>
+						</ng-container>
+						<p>Restam {{ totalReceber() | currency : "R$ "}}</p>
 					</mat-expansion-panel>
-					<mat-expansion-panel>
-						<mat-expansion-panel-header>
-							<mat-panel-title class='panel-title'  [class.is-mobile.panel-title]='media.isMobile()'>
-								<app-icon name='credit_card'></app-icon>
-								<ng-container *ngIf='!media.isMobile()'><strong>Cartão de Crédito</strong></ng-container>
-							</mat-panel-title>
-							<mat-panel-description class='panel-description'*ngIf='pagamentos.cartao.valor <= 0'>
-								Parcelamento em até 10x
-							</mat-panel-description>
-							<mat-panel-description class='panel-description' *ngIf='pagamentos.cartao.valor > 0'>
-								Parcelado {{pagamentos.cartao.valor | currency : 'R$ '}} em {{pagamentos.cartao.parcelas}} vezes
-							</mat-panel-description>
+				</ng-container>
+				<mat-expansion-panel >
+					<mat-expansion-panel-header>
+						<mat-panel-title class='panel-title title line'>		
+							<app-icon name="assignment" color='black' >
+								<app-icon [name]='totalReceber()>0 && pedido.tipo==="venda" ?"error":"done"' [color]='totalReceber()>0 && pedido.tipo==="venda"?"red":"green"' [iconContent]='true'></app-icon>
+							</app-icon>
 
 
-						</mat-expansion-panel-header>
+							<div *ngIf='pedido.tipo ==="venda"' class='title-txt line'>
+								A Receber:&#160; <b> {{totalReceber() | currency : "R$ "}}</b>
+								<br>
+								<div class='sub-line'>Produtos: {{dataSourceItens.data.length}} - Itens: {{totalItens()}}</div>
+							</div>
+							<div *ngIf='pedido.tipo !=="venda"' class='title-txt line'>
+								{{pedido.tipo}} - {{totalBasket() | currency : 'R$ '}}
+								<br>
+								<div class='sub-line'>Produtos: {{dataSourceItens.data.length}} - Itens: {{totalItens()}}</div>
+							</div>
+						</mat-panel-title>
+						<mat-panel-description *ngIf='pedido.tipo==="venda"' class='panel-description description' >
+							<span>{{pedido.tipo}}<br>{{totalBasket() | currency :'R$ '}}</span>
+						</mat-panel-description>
+					</mat-expansion-panel-header>
 
-						<table class="" cellspacing="0"><tr>
-							<td><mat-form-field class="full-width">
-								<input matInput placeholder="Valor" [(ngModel)]='pagamentos.cartao.valor'>
-							</mat-form-field></td>
-							<td><mat-form-field class="full-width">
-								<mat-select type='number' placeholder="Parcela" [(ngModel)]='pagamentos.cartao.parcelas'>
-									<mat-option *ngFor="let parcela of parcelas" [value]="parcela.value">
-										{{ parcela.viewValue }}
-									</mat-option>
-								</mat-select>
-							</mat-form-field></td>
-							<td><app-icon name='add'></app-icon></td>
-						</tr></table>
+					<div class="body item-container ">
+						<mat-table  [dataSource]="dataSourceItens">
+							<ng-container matColumnDef="descricao">
+								<mat-header-cell *matHeaderCellDef><strong>Produtos</strong></mat-header-cell>
+								<mat-cell *matCellDef="let element"> {{element.descricao}} </mat-cell>
+							</ng-container>
+							<ng-container matColumnDef="qtd">
+								<mat-header-cell *matHeaderCellDef> Qtd. </mat-header-cell>
+								<mat-cell *matCellDef="let element"> {{element.qtd}} </mat-cell>
+							</ng-container>
+							<ng-container matColumnDef="valor">
+								<mat-header-cell *matHeaderCellDef> R$ </mat-header-cell>
+								<mat-cell *matCellDef="let element"> {{element.valor | currency: 'R$ '}} </mat-cell>
+							</ng-container>
+							<ng-container matColumnDef="total">
+								<mat-header-cell *matHeaderCellDef> Total R$ </mat-header-cell>
+								<mat-cell *matCellDef="let element"> {{element.qtd * element.valor | currency: 'R$ '}} </mat-cell>
+							</ng-container>
+							<mat-header-row *matHeaderRowDef="itemColumns"></mat-header-row>
+							<mat-row  class='row' *matRowDef="let row; columns: itemColumns;"></mat-row>
+						</mat-table>
 
-						<p>Restam {{ totalBasket() - totalPagamentos() | currency : "R$ "}}</p>
+						<ng-container *ngIf='pedido.tipo==="venda"'>
+							<span *ngIf='pedido.pagamentos' class='pagamento-table'>
+								<mat-table class=''  [dataSource]="dataSourcePagamentos">
+									<ng-container matColumnDef="especie">
+										<mat-header-cell *matHeaderCellDef> <strong>Pagamentos</strong></mat-header-cell>
+										<mat-cell *matCellDef="let element"> {{element.especie}}
+											<ng-container *ngIf='element.valor>0 && element.especie === "credito"'> <br>
+												{{element.valor | currency : "R$ "}} em {{element.parcelas}}x de {{element.valor/element.parcelas | currency : "R$ "}}
+											</ng-container>
+										</mat-cell>
+									</ng-container>
+									<ng-container matColumnDef="valor">
+										<mat-header-cell *matHeaderCellDef> Valor </mat-header-cell>
+										<mat-cell *matCellDef="let element"> {{element.valor | currency :" R$ "}} </mat-cell>
+									</ng-container>
 
-					</mat-expansion-panel>
-				</mat-accordion>
-				<div class='pagamentos f-08 t-left'>
-					<mat-card class=''>
-						<table class="full-width " cellspacing="0"><tr>
-							<td class='f-1'>
-								<p>A Pagar: {{totalBasket() | currency : 'R$ '}}</p>
-								<p>A Receber: {{totalPagamentos() | currency : 'R$ '}}</p>
-								<p>Restam:<b> {{ totalBasket() - totalPagamentos() | currency : "R$ "}}</b></p>
-							</td>
-							<td>
-							</td>
-						</tr></table>
-						<mat-divider></mat-divider>
+									<mat-header-row *matHeaderRowDef="pagamentoColumns"></mat-header-row>
+									<mat-row  class='row' *matRowDef="let row; columns: pagamentoColumns;"></mat-row>
+								</mat-table>
+							</span>
+						</ng-container>
 
 						<div class='full-width t-center action-form'>
 							<button mat-button matStepperPrevious>Voltar</button>
 							<button mat-raised-button color="primary" routerLink='../' >Finalizar</button>
 						</div>
-					</mat-card>
-				</div>
-			</div>
-		</mat-step>
-	</mat-horizontal-stepper>
+					</div>
+
+				</mat-expansion-panel>
+			</mat-accordion>
+		</div>
+	</mat-step>
+</mat-horizontal-stepper>
 
 </ui-frame-list>
 

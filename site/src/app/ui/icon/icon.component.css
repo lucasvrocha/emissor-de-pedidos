@@ -6,9 +6,26 @@
 }
 
 .svg { 
-	opacity: 0.9
+	opacity: 0.9;
+	display: flex;
+        height: inherit !important;
+    width: inherit !important;
 }
+
+
 
 .svg:hover {
 	opacity: 1;
+}
+
+.sub-icon {
+	padding: 0px !important;
+    position: absolute;
+    bottom: -4px;
+    right: -4px;
+    background-color: white;
+    border: 1px solid white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
 }

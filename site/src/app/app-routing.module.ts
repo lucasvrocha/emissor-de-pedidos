@@ -14,7 +14,7 @@ import { CadastroComponent as UsuarioCadastroComponent } from './usuario/cadastr
 import { ListaComponent as UsuarioListaComponent } from './usuario/lista/lista.component';
 
 const routes: Routes = [
-	{ path: '', component: PedidoCadastroComponent, canActivate: [AuthGuard] }
+	{ path: '', component: DashboardComponent, canActivate: [AuthGuard] }
 	, { path: 'pedido', component: PedidoListaComponent, canActivate: [AuthGuard] }
 	, { path: 'pedido/:id', component: PedidoCadastroComponent, canActivate: [AuthGuard] }
 	, { path: 'fornecedor', component: FornecedorListaComponent, canActivate: [AuthGuard] }

@@ -18,6 +18,9 @@
 
 >>> .mat-horizontal-content-container {
 	padding: 12px 0px !important;
+	max-width: 780px;
+	margin: auto;
+
 }
 
 >>> .mat-horizontal-stepper-content{
@@ -26,8 +29,8 @@
 >>> .mat-button-toggle-vertical{
 	margin: 0px !important;
 	align-items: center !important;
-    display: flex !important;
-    box-shadow: none !important;
+	display: flex !important;
+	box-shadow: none !important;
 }
 
 >>> .mat-button-toggle-label-content{
@@ -35,14 +38,21 @@
 	border:transparent !important;
 }
 >>> .mat-button-toggle {
-    white-space: nowrap;
-    position: relative;
-    height: 56px;
-    align-items: center;
-    display: flex;
+	white-space: nowrap;
+	position: relative;
+	height: 56px;
+	align-items: center;
+	display: flex;
+}
+.title {
+	text-transform: uppercase;
+	font-weight: 500;
+
 }
 .first-content{
 	margin-top: 40px;
+	max-width: 250px;
+	margin: auto;
 }
 
 .btn-tipo {
@@ -77,10 +87,27 @@ mat-form-field {
 	max-width: 40px;
 }
 
+.list-produto{
+	max-width: 960px;
+	
+	margin: auto;
+}
+
+.title-txt{
+	margin-left: 10px;
+}
+
+.is-mobile .card-produto {
+	margin : 3px;
+}
+
 .card-produto {
-	margin: 12px;
-	padding: 10px;
+	margin: 10px;
+	padding: 0px;
 	font-size: 0.8rem;
+	width: 100%;
+	max-width: 340px;
+	display: inline-block;
 }
 
 .card-item{
@@ -118,7 +145,12 @@ mat-form-field {
 .card-basket .preco{
 	font-size: 1rem;
 	font-weight: 500;
-	padding: 10px 0px;
+	padding: 5px 0px;
+}
+
+.card-basket .quantidade{
+	padding: 5px 0px;
+	font-size: 0.9rem;
 }
 
 .card-total {
@@ -144,31 +176,39 @@ mat-form-field {
 	width: initial !important;
 }
 
-.finalizacao-content{
-	padding: 10px 0px;
+.finalizacao-content {
+	padding: 10px 5px;
 }
 
 .action-form{
 	padding: 10px 0px;
 }
 
-.panel-title{
-
-}
-
-
-
 .is-mobile.panel-title {
-	width: 50px;
-    padding: 0px;
-    margin: 0px;
-    flex-grow: 0;
+	padding: 0px;
+	margin: 0px;
+	flex-grow: 0;
 }
 
 
-
-.panel-description{
+.panel-title{
+	text-transform: capitalize;
 	text-align: left;
+}
+.panel-title strong{
+	margin-left: 10px
+}
+
+
+.panel-description {
+	display: inline-block;
+	text-align: left;
+	margin-left: 10px;
+}
+
+.panel-title:first-letter,
+.panel-description:first-letter{
+	text-transform: capitalize;
 }
 
 

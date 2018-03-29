@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthGuard} from '../../auth/auth.guard';
+
 @Component({
 	moduleId: module.id,
 	selector: 'app-navbar',

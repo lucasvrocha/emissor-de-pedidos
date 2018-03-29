@@ -1,15 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatTableDataSource } from '@angular/material';
+
 import { ListModel } from '../../ui/frame';
 import { ToolbarBuilder } from '../../ui/toolbar';
 import { ProdutoService, Produto } from '../../produto';
+import { FornecedorService, Fornecedor } from '../../fornecedor';
+
+import { Pedido, PedidoItem, PedidoPagamento } from '../../_model/pedido.model';
 
 @Component({
 	moduleId: module.id,
 	selector: 'app-cadastro',
 	templateUrl: './cadastro.component.html',
-	styleUrls: ['./cadastro.component.css'],
-	providers: [ToolbarBuilder, ProdutoService]
+	styleUrls: ['./cadastro.component.css', '../lista/lista.component.css'],
+	providers: [ToolbarBuilder, ProdutoService, FornecedorService]
 })
 export class CadastroComponent implements OnInit {
 	frame: ListModel;
@@ -18,15 +23,29 @@ export class CadastroComponent implements OnInit {
 	secondFormGroup: FormGroup;
 	thirdFormGroup: FormGroup;
 
+	dataSourceItens = new MatTableDataSource();
+	dataSourcePagamentos = new MatTableDataSource();
+
 	produtos: Produto[];
+	fornecedores: Fornecedor[];
 
-	itemColumns = ['descricao', 'total', 'action'];
-	itensData: DataItem[] = [];
+	itemColumns = ['descricao', 'qtd', 'valor', 'total'];
+	pagamentoColumns = ['especie', 'valor'];
 
-	pagamentos : Pagamentos = {
-		dinheiro : 0, 
-		cartao : {valor : 0, parcelas : 0}
-	}
+	pedido: Pedido = {
+		id: undefined,
+		tipo: undefined,
+		itens: [],
+		pagamentos: [],
+		fornecedorId: undefined,
+		status: ""
+	};
+
+	pagamentos: PedidoPagamento[] = [
+		{ id: undefined, especie: 'dinheiro', parcelas: 0, valor: 0 },
+		{ id: undefined, especie: 'debito', parcelas: 0, valor: 0 },
+		{ id: undefined, especie: 'credito', parcelas: 0, valor: 0 }
+	]
 
 	parcelas = [
 		{ value: 1, viewValue: '1x' },
@@ -44,10 +63,12 @@ export class CadastroComponent implements OnInit {
 	constructor(
 		private _formBuilder: FormBuilder,
 		private tb: ToolbarBuilder,
-		private produtoService: ProdutoService
+		private produtoService: ProdutoService,
+		private fornecedorService: FornecedorService
 	) { }
 
 	ngOnInit() {
+
 		this.firstFormGroup = this._formBuilder.group({});
 		this.secondFormGroup = this._formBuilder.group({});
 		this.thirdFormGroup = this._formBuilder.group({});
@@ -55,62 +76,108 @@ export class CadastroComponent implements OnInit {
 		this.frame = {
 			title: 'Novo Pedido',
 			toolbar: this.tb
-				.withTitle({ description: 'Novo Pedido', icon: this.tb.icon('assignment').build() })
+				.withTitle({ description: 'Novo Pedido', icon: this.tb.icon('add_shopping_cart').build() })
 				.build()
 		};
 
-		this.produtoService.getProdutos().subscribe(produtos => this.produtos = produtos);
+		//this.produtoService.getProdutos(null).subscribe(produtos => { this.produtos = produtos });
+		this.fornecedorService.getFornecedores().subscribe(fornecedores => this.fornecedores = fornecedores);
+
+		this.dataSourceItens.data = this.pedido.itens;
+		this.dataSourcePagamentos.data = this.pedido.pagamentos;
 	}
 
 	estoque(produto: Produto) {
-		let i: DataItem[] = this.itensData.filter(i => i.codigo === produto.id);
+		let i: PedidoItem[] = this.pedido.itens.filter(i => i.produtoId === produto.id);
 		return i[0] ? produto.quantidade - i[0].qtd : produto.quantidade;
 	}
 
 	basket(produto: Produto) {
-		let i: DataItem[] = this.itensData.filter(i => i.codigo === produto.id);
+		let i: PedidoItem[] = this.pedido.itens.filter(i => i.produtoId === produto.id);
 		return i[0] ? i[0].qtd : 0;
 	}
 
 	add(produto: Produto) {
-		let i = this.itensData.filter(i => i.codigo === produto.id);
+		let i = this.pedido.itens.filter(i => i.produtoId === produto.id);
 		if (i[0]) {
 			i[0].qtd++;
 		} else {
-			this.itensData.push(this.pipe(produto));
+			this.pedido.itens.push(this.pipe(produto));
 		}
+		this.updateDataSourceItens();
 	}
 
 	remove(produto: Produto) {
-		let i = this.itensData.filter(i => i.codigo === produto.id);
+		let i = this.pedido.itens.filter(i => i.produtoId === produto.id);
 		for (let p of i) {
-			p.qtd <= 0 ? this.splice(p, this.itensData) : p.qtd--;
+			p.qtd <= 0 ? this.splice(i, this.pedido.itens) : p.qtd--;
 		}
+		this.updateDataSourceItens();
+	}
+
+	updateProdutos() {
+		let param = this.pedido.tipo === 'venda' ? undefined : { fornecedorId: this.pedido.fornecedorId };
+
+		this.produtoService
+			.getProdutos(param)
+			.subscribe(produtos => {
+				console.log(produtos.length);
+				
+				this.produtos = produtos;
+				console.log(this.produtos);
+			});
+	}
+
+	updatePagamento() {
+		this.dataSourcePagamentos.data = this.pedido.pagamentos = this.pagamentos.filter(p => p.valor > 0);
+	}
+
+	updateDataSourceItens() {
+		this.dataSourceItens.data = this.pedido.itens.filter(i => i.qtd > 0);
 	}
 
 	total(produto: Produto) {
-		let i = this.itensData.filter(i => i.codigo === produto.id)[0];
+		let i = this.pedido.itens.filter(i => i.produtoId === produto.id)[0];
 		return this.valorTotal(i);
 	}
 
 	totalPagamentos() {
-		return this.pagamentos.dinheiro  + this.pagamentos.cartao.valor;
+		let soma = 0;
+		this.pedido.pagamentos.map(p => soma += p.valor);
+		return soma;
 	}
 
 	totalBasket() {
 		let soma = 0;
-		this.itensData.map(i => { soma += this.valorTotal(i) });
+		this.pedido.itens.map(i => soma += i.valor * i.qtd);
 		return soma;
 	}
 
-	private valorTotal(i: DataItem) {
+	totalItens() {
+		let soma = 0;
+		this.pedido.itens.map(i => soma += i.qtd);
+		return soma;
+	}
+
+	totalReceber() {
+		return this.totalBasket() - this.totalPagamentos();
+	}
+
+	getPagamento(pagamento: string) {
+		let soma = 0;
+		this.pedido.pagamentos.map(p => soma += p.especie === pagamento ? p.valor : 0);
+		return soma;
+	}
+
+	private valorTotal(i: PedidoItem) {
 		return i && i.qtd > 0 ? i.qtd * i.valor : 0;
 	}
 
 
-	private pipe(produto: Produto): DataItem {
+	private pipe(produto: Produto): PedidoItem {
 		return {
-			codigo: produto.id,
+			id: 0,
+			produtoId: produto.id,
 			descricao: produto.descritivo,
 			qtd: 1,
 			valor: produto.preco
@@ -128,6 +195,3 @@ export class CadastroComponent implements OnInit {
 
 }
 
-
-interface DataItem { codigo: number; descricao: string; qtd: number; valor: number };
-interface Pagamentos { dinheiro : number, cartao : {valor :number , parcelas : number}};

@@ -1,4 +1,9 @@
-<app-toolbar  [model]='model.toolbar' ></app-toolbar>
+<app-toolbar [model]='toolbar'>
+	<ng-container back><ng-content select='[back]'></ng-content></ng-container>
+	<ng-container title><ng-content select='[title]'></ng-content></ng-container>
+	<ng-container options><ng-content select='[options]'></ng-content></ng-container>
+</app-toolbar>
+
 <div class="content-full-height"  [class.is-mobile]="media.isMobile()"  media-query #media='media'>
 	<div class="container mat-elevation-z4 scrollbar">
 		<ng-content></ng-content>

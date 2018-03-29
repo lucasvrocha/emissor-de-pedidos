@@ -1,8 +1,9 @@
-import { Component, OnInit, Input, Injectable } from '@angular/core';
+import { Component, Directive, OnInit, Input, Injectable, ContentChild, TemplateRef  } from '@angular/core';
 import { IconModel, IconBuilder } from '../icon'
 import { ToolbarBuilder } from './toolbar.builder';
 import { ToolbarModel } from './toolbar.model';
 
+export class DirectiveOptions {};
 @Component({
 	moduleId: module.id,
 	selector: 'app-toolbar',
@@ -13,7 +14,7 @@ import { ToolbarModel } from './toolbar.model';
 export class ToolbarComponent implements OnInit {
 
 	@Input() model: ToolbarModel;
-
+	
 	@Input() iconName: string;
 	@Input() iconColor: string;
 	@Input() title: string;
@@ -54,4 +55,3 @@ export class ToolbarComponent implements OnInit {
 		
 	}
 }
-

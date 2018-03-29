@@ -1,17 +1,30 @@
-<div class='background' color='secondary'>
-	<mat-toolbar class="container " role="header" color="secondary">
-		<button mat-icon-button routerLink='../'>
-			<app-icon [icon]='model.back.icon' label='voltar'></app-icon>
-		</button>
-		<button mat-icon-button>
-			<app-icon [icon]='model.title.icon'></app-icon>
-		</button>
-		<h2>{{model.title.description}}</h2>
-		<!-- This fills the remaining space of the current row -->
-		<span class="fill-space"></span>
-		<!-- 	<app-icon  *ngIf="save" name='save' color='black'></app-icon>	 -->
-		<button *ngIf="model.forward" mat-icon-button routerLink='{{model.forward.url}}'>
-			<app-icon [icon]='model.forward.icon'></app-icon>	
-		</button>
-	</mat-toolbar>
-</div>
+<ng-container>
+	<div class='background' color='secondary'>
+		<mat-toolbar class="container " role="header" color="secondary">
+			<div #back><ng-content select='[back]'></ng-content></div>
+			<ng-container *ngIf="back.children.length == 0">
+				<button mat-icon-button routerLink='../'>
+					<app-icon [icon]='model.back.icon' label='voltar'></app-icon>
+				</button>
+			</ng-container>
+
+			<div style='display:contents' #title><ng-content select='[title]'></ng-content></div>
+			<ng-container *ngIf="title.children.length == 0">
+				<button mat-icon-button>
+					<app-icon [icon]='model.title.icon'></app-icon>
+				</button>
+				<h2>{{model.title.description}}</h2>
+			</ng-container>
+
+			<span class="fill-space"></span>
+
+			<div #options><ng-content select='[options]'></ng-content></div>
+			<ng-container *ngIf="options.children.length == 0">
+				<button *ngIf="model.forward" mat-icon-button routerLink='{{model.forward.url}}'>
+					<app-icon [icon]='model.forward.icon'></app-icon>	
+				</button>
+			</ng-container>
+		</mat-toolbar>
+	</div>
+</ng-container>
+
