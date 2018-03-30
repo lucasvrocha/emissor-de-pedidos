@@ -16,7 +16,7 @@ import { ListaComponent as UsuarioListaComponent } from './usuario/lista/lista.c
 const routes: Routes = [
 	{ path: '', component: DashboardComponent, canActivate: [AuthGuard] }
 	, { path: 'pedido', component: PedidoListaComponent, canActivate: [AuthGuard] }
-	, { path: 'pedido/:id', component: PedidoCadastroComponent, canActivate: [AuthGuard] }
+	, { path: 'pedido/novo', component: PedidoCadastroComponent, canActivate: [AuthGuard] }
 	, { path: 'fornecedor', component: FornecedorListaComponent, canActivate: [AuthGuard] }
 	, { path: 'fornecedor/:id', component: FornecedorCadastroComponent, canActivate: [AuthGuard] }
 	, { path: 'login', component: AuthComponent }

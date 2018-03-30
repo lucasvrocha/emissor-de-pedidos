@@ -8,6 +8,7 @@ import { ProdutoService, Produto } from '../../produto';
 import { FornecedorService, Fornecedor } from '../../fornecedor';
 
 import { Pedido, PedidoItem, PedidoPagamento } from '../../_model/pedido.model';
+import { LoadingService } from '../../ui/loading';
 
 @Component({
 	moduleId: module.id,
@@ -64,8 +65,11 @@ export class CadastroComponent implements OnInit {
 		private _formBuilder: FormBuilder,
 		private tb: ToolbarBuilder,
 		private produtoService: ProdutoService,
-		private fornecedorService: FornecedorService
-	) { }
+		private fornecedorService: FornecedorService,
+		private loadService: LoadingService
+	) {
+		this.loadService.init(2);
+	}
 
 	ngOnInit() {
 
@@ -81,10 +85,15 @@ export class CadastroComponent implements OnInit {
 		};
 
 		//this.produtoService.getProdutos(null).subscribe(produtos => { this.produtos = produtos });
-		this.fornecedorService.getFornecedores().subscribe(fornecedores => this.fornecedores = fornecedores);
+		this.fornecedorService.getFornecedores()
+			.subscribe(fornecedores => {
+				this.fornecedores = fornecedores;
+				this.loadService.end();
+			});
 
 		this.dataSourceItens.data = this.pedido.itens;
 		this.dataSourcePagamentos.data = this.pedido.pagamentos;
+		this.loadService.end();
 	}
 
 	estoque(produto: Produto) {
@@ -121,10 +130,7 @@ export class CadastroComponent implements OnInit {
 		this.produtoService
 			.getProdutos(param)
 			.subscribe(produtos => {
-				console.log(produtos.length);
-				
 				this.produtos = produtos;
-				console.log(this.produtos);
 			});
 	}
 

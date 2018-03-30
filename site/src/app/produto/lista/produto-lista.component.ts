@@ -10,8 +10,10 @@ import { map } from 'rxjs/operators/map';
 import { startWith } from 'rxjs/operators/startWith';
 import { switchMap } from 'rxjs/operators/switchMap';
 
-import {Produto} from '../../_model/produto.model';
-import {ProdutoService} from '../produto.service';
+import { Produto } from '../../_model/produto.model';
+import { ProdutoService } from '../produto.service';
+
+import { LoadingService } from '../../ui/loading';
 
 @Component({
 	moduleId: module.id,
@@ -21,7 +23,7 @@ import {ProdutoService} from '../produto.service';
 })
 export class ProdutoListaComponent implements OnInit, OnDestroy {
 
-	displayedColumns = [ 'id', 'estoque', 'produto', 'edit'];
+	displayedColumns = ['id', 'estoque', 'produto', 'edit'];
 	exampleDatabase: ProdutoService | null;
 	dataSource = new MatTableDataSource();
 
@@ -36,7 +38,12 @@ export class ProdutoListaComponent implements OnInit, OnDestroy {
 
 	private _mobileQueryListener: () => void;
 
-	constructor(private http: HttpClient, changeDetectorRef: ChangeDetectorRef, media: MediaMatcher) {
+	constructor(
+		private http: HttpClient,
+		changeDetectorRef: ChangeDetectorRef,
+		media: MediaMatcher,
+		private loadService: LoadingService) {
+		this.loadService.init(2);
 		this.mobileQuery = media.matchMedia('(max-width: 599px)');
 		this._mobileQueryListener = () => changeDetectorRef.detectChanges();
 		this.mobileQuery.addListener(this._mobileQueryListener);
@@ -69,7 +76,11 @@ export class ProdutoListaComponent implements OnInit, OnDestroy {
 					this.isRateLimitReached = true;
 					return observableOf([]);
 				})
-			).subscribe(data => this.dataSource.data = data);
+			).subscribe(data => {
+				this.dataSource.data = data;
+				this.loadService.end();
+			});
+		this.loadService.end();
 	}
 
 	ngOnDestroy(): void {

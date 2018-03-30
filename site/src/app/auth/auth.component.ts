@@ -9,6 +9,7 @@ import { AuthenticationService } from './auth.service';
 import { MyErrorStateMatcher } from '../_helper/myErrorStateMatcher';
 import { Usuario } from '../_model/usuario.model';
 import { AppComponent } from '../app.component';
+import { LoadingService } from '../ui/loading';
 
 
 @Component({
@@ -40,7 +41,10 @@ export class AuthComponent implements OnInit , AfterViewInit{
         private authService: AuthenticationService,
         private alertService: AlertService,
         public matcher: MyErrorStateMatcher,
-        public dialog: MatDialog) { }
+        public dialog: MatDialog,
+        private loadService : LoadingService) {
+        this.loadService.start();
+         }
 
     ngOnInit() {
         this.authService.logout();
@@ -50,6 +54,7 @@ export class AuthComponent implements OnInit , AfterViewInit{
 
     ngAfterViewInit() {
         this.validForm = (this.senhaControl.invalid || this.usuarioControl.invalid) ? 'disabled' : '';
+        this.loadService.end();
     }
 
     login() {

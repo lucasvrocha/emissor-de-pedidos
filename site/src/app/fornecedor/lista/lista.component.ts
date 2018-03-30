@@ -12,6 +12,7 @@ import { switchMap } from 'rxjs/operators/switchMap';
 
 import { Fornecedor } from '../../_model/fornecedor.model';
 import { FornecedorService } from '../fornecedor.service';
+import { LoadingService } from '../../ui/loading'
 
 @Component({
 	moduleId: module.id,
@@ -37,7 +38,13 @@ export class ListaComponent implements OnInit, OnDestroy {
 
 	private _mobileQueryListener: () => void;
 
-	constructor(private http: HttpClient, changeDetectorRef: ChangeDetectorRef, media: MediaMatcher) {
+	constructor(
+		private http: HttpClient,
+		 changeDetectorRef: ChangeDetectorRef, 
+		 media: MediaMatcher,
+		 private laodService :LoadingService
+		 ) {
+		this.laodService.init(2);
 		this.mobileQuery = media.matchMedia('(max-width: 599px)');
 		this._mobileQueryListener = () => changeDetectorRef.detectChanges();
 		this.mobileQuery.addListener(this._mobileQueryListener);
@@ -70,7 +77,12 @@ export class ListaComponent implements OnInit, OnDestroy {
 					this.isRateLimitReached = true;
 					return observableOf([]);
 				})
-			).subscribe(data => this.dataSource.data = data);
+			).subscribe(data => {
+				this.dataSource.data = data;
+				this.laodService.end();
+			});
+
+		this.laodService.end();
 	}
 
 	ngOnDestroy(): void {

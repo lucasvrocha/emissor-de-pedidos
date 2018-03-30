@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { LoadingService } from '../../ui/loading';
+
 
 @Component({
 	moduleId: module.id,
@@ -16,9 +18,12 @@ export class ProdutoCadastroComponent implements OnInit {
 		{ value: 'tacos-2', viewValue: 'Tacos' }
 	];
 
-	constructor() { }
+	constructor(private laodService : LoadingService) { 
+		this.laodService.start();
+	}
 
 	ngOnInit() {
+		this.laodService.end();
 	}
 
 }
