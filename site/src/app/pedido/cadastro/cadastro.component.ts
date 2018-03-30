@@ -8,7 +8,7 @@ import { ProdutoService, Produto } from '../../produto';
 import { FornecedorService, Fornecedor } from '../../fornecedor';
 
 import { Pedido, PedidoItem, PedidoPagamento } from '../../_model/pedido.model';
-import { LoadingService } from '../../ui/loading';
+import { LoadingService, LoadingComponent } from '../../ui/loading';
 
 @Component({
 	moduleId: module.id,
@@ -68,7 +68,7 @@ export class CadastroComponent implements OnInit {
 		private fornecedorService: FornecedorService,
 		private loadService: LoadingService
 	) {
-		this.loadService.init(2);
+		this.loadService.init('main', 2);
 	}
 
 	ngOnInit() {
@@ -125,12 +125,14 @@ export class CadastroComponent implements OnInit {
 	}
 
 	updateProdutos() {
+		let loaderFornecedor = this.loadService.init('loader-fornecedor');
 		let param = this.pedido.tipo === 'venda' ? undefined : { fornecedorId: this.pedido.fornecedorId };
 
 		this.produtoService
 			.getProdutos(param)
 			.subscribe(produtos => {
 				this.produtos = produtos;
+				loaderFornecedor.end();
 			});
 	}
 

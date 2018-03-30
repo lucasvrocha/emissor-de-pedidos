@@ -43,7 +43,7 @@ export class ProdutoListaComponent implements OnInit, OnDestroy {
 		changeDetectorRef: ChangeDetectorRef,
 		media: MediaMatcher,
 		private loadService: LoadingService) {
-		this.loadService.init(2);
+		this.loadService.init('main', 2);
 		this.mobileQuery = media.matchMedia('(max-width: 599px)');
 		this._mobileQueryListener = () => changeDetectorRef.detectChanges();
 		this.mobileQuery.addListener(this._mobileQueryListener);

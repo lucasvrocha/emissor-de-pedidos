@@ -44,7 +44,7 @@ export class ListaComponent implements OnInit, OnDestroy {
 		 media: MediaMatcher,
 		 private laodService :LoadingService
 		 ) {
-		this.laodService.init(2);
+		this.laodService.init('main', 2);
 		this.mobileQuery = media.matchMedia('(max-width: 599px)');
 		this._mobileQueryListener = () => changeDetectorRef.detectChanges();
 		this.mobileQuery.addListener(this._mobileQueryListener);

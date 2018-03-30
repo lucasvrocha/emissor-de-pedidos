@@ -6,13 +6,10 @@ import { NavbarComponent } from './ui/navbar/navbar.component';
 import { DialogComponent as FullScreenDialog } from './ui/fullscreen/dialog/dialog.component';
 import * as screenfull from 'screenfull';
 
-import { LoadingService } from './ui/loading'
-
 @Component({
 	selector: 'app-root',
 	templateUrl: './app.component.html',
-	styleUrls: ['./app.component.css'],
-	providers: [LoadingService]
+	styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
 	private storage = localStorage;
@@ -20,21 +17,10 @@ export class AppComponent implements OnInit {
 	title = 'Emissor de Pedido';
 	constructor(
 		public guard: AuthGuard,
-		public dialog: MatDialog,
-		private loadService: LoadingService
-	) {
-		this.loadService.init(2);
-	}
+		public dialog: MatDialog
+	) { }
 
 	ngOnInit() {
-		let opt: any = JSON.parse(this.storage.getItem('options'));
-		if (opt && opt.fullscreen === true && screenfull.isFullscreen === false) {
-			setTimeout(() => {
-				this.openDialog();
-				this.loadService.end();
-			});
-		}
-		this.loadService.end();
 	}
 
 	openDialog(): void {

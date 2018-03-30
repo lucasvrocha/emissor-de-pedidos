@@ -59,7 +59,7 @@ import { AlertService } from './ui/alert/alert.service';
 import { UnauthorizedProviver } from './_helper/unauthorized.interceptor';
 import { FakeBackendProvider } from './_mock/backend/fakeBackend.provider';
 import { MyErrorStateMatcherProvider } from './_helper/myErrorStateMatcher';
-import { LoadingComponent } from './ui/loading/loading.component';
+import { LoadingService, LoadingComponent } from './ui/loading';
 
 
 @NgModule({
@@ -131,6 +131,7 @@ import { LoadingComponent } from './ui/loading/loading.component';
 		AlertService,
 		AuthenticationService,
 		MatStepper,
+		LoadingService, 
 		FakeBackendProvider
 	],
 	bootstrap: [AppComponent]

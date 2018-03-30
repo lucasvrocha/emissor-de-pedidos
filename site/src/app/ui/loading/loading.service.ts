@@ -1,51 +1,30 @@
 import { Injectable } from '@angular/core';
+import { LoadingComponent } from './loading.component';
 
 @Injectable()
 export class LoadingService {
 
-	private loading: boolean = false;
-
-	private process: boolean[] = new Array(0);
-	private progress: number;
+	private components: LoadingComponent[] = [];
+	
 	constructor() { }
-
-	isLoading(): boolean {
-		return this.loading;
+	
+	start() : LoadingComponent {
+		return this.init('main', 1);
 	}
 
-	start() {
-		this.init(1);
+	add( comp : LoadingComponent){
+		this.components.push(comp);
 	}
 
-	init(process: number) {
-		this.process = new Array(0);
-		while (process > 0) {
-			process--;
-			this.process.push(true);
-		}
-		this.loading = true;
-		this.progress = 0;
+	init(name?: string |'main', process?: number |1) : LoadingComponent {
+		let loader = this.components.find(c  => c.name === name);
+		if (loader)
+			loader.init(process);
+		return loader;
 	}
 
 	end() {
-		let soma = 0;
-		for (let i = 0; i < this.process.length; i++) {
-			if (this.process[i]) {
-				this.process[i] = false;
-				this.progress += 100 / this.process.length;
-				break;
-			};
-
-		}
-		setTimeout(() => { this.loading = this.progress < 100; }, 750);
-	}
-
-	modo() {
-		return this.process.length > 1 ? 'determinate' : 'indeterminate';
-	}
-
-	value() {
-		return this.progress;
+		this.components.find(c => c.name ==='main').end();
 	}
 
 }

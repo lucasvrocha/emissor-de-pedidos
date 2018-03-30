@@ -1,8 +1,8 @@
-<div *ngIf="loaded() else loading">
+<div *ngIf="!loading else load">
 	<ng-content></ng-content>	
 </div>
-<ng-template #loading>
-	<mat-progress-bar [mode]='modo()' [value]='value()' color='accent'	></mat-progress-bar>
+<ng-template #load>
+	<mat-progress-bar [mode]='modo' [value]='progress' color='accent'	></mat-progress-bar>
 	<br>
 	<br>
 	carregando...

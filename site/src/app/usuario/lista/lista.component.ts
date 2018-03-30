@@ -17,7 +17,7 @@ export class ListaComponent implements OnInit {
 	private service: UsuarioService | null;
 
 	constructor(private http: HttpClient, private loadService: LoadingService) {
-		this.loadService.init(2)
+		this.loadService.init('main', 2)
 	}
 
 	ngOnInit() {
