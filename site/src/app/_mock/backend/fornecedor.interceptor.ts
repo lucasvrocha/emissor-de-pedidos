@@ -20,20 +20,21 @@ export class FornecedorInterceptor implements HttpInterceptor {
     private api: string = env.api;
 
     constructor() {
-        console.log("AOOooouuuuu the FornecedorInterceptor isss A LIIIIVE!!!!");
+        console.log("Fake-FornecedorInterceptor is running");
     }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         if (env.mock === false || request.url.startsWith(this.api + '/fornecedor') === false)
             return next.handle(request);
 
-        if (request.headers.get('Authorization') !== 'Bearer fake-jwt-token') {
-            return Observable.throw('Não autorizado');
-        }
-
         return Observable.of(null).mergeMap(() => {
             let response = null;
-            if (this.getFornecedorPorId(request)) {
+
+            if (response == null && request.headers.get('Authorization') !== 'Bearer fake-jwt-token') {
+                response = new HttpResponse({ status: 401, body: null });
+            }
+
+            if (response == null && this.getFornecedorPorId(request)) {
                 let urlParts = request.url.split('/');
                 let id = urlParts[urlParts.length - 1];
 
@@ -42,7 +43,8 @@ export class FornecedorInterceptor implements HttpInterceptor {
                     fornecedor = FORNECEDOR.find(x => '' + x.id === id);
 
                 response = new HttpResponse({ status: fornecedor === null ? 404 : 200, body: fornecedor });
-            } else if (this.getFornecedorDataGrid(request)) {
+            } 
+            if (response == null && this.getFornecedorDataGrid(request)) {
                 response = new HttpResponse({
                     status: 200, body: {
                         total: FORNECEDOR.length,
@@ -50,7 +52,9 @@ export class FornecedorInterceptor implements HttpInterceptor {
                     }
                 });
 
-            } else if (this.getFornecedor(request)) {
+            } 
+
+            if (response == null && this.getFornecedor(request)) {
                 response = new HttpResponse({ status: 200, body: FORNECEDOR });
             }
 

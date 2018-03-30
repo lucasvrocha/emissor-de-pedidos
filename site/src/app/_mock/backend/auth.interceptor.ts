@@ -15,14 +15,14 @@ import { environment as env } from '../../../environments/environment';
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
 
-    private api : string = env.api;
+    private api: string = env.api;
 
     constructor() {
         console.log("Fake-AuthInterceptor is runing");
     }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-         if (env.mock === false || request.url.startsWith('/api/authenticate') === false)
+        if (env.mock === false || request.url.startsWith('/api/authenticate') === false)
             return next.handle(request);
 
         // array in local storage for registered users
@@ -36,7 +36,7 @@ export class AuthInterceptor implements HttpInterceptor {
                     return Observable.of(new HttpResponse({ status: 200, body: undefined }));
                 } else {
                     // return 401 not authorised if token is null or invalid
-                    return Observable.throw('Não autorizado');
+                    return Observable.throw('/authenticate Não autorizado');
                 }
             }
 
@@ -49,14 +49,13 @@ export class AuthInterceptor implements HttpInterceptor {
                 if (filteredUsers.length) {
                     // if login details are valid return 200 OK with user details and fake jwt token
                     let user = filteredUsers[0];
-                    let body = {
+                    let body  = {
                         id: user.id,
-                        username: user.usuario,
-                        nome : user.nome,
-                        foto : user.foto,
-                        adm : user.adm,
-                        email : user.email,
-                        token: 'fake-jwt-token'
+                        nome: user.nome,
+                        foto: user.foto,
+                        adm: user.adm,
+                        email: user.email,
+                        jwt: 'fake-jwt-token'
                     };
 
                     return Observable.of(new HttpResponse({ status: 200, body: body }));
@@ -66,14 +65,15 @@ export class AuthInterceptor implements HttpInterceptor {
                 }
             }
 
-            if(request.url.endsWith('/authenticate/recuperar') === true && request.method === 'POST'){
-                let body  = {
-                    message : 'E-mail enviado com sucesso', 
+            if (request.url.endsWith('/authenticate/recuperar') === true && request.method === 'POST') {
+                let body = {
+                    message: 'E-mail enviado com sucesso',
                     success: true
                 }
-                return Observable.of(new HttpResponse({status : 201, body: body}));
+                return Observable.of(new HttpResponse({ status: 201, body: body }));
             }
 
+            
             // get users
             if (request.url.endsWith('/api/users') && request.method === 'GET') {
                 // check for fake auth token in header and return users if valid, this security is implemented server side in a real application

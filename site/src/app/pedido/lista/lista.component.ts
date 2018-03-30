@@ -3,6 +3,8 @@ import { ListModel } from '../../ui/frame/_model/list.model'
 import { Pedido } from '../../_model/pedido.model';
 import { ToolbarBuilder } from '../../ui/toolbar';
 
+import { LoadingService } from '../../ui/loading'
+
 // mock
 import { PEDIDOS } from '../../_mock/pedido.mock';
 
@@ -24,8 +26,8 @@ export class ListaComponent implements OnInit {
 
 	pedidos: Pedido[] = PEDIDOS.concat(PEDIDOS).concat(PEDIDOS).concat(PEDIDOS);
 
-	constructor(private tb: ToolbarBuilder) {
-
+	constructor(private tb: ToolbarBuilder, private loadService : LoadingService) {
+		this.loadService.start();
 	}
 
 	ngOnInit() {
@@ -38,6 +40,7 @@ export class ListaComponent implements OnInit {
 			title: 'Pedidos',
 			toolbar: toolbar
 		};
+		this.loadService.end();
 	}
 
 	setPanel(panel: number) {

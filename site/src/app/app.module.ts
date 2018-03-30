@@ -1,13 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule} from '@angular/core';
+import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { MediaMatcher } from '@angular/cdk/layout';
-
-
-import { CurrencyMaskModule } from "ng2-currency-mask";
-import { CurrencyMaskConfig, CURRENCY_MASK_CONFIG } from "ng2-currency-mask/src/currency-mask.config";
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -32,9 +28,9 @@ import { MatStepperModule, MatStepper } from '@angular/material/stepper';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatGridListModule } from '@angular/material/grid-list';
 
-import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
+import { AppComponent } from './app.component';
 import { NavbarComponent } from './ui/navbar/navbar.component';
 import { CadastroComponent as PedidoCadastroComponent } from './pedido/cadastro/cadastro.component';
 import { ListaComponent as PedidoListaComponent } from './pedido/lista/lista.component';
@@ -44,17 +40,9 @@ import { CadastroComponent as FornecedorCadastroComponent } from './fornecedor/c
 import { ListaComponent as FornecedorListaComponent } from './fornecedor/lista/lista.component';
 import { CadastroComponent as UsuarioCadastroComponent } from './usuario/cadastro/cadastro.component';
 import { ListaComponent as UsuarioListaComponent } from './usuario/lista/lista.component';
-import { JwtProviver } from './_helper/jwt.interceptor';
-import { FakeBackendProvider } from './_mock/backend/fakeBackend.provider';
 import { ToolbarComponent } from './ui/toolbar/toolbar.component';
-import { MyErrorStateMatcherProvider } from './_helper/myErrorStateMatcher';
-import { AuthComponent } from './auth/auth.component';
 import { IconComponent } from './ui/icon/icon.component';
-import { AuthenticationService } from './auth/auth.service';
-import { AuthGuard } from './auth/auth.guard';
-import { DialogComponent as AuthDialogComponent } from './auth/dialog/dialog.component';
 import { AlertComponent } from './ui/alert/alert.component';
-import { AlertService } from './ui/alert/alert.service';
 import { SpinerComponent } from './ui/spiner/spiner.component';
 import { FullscreenDirective } from './ui/fullscreen/fullscreen.directive';
 import { DialogComponent as FullscreenDialogComponent } from './ui/fullscreen/dialog/dialog.component';
@@ -63,6 +51,15 @@ import { MediaQueryDirective } from './ui/media-query/media-query.directive';
 import { FooterComponent } from './ui/footer/footer.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ListComponent } from './ui/frame/list/list.component';
+
+import { AuthProviver, AuthenticationService, AuthComponent, AuthGuard, DialogComponent as AuthDialogComponent } from './auth';
+
+import { AlertService } from './ui/alert/alert.service';
+
+import { UnauthorizedProviver } from './_helper/unauthorized.interceptor';
+import { FakeBackendProvider } from './_mock/backend/fakeBackend.provider';
+import { MyErrorStateMatcherProvider } from './_helper/myErrorStateMatcher';
+import { LoadingComponent } from './ui/loading/loading.component';
 
 
 @NgModule({
@@ -81,7 +78,7 @@ import { ListComponent } from './ui/frame/list/list.component';
 		AlertComponent,
 		AuthDialogComponent,
 		SpinerComponent,
-		FullscreenDirective,	
+		FullscreenDirective,
 		FullscreenDialogComponent,
 		UserComponent,
 		MediaQueryDirective,
@@ -89,7 +86,8 @@ import { ListComponent } from './ui/frame/list/list.component';
 		PedidoCadastroComponent,
 		PedidoListaComponent,
 		DashboardComponent,
-		ListComponent
+		ListComponent,
+		LoadingComponent
 	],
 	entryComponents: [
 		AuthDialogComponent,
@@ -102,7 +100,6 @@ import { ListComponent } from './ui/frame/list/list.component';
 		CommonModule,
 		AppRoutingModule,
 		FormsModule,
-		CurrencyMaskModule,
 		ReactiveFormsModule,
 		MatToolbarModule,
 		MatProgressBarModule,
@@ -128,23 +125,13 @@ import { ListComponent } from './ui/frame/list/list.component';
 	],
 	providers: [
 		MyErrorStateMatcherProvider,
-		JwtProviver,
-		AuthGuard,
+		AuthProviver,
+		AuthGuard, 
+		UnauthorizedProviver,
 		AlertService,
 		AuthenticationService,
 		MatStepper,
-		FakeBackendProvider,
-		{
-			provide: CURRENCY_MASK_CONFIG, useValue: {
-				align: "right",
-				allowNegative: true,
-				decimal: ",",
-				precision: 2,
-				prefix: "R$ ",
-				suffix: "",
-				thousands: "."
-			}
-		} 
+		FakeBackendProvider
 	],
 	bootstrap: [AppComponent]
 })

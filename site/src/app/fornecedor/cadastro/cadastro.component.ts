@@ -3,7 +3,7 @@ import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/fo
 import { MyErrorStateMatcher } from '../../_helper/myErrorStateMatcher';
 import { IconModel, IconBuilder } from '../../ui/icon';
 import { ToolbarModel, ToolbarBuilder } from '../../ui/toolbar';
-
+import { LoadingService } from '../../ui/loading'
 
 @Component({
 	moduleId: module.id,
@@ -22,8 +22,9 @@ export class CadastroComponent implements OnInit {
 
 	constructor(public matcher: MyErrorStateMatcher,
 		iconBuilder: IconBuilder,
-		tb: ToolbarBuilder) {
-
+		tb: ToolbarBuilder,
+		private loadService : LoadingService) {
+		this.loadService.start();
 		this.toolbar = tb
 			.withTitle({ description: "Novo Fornecedor", icon: tb.icon('business') })
 			.forward({url: undefined, icon :tb.icon('save').build()})
@@ -32,6 +33,7 @@ export class CadastroComponent implements OnInit {
 
 
 	ngOnInit() {
+		this.loadService.end();
 	}
 
 }

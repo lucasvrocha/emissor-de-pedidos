@@ -20,7 +20,7 @@ export class AuthGuard implements CanActivate {
     }
 
     isLogged(): boolean {
-        return this.auth.authorized;
+        return this.auth.isAutorzed();
     }
 
     user() : any {
