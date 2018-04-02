@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material';
 
@@ -17,7 +17,8 @@ import { LoadingService, LoadingComponent } from '../../ui/loading';
 	styleUrls: ['./cadastro.component.css', '../lista/lista.component.css'],
 	providers: [ToolbarBuilder, ProdutoService, FornecedorService]
 })
-export class CadastroComponent implements OnInit {
+export class CadastroComponent implements OnInit , OnDestroy{
+	
 	frame: ListModel;
 
 	firstFormGroup: FormGroup;
@@ -96,6 +97,10 @@ export class CadastroComponent implements OnInit {
 		this.loadService.end();
 	}
 
+	ngOnDestroy() {
+
+	}
+
 	estoque(produto: Produto) {
 		let i: PedidoItem[] = this.pedido.itens.filter(i => i.produtoId === produto.id);
 		return i[0] ? produto.quantidade - i[0].qtd : produto.quantidade;
@@ -125,15 +130,19 @@ export class CadastroComponent implements OnInit {
 	}
 
 	updateProdutos() {
+		console.log(this.loadService.components);
 		let loaderFornecedor = this.loadService.init('loader-fornecedor');
 		let param = this.pedido.tipo === 'venda' ? undefined : { fornecedorId: this.pedido.fornecedorId };
-
+		console.log(loaderFornecedor);
+		setTimeout(()=>{
 		this.produtoService
 			.getProdutos(param)
 			.subscribe(produtos => {
 				this.produtos = produtos;
 				loaderFornecedor.end();
 			});
+
+		}, 3000);
 	}
 
 	updatePagamento() {

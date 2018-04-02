@@ -40,7 +40,7 @@
 				<br>
 				<mat-button-toggle-group #group="matButtonToggleGroup" vertical >
 					<mat-button-toggle value="venda">
-						<button mat-raised-button class='btn-tipo' matStepperNext (click)='pedido.tipo=group.value="venda";updateProdutos();'  color="primary">Venda</button>
+						<button mat-raised-button class='btn-tipo'  (click)='pedido.tipo=group.value="venda";updateProdutos();stepper.next();'  color="primary">Venda</button>
 					</mat-button-toggle>
 					<mat-button-toggle value="compra">
 						<button class='btn-tipo' (click)='pedido.tipo=group.value="compra"' mat-raised-button [permission]='["ADMIN"]' >Compra</button>
@@ -61,7 +61,7 @@
 							</mat-option>
 						</mat-select>
 					</mat-form-field>
-					<button mat-raised-button [disabled]='!pedido.fornecedorId' color="primary" matStepperNext (click)='updateProdutos()'>Adicionar Produtos</button>
+					<button mat-raised-button [disabled]='!pedido.fornecedorId' color="primary"  (click)='updateProdutos()'>Adicionar Produtos</button>
 				</ng-container>
 
 			</div>

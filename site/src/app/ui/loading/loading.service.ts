@@ -4,27 +4,34 @@ import { LoadingComponent } from './loading.component';
 @Injectable()
 export class LoadingService {
 
-	private components: LoadingComponent[] = [];
-	
+	components: LoadingComponent[] = [];
+
 	constructor() { }
-	
-	start() : LoadingComponent {
+
+	start(): LoadingComponent {
 		return this.init('main', 1);
 	}
 
-	add( comp : LoadingComponent){
-		this.components.push(comp);
+	add(comp: LoadingComponent) {
+		if (!this.components.find(i => i.name === comp.name))
+			this.components.push(comp);
 	}
 
-	init(name?: string |'main', process?: number |1) : LoadingComponent {
-		let loader = this.components.find(c  => c.name === name);
+	remove(comp: LoadingComponent) {
+		let i = this.components.findIndex(i => i.name === comp.name);
+		if (i >= 0)
+			this.components.splice(i, 1);
+	}
+
+	init(name?: string | 'main', process?: number | 1): LoadingComponent {
+		let loader = this.components.find(c => c.name === name);
 		if (loader)
-			loader.init(process);
-		return loader;
+			return loader.init(process);
+		return null;
 	}
 
 	end() {
-		this.components.find(c => c.name ==='main').end();
+		this.components.find(c => c.name === 'main').end();
 	}
 
 }
