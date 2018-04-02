@@ -40,13 +40,13 @@
 				<br>
 				<mat-button-toggle-group #group="matButtonToggleGroup" vertical >
 					<mat-button-toggle value="venda">
-						<button class='btn-tipo' matStepperNext (click)='pedido.tipo=group.value="venda";updateProdutos();'  mat-raised-button color="primary">Venda</button>
+						<button mat-raised-button class='btn-tipo' matStepperNext (click)='pedido.tipo=group.value="venda";updateProdutos();'  color="primary">Venda</button>
 					</mat-button-toggle>
 					<mat-button-toggle value="compra">
-						<button class='btn-tipo' (click)='pedido.tipo=group.value="compra"' mat-raised-button>Compra</button>
+						<button class='btn-tipo' (click)='pedido.tipo=group.value="compra"' mat-raised-button [permission]='["ADMIN"]' >Compra</button>
 					</mat-button-toggle>
 					<mat-button-toggle value="devolucao" >
-						<button class='btn-tipo' (click)='pedido.tipo=group.value="devolucao"' mat-raised-button color="accent">Devolução</button>
+						<button class='btn-tipo' (click)='pedido.tipo=group.value="devolucao"' mat-raised-button color="accent"  [permission]='["ADMIN"]' >Devolução</button>
 					</mat-button-toggle>
 				</mat-button-toggle-group>
 				
@@ -55,7 +55,7 @@
 					<br>
 					<p>Escolha um Fornecedor</p>
 					<mat-form-field class="full-width">
-						<mat-select type='text' placeholder="Fornecedor" [(ngModel)]='pedido.fornecedorId'>
+						<mat-select  type='text' placeholder="Fornecedor" [(ngModel)]='pedido.fornecedorId'>
 							<mat-option *ngFor="let fornecedor of fornecedores" [value]="fornecedor.id">
 								#{{fornecedor.id}} - {{ fornecedor.razao }}
 							</mat-option>

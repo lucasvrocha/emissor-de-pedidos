@@ -27,6 +27,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatStepperModule, MatStepper } from '@angular/material/stepper';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { MatTooltipModule } from '@angular/material/tooltip';
+
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -52,7 +54,7 @@ import { FooterComponent } from './ui/footer/footer.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ListComponent } from './ui/frame/list/list.component';
 
-import { AuthProviver, AuthenticationService, AuthComponent, AuthGuard, DialogComponent as AuthDialogComponent } from './auth';
+import { AuthProviver, AuthenticationService, AuthComponent, AuthDirective, AuthGuard, DialogComponent as AuthDialogComponent } from './auth';
 
 import { AlertService } from './ui/alert/alert.service';
 
@@ -60,6 +62,7 @@ import { UnauthorizedProviver } from './_helper/unauthorized.interceptor';
 import { FakeBackendProvider } from './_mock/backend/fakeBackend.provider';
 import { MyErrorStateMatcherProvider } from './_helper/myErrorStateMatcher';
 import { LoadingService, LoadingComponent } from './ui/loading';
+
 
 
 @NgModule({
@@ -77,6 +80,7 @@ import { LoadingService, LoadingComponent } from './ui/loading';
 		AuthComponent,
 		AlertComponent,
 		AuthDialogComponent,
+		AuthDirective,
 		SpinerComponent,
 		FullscreenDirective,
 		FullscreenDialogComponent,
@@ -121,17 +125,18 @@ import { LoadingService, LoadingComponent } from './ui/loading';
 		MatExpansionModule,
 		MatStepperModule,
 		MatButtonToggleModule,
-		MatGridListModule
+		MatGridListModule,
+		MatTooltipModule
 	],
 	providers: [
 		MyErrorStateMatcherProvider,
 		AuthProviver,
-		AuthGuard, 
+		AuthGuard,
 		UnauthorizedProviver,
 		AlertService,
 		AuthenticationService,
 		MatStepper,
-		LoadingService, 
+		LoadingService,
 		FakeBackendProvider
 	],
 	bootstrap: [AppComponent]

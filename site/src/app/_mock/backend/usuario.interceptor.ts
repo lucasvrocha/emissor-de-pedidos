@@ -49,7 +49,7 @@ export class UsuarioInterceptor implements HttpInterceptor {
 
                 response = new HttpResponse({ status: usuario === null ? 404 : 200, body: usuario });
             } else if (this.getUsuario(request)) {
-                console.log("aqui");
+
                 response = new HttpResponse({ status: 200, body: USUARIO });
             }
 
@@ -57,7 +57,7 @@ export class UsuarioInterceptor implements HttpInterceptor {
             return Observable.of(response);
         })
             .materialize()
-            .delay(500)
+            .delay(250)
             .dematerialize();
     }
 

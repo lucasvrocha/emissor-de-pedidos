@@ -6,7 +6,7 @@ export const USUARIO: Usuario[] = [
 		"nome" : "Lucas Vieira Rocha", 
 		"usuario" : "lucas.rocha",
 		"senha" : "lucas",
-		"adm" : true, 
+		"roles" : ["seller","admin"], 
 		"email" : "lucas.rocha@edp.com.br",
 		"jwt" : undefined,
 		"foto" : "https://dummyimage.com/150x150/254853/ededed.gif&text=LR"
@@ -16,7 +16,7 @@ export const USUARIO: Usuario[] = [
 		"nome" : "Mayara Vidal", 
 		"usuario" : "mayara.vidal",
 		"senha" : "mayara",
-		"adm" : true, 
+		"roles" : ["admin"], 
 		"email" : "mayara.vidal@edp.com.br",
 		"jwt" : undefined,
 		"foto" : "https://dummyimage.com/150x150/254853/ededed.gif&text=MV"
@@ -26,7 +26,7 @@ export const USUARIO: Usuario[] = [
 		"nome" : "Clerivaldo da Silva", 
 		"usuario" : "clerivaldo.silva",
 		"senha" : "clerivaldo",
-		"adm" : false, 
+		"roles" : ["seller"], 
 		"email" : "clerivaldo.silva@edp.com.br",
 		"jwt" : undefined,
 		"foto" : "https://dummyimage.com/150x150/254853/ededed.gif&text=CS"
@@ -36,7 +36,7 @@ export const USUARIO: Usuario[] = [
 		"nome" : "Leonardo Fatec", 
 		"usuario" : "leonardo.fatec",
 		"senha" : "leonardo",
-		"adm" : false, 
+		"roles" : ["seller"], 
 		"email" : "leonardo.fatec@edp.com.br",
 		"jwt" : undefined,
 		"foto" : "https://dummyimage.com/150x150/254853/ededed.gif&text=LF"
@@ -46,7 +46,7 @@ export const USUARIO: Usuario[] = [
 		"nome" : "Alessandro Fatec", 
 		"usuario" : "alessandro.fatec",
 		"senha" : "alessandro",
-		"adm" : false, 
+		"roles" : ["seller"], 
 		"email" : "alessandro.fatec@edp.com.br",
 		"jwt" : undefined,
 		"foto" : "https://dummyimage.com/150x150/254853/ededed.gif&text=AF"
