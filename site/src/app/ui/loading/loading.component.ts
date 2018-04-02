@@ -1,5 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Router } from '@angular/router';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/do';
+
 import { LoadingService } from './loading.service'
+
 
 @Component({
 	selector: 'app-loading',
@@ -19,15 +24,16 @@ export class LoadingComponent implements OnInit {
 
 	private process: boolean[] = new Array(0);
 
-	constructor(public service: LoadingService) {
+	constructor(public service: LoadingService, private router: Router) {
+		router.events.subscribe((val) => {this.init(1)})
 	}
 
 	ngOnInit() {
 		this.service.add(this);
 	}
 
-	init(qtdProcess: number ) {
-		qtdProcess = (qtdProcess === undefined? 1 : qtdProcess);
+	init(qtdProcess: number) {
+		qtdProcess = (qtdProcess === undefined ? 1 : qtdProcess);
 
 		this.modo = qtdProcess > 1 ? 'determinate' : 'indeterminate';
 		this.loading = true;
