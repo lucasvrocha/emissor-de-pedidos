@@ -1,60 +1,78 @@
-<app-toolbar  title="Novo Usuario" iconName='account_box' save=true></app-toolbar>
+<ui-frame-list  media-query #media='media' permission [permission-expected]='["admin"]' #auth='auth' >
+	<ng-container back> 
+		<button mat-icon-button routerLink='../'>
+			<app-icon name='arrow_back' label='voltar'></app-icon>
+		</button>
+	</ng-container>
+	<ng-container title>
+		<button mat-icon-button>
+			<app-icon name='account_box'></app-icon>
+		</button>
+		<h2>Novo Usuario</h2>
+	</ng-container>
+	<ng-container options>
+		<button mat-icon-button [disabled]='!auth.hasPermission()' >
+			<app-icon name='save'>
+				<app-icon *ngIf='!auth.hasPermission()' name='block' color='red' [iconContent]='true'></app-icon>
+			</app-icon>
+		</button>
+	</ng-container>
 
-<form class="form" >
-	<mat-form-field class="full-width">
-		<input matInput placeholder="# Código do Usuario" disabled value="Será gerado automáticamente.">
-	</mat-form-field>
+	<form class="form" [formGroup]='formGroup' >
+		<mat-form-field class="full-width">
+			<input matInput placeholder="# Código do Usuario" disabled value="Será gerado automáticamente.">
+		</mat-form-field>
 
-	<table class="full-width" cellspacing="0"><tr>
-		<td><mat-form-field class="full-width" hintLabel="Nome" required >
-			<input matInput #nome maxlength="30" placeholder="Nome">
-			<mat-hint align="end">{{nome.value?.length || 0}}/30</mat-hint>
-		</mat-form-field></td>
-	</tr></table>
+		<table class="full-width" cellspacing="0"><tr>
+			<td><mat-form-field class="full-width" hintLabel="Nome" required >
+				<input matInput #nome maxlength="30" placeholder="Nome" formControlName='nome'>
+				<mat-hint align="end">{{nome.value?.length || 0}}/30</mat-hint>
+			</mat-form-field></td>
+		</tr></table>
 
-	<table class="full-width" cellspacing="0"><tr>
-		<td><mat-form-field class="full-width" hintLabel="Maximo 30 caracteres" required >
-			<input matInput #ie maxlength="30" placeholder="Usuario">
-			<mat-hint align="end">{{ie.value?.length || 0}}/30</mat-hint>
-		</mat-form-field></td>
-	</tr></table>
+		<table class="full-width" cellspacing="0"><tr>
+			<td><mat-form-field class="full-width" hintLabel="Maximo 30 caracteres" required >
+				<input matInput #usuario maxlength="30" placeholder="Usuario" formControlName='usuario'>
+				<mat-hint align="end">{{usuario.value?.length || 0}}/30</mat-hint>
+			</mat-form-field></td>
+		</tr></table>
 
-	<table class="full-width" cellspacing="0"><tr>
-		<td><mat-form-field class="full-width" hintLabel="Maximo 30 caracteres" required >
-			<input matInput #ie maxlength="30" placeholder="Senha">
-			<mat-hint align="end">{{ie.value?.length || 0}}/30</mat-hint>
-		</mat-form-field></td>
-	</tr></table>
+		<table class="full-width" cellspacing="0"><tr>
+			<td><mat-form-field class="full-width" hintLabel="Maximo 30 caracteres" required >
+				<input matInput #ie maxlength="30" placeholder="Senha" formControlName='senha'>
+				<mat-hint align="end">{{ie.value?.length || 0}}/30</mat-hint>
+			</mat-form-field></td>
+		</tr></table>
 
-	<table class="full-width" cellspacing="0"><tr>
-		<td><mat-form-field class="full-width" hintLabel="Maximo 30 caracteres" required >
-			<input matInput #ie maxlength="30" placeholder="Digite novamente a senha">
-			<mat-hint align="end">{{ie.value?.length || 0}}/30</mat-hint>
-		</mat-form-field></td>
-	</tr></table>
+		<table class="full-width" cellspacing="0"><tr>
+			<td><mat-form-field class="full-width" hintLabel="Maximo 30 caracteres" required >
+				<input matInput #ie maxlength="30" placeholder="Digite novamente a senha" formControlName='senha2'>
+				<mat-hint align="end">{{ie.value?.length || 0}}/30</mat-hint>
+			</mat-form-field></td>
+		</tr></table>
 
-	<table class="full-width" cellspacing="0"><tr>
-		<td><mat-form-field class="full-width">
-			<input matInput placeholder="Email" [formControl]="emailFormControl"
-			[errorStateMatcher]="matcher">
-			<mat-hint></mat-hint>
-			<mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
-				Favor inserir um email valido
-			</mat-error>
-			<mat-error *ngIf="emailFormControl.hasError('required')">
-				Email <strong>obrigatório</strong>
-			</mat-error>
-		</mat-form-field></td>
-	</tr></table>
+		<table class="full-width" cellspacing="0"><tr>
+			<td><mat-form-field class="full-width">
+				<input matInput placeholder="Email" formControlName='email'
+				[errorStateMatcher]="matcher">
+				<mat-hint></mat-hint>
+				<mat-error *ngIf="formGroup.hasError('email') && !formGroup.hasError('required')">
+					Favor inserir um email valido
+				</mat-error>
+				<mat-error *ngIf="formGroup.hasError('required')">
+					Email <strong>obrigatório</strong>
+				</mat-error>
+			</mat-form-field></td>
+		</tr></table>
 
-	<table class="full-width" cellspacing="0"><tr>
-		<td><mat-checkbox>Administrador</mat-checkbox></td>
-	</tr></table>
-	
-	<div class="full-width menu-action">
-		<button mat-button>Cancelar</button>
-		<button mat-button color="warn">Excluir</button>
-		<span class="fill-space"></span>
-		<button mat-raised-button color="primary">Salvar</button>
-	</div>
-</form>
+		<table class="full-width" cellspacing="0"><tr>
+			<td><mat-checkbox formControlName='adm'>Administrador</mat-checkbox></td>
+		</tr></table>
+
+		<div class="full-width menu-action">
+			<button [disabled]='formGroup.disabled' mat-button>Cancelar</button>
+			<button [disabled]='formGroup.disabled' mat-button color="warn">Excluir</button>
+			<button [disabled]='formGroup.disabled' mat-raised-button color="primary">Salvar</button>
+		</div>
+	</form>
+</ui-frame-list>
