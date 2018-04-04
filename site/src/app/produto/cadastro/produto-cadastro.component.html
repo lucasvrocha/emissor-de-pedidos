@@ -1,4 +1,3 @@
-<!-- <app-toolbar  title="Novo Produto" iconName='business_center'></app-toolbar> -->
 <ui-frame-list  media-query #media='media' permission [permission-expected]='["admin"]' #auth='auth' >
 	<ng-container back> 
 		<button mat-icon-button routerLink='../'>
@@ -16,7 +15,6 @@
 			<app-icon name='save'>
 				<app-icon *ngIf='!auth.hasPermission()' name='block' color='red' [iconContent]='true'></app-icon>
 			</app-icon>
-
 		</button>
 	</ng-container>
 

@@ -1,16 +1,9 @@
-.content-full-height {
-  position: absolute;
-  top: 128px; /* Header Height */
-  bottom: 0px; /* Footer Height */
-  width: 100%;
-}
-
 .form {
 	margin: auto;
-	min-width: 320px;
+	min-width: 150px;
+	max-width: 500px;
 	width: 100%;
-	padding-top: 60px;
-	padding: 15px;
+	padding: 10px;
 }
 
 .full-width {

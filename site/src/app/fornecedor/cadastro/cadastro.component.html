@@ -1,58 +1,75 @@
-<app-toolbar  [model]=toolbar ></app-toolbar>
-<div class="content-full-height ">
-<form class="container form mat-elevation-z10">
-	<mat-form-field class="full-width">
-		<input matInput placeholder="#Código do Fornecedor" disabled value="Será gerado automáticamente.">
-	</mat-form-field>
+<ui-frame-list  media-query #media='media' permission [permission-expected]='["admin"]' #auth='auth' >
+	<ng-container back> 
+		<button mat-icon-button routerLink='../'>
+			<app-icon name='arrow_back' label='voltar'></app-icon>
+		</button>
+	</ng-container>
+	<ng-container title>
+		<button mat-icon-button>
+			<app-icon name='business'></app-icon>
+		</button>
+		<h2>Novo Fornecedor</h2>
+	</ng-container>
+	<ng-container options>
+		<button mat-icon-button [disabled]='!auth.hasPermission()' >
+			<app-icon name='save'>
+				<app-icon *ngIf='!auth.hasPermission()' name='block' color='red' [iconContent]='true'></app-icon>
+			</app-icon>
+		</button>
+	</ng-container>
+	
+	<form class="form" [formGroup]='formGroup'  >
+		<mat-form-field class="full-width">
+			<input matInput placeholder="#Código do Fornecedor" disabled value="Será gerado automáticamente.">
+		</mat-form-field>
 
-	<table class="full-width" cellspacing="0"><tr>
-		<td><mat-form-field class="full-width" hintLabel="Maximo 18 caracteres" required >
-			<input matInput #cnpj maxlength="18" placeholder="CNPJ">
-			<mat-hint align="end">{{cnpj.value?.length || 0}}/18</mat-hint>
-		</mat-form-field></td>
-	</tr></table>
-
-
-	<table class="full-width" cellspacing="0"><tr>
-		<td><mat-form-field class="full-width" hintLabel="Maximo 9 caracteres" required >
-			<input matInput #ie maxlength="9" placeholder="Inscrição Estadual">
-			<mat-hint align="end">{{ie.value?.length || 0}}/9</mat-hint>
-		</mat-form-field></td>
-	</tr></table>
-
-	<table class="full-width" cellspacing="0"><tr>
-		<td><mat-form-field class="full-width" hintLabel="Maximo 50 caracteres" required >
-			<input matInput #razao maxlength="50" placeholder="Razão Social">
-			<mat-hint align="end">{{razao.value?.length || 0}}/50</mat-hint>
-		</mat-form-field></td>
-	</tr></table>
-
-	<table class="full-width" cellspacing="0"><tr>
-		<td><mat-form-field class="full-width" hintLabel="Maximo 50 caracteres" required >
-			<input matInput #fantasia maxlength="50" placeholder="Nome Fantasia">
-			<mat-hint align="end">{{fantasia.value?.length || 0}}/50</mat-hint>
-		</mat-form-field></td>
-	</tr></table>
-	<table class="full-width" cellspacing="0"><tr>
-		<td><mat-form-field class="full-width">
-			<input matInput placeholder="Email" [formControl]="emailFormControl"
-			[errorStateMatcher]="matcher">
-			<mat-hint></mat-hint>
-			<mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
-				Favor inserir um email valido
-			</mat-error>
-			<mat-error *ngIf="emailFormControl.hasError('required')">
-				Email <strong>obrigatório</strong>
-			</mat-error>
-		</mat-form-field></td>
-	</tr></table>
+		<table class="full-width" cellspacing="0"><tr>
+			<td><mat-form-field class="full-width" hintLabel="Maximo 18 caracteres" required >
+				<input matInput #cnpj maxlength="18" placeholder="CNPJ" formControlName='cnpj'>
+				<mat-hint align="end">{{cnpj.value?.length || 0}}/18</mat-hint>
+			</mat-form-field></td>
+		</tr></table>
 
 
-	<div class="full-width">
-		<button mat-button>Cancelar</button>
-		<button mat-button color="warn">Excluir</button>
-		<span class="fill-space"></span>
-		<button mat-raised-button color="primary">Salvar</button>
-	</div>
-</form>
-</div>
+		<table class="full-width" cellspacing="0"><tr>
+			<td><mat-form-field class="full-width" hintLabel="Maximo 9 caracteres" required >
+				<input matInput #ie maxlength="9" placeholder="Inscrição Estadual" formControlName='ie'>
+				<mat-hint align="end">{{ie.value?.length || 0}}/9</mat-hint>
+			</mat-form-field></td>
+		</tr></table>
+
+		<table class="full-width" cellspacing="0"><tr>
+			<td><mat-form-field class="full-width" hintLabel="Maximo 50 caracteres" required >
+				<input matInput #razao maxlength="50" placeholder="Razão Social" formControlName='razao'>
+				<mat-hint align="end">{{razao.value?.length || 0}}/50</mat-hint>
+			</mat-form-field></td>
+		</tr></table>
+
+		<table class="full-width" cellspacing="0"><tr>
+			<td><mat-form-field class="full-width" hintLabel="Maximo 50 caracteres" required >
+				<input matInput #fantasia maxlength="50" placeholder="Nome Fantasia" formControlName='fantasia'>
+				<mat-hint align="end">{{fantasia.value?.length || 0}}/50</mat-hint>
+			</mat-form-field></td>
+		</tr></table>
+		<table class="full-width" cellspacing="0"><tr>
+			<td><mat-form-field class="full-width">
+				<input matInput placeholder="Email" [errorStateMatcher]="matcher" formControlName='email'>
+				<mat-hint></mat-hint>
+				<mat-error *ngIf="formGroup.hasError('email') && !formGroup.hasError('required')">
+					Favor inserir um email valido
+				</mat-error>
+				<mat-error *ngIf="formGroup.hasError('required')">
+					Email <strong>obrigatório</strong>
+				</mat-error>
+			</mat-form-field></td>
+		</tr></table>
+
+
+		<div class="full-width">
+			<button [disabled]='formGroup.disabled' mat-button>Cancelar</button>
+			<button [disabled]='formGroup.disabled' mat-button color="warn">Excluir</button>
+			<button [disabled]='formGroup.disabled' mat-raised-button color="primary">Salvar</button>
+		</div>
+	</form>
+	
+</ui-frame-list>

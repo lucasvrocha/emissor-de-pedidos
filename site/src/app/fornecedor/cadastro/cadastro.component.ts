@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MyErrorStateMatcher } from '../../_helper/myErrorStateMatcher';
 import { IconModel, IconBuilder } from '../../ui/icon';
 import { ToolbarModel, ToolbarBuilder } from '../../ui/toolbar';
 import { LoadingService } from '../../ui/loading'
+
+import { AuthenticationService } from '../../auth';
 
 @Component({
 	moduleId: module.id,
@@ -13,27 +15,40 @@ import { LoadingService } from '../../ui/loading'
 	providers: [IconBuilder, ToolbarBuilder]
 })
 export class CadastroComponent implements OnInit {
-	emailFormControl = new FormControl('', [
-		Validators.required,
-		Validators.email,
-	]);
 
-	toolbar: ToolbarModel;
+	formGroup: FormGroup;
+
 
 	constructor(public matcher: MyErrorStateMatcher,
 		iconBuilder: IconBuilder,
 		tb: ToolbarBuilder,
-		private loadService : LoadingService) {
+		authService: AuthenticationService,
+		private loadService: LoadingService
+	) {
 		this.loadService.start();
-		this.toolbar = tb
-			.withTitle({ description: "Novo Fornecedor", icon: tb.icon('business') })
-			.forward({url: undefined, icon :tb.icon('save').build()})
-			.build();
+
+		let permission = authService.hasPermition(["admin"]);
+		let formControlTemplate = { value: '', disabled: !permission };
+
+		this.formGroup = new FormGroup({
+			cnpj: new FormControl(formControlTemplate),
+			ie: new FormControl(formControlTemplate),
+			razao: new FormControl(formControlTemplate),
+			fantasia: new FormControl(formControlTemplate),
+			email: new FormControl(formControlTemplate, [
+				Validators.required,
+				Validators.email,
+			])
+		});
 	}
 
 
 	ngOnInit() {
 		this.loadService.end();
+	}
+
+	ngOnChanges(){
+		console.log(this.formGroup.hasError('email'));
 	}
 
 }
