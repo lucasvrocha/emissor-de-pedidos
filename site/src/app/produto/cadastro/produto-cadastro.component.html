@@ -1,29 +1,49 @@
-<app-toolbar  title="Novo Produto" iconName='business_center'></app-toolbar>
+<!-- <app-toolbar  title="Novo Produto" iconName='business_center'></app-toolbar> -->
+<ui-frame-list  media-query #media='media' permission [permission-expected]='["admin"]' #auth='auth' >
+	<ng-container back> 
+		<button mat-icon-button routerLink='../'>
+			<app-icon name='arrow_back' label='voltar'></app-icon>
+		</button>
+	</ng-container>
+	<ng-container title>
+		<button mat-icon-button>
+			<app-icon name='business_center'></app-icon>
+		</button>
+		<h2>Novo Produto</h2>
+	</ng-container>
+	<ng-container options>
+		<button mat-icon-button [disabled]='!auth.hasPermission()' >
+			<app-icon name='save'>
+				<app-icon *ngIf='!auth.hasPermission()' name='block' color='red' [iconContent]='true'></app-icon>
+			</app-icon>
 
-<form class="form">
-	<mat-form-field class="full-width">
-		<input matInput placeholder="# Código do produto" disabled value="Será gerado automáticamente.">
-	</mat-form-field>
+		</button>
+	</ng-container>
 
-	<table class="full-width" cellspacing="0"><tr>
-		<td><mat-form-field class="full-width" hintLabel="Maximo 80 caracteres" required >
-			<input matInput #input maxlength="80" placeholder="Nome do produto">
-			<mat-hint align="end">{{input.value?.length || 0}}/80</mat-hint>
-		</mat-form-field></td>
-	</tr></table>
+	<form class="form" [formGroup]='formGroup'  >
+		<mat-form-field class="full-width">
+			<input matInput placeholder="# Código do produto" disabled value="Será gerado automáticamente.">
+		</mat-form-field>
 
-	<mat-form-field class="full-width">
-		<mat-select placeholder="Fornecedor" [(ngModel)]="selectedValue" name="fornecedor" required >
-			<mat-option *ngFor="let fornecedor of fornecedores" [value]="fornecedor.value">
-				{{fornecedor.viewValue}}
-			</mat-option>
-		</mat-select>
-	</mat-form-field>
+		<table class="full-width" cellspacing="0"><tr>
+			<td><mat-form-field class="full-width" hintLabel="Maximo 80 caracteres" required >
+				<input matInput #input maxlength="80" placeholder="Nome do produto" formControlName="nome">
+				<mat-hint align="end">{{input.value?.length || 0}}/80</mat-hint>
+			</mat-form-field></td>
+		</tr></table>
 
-	<div class="full-width">
-		<button mat-button>Cancelar</button>
-		<button mat-button color="warn">Excluir</button>
-		<span class="fill-space"></span>
-		<button mat-raised-button color="primary">Salvar</button>
-	</div>
-</form>
+		<mat-form-field class="full-width">
+			<mat-select placeholder="Fornecedor" formControlName='fornecedor'  required >
+				<mat-option *ngFor="let fornecedor of fornecedores" [value]="fornecedor.value">
+					{{fornecedor.viewValue}}
+				</mat-option>
+			</mat-select>
+		</mat-form-field>
+
+		<div class="full-width">
+			<button [disabled]="formGroup.disabled" mat-button>Cancelar</button>
+			<button [disabled]="formGroup.disabled" mat-button color="warn">Excluir</button>
+			<button [disabled]="formGroup.disabled" mat-raised-button color="primary">Salvar</button>
+		</div>
+	</form>
+</ui-frame-list>

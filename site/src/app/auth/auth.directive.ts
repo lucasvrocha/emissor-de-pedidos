@@ -3,11 +3,13 @@ import { Directive, Input, OnInit, OnChanges, AfterViewInit, ElementRef, Rendere
 import { AuthenticationService } from './auth.service';
 
 @Directive({
-	selector: '[permission]'
+	selector: '[permission]', 
+	exportAs: 'auth'
 })
 export class AuthDirective implements OnInit, AfterViewInit {
 
-	@Input() permission: string[];
+	@Input("permission-expected") permission: string[];
+
 
 	constructor(
 		private authService: AuthenticationService,
@@ -16,7 +18,7 @@ export class AuthDirective implements OnInit, AfterViewInit {
 	) { }
 
 	ngAfterViewInit() {
-		let disabled =  this.disabled();
+		let disabled =  !this.hasPermission();
 		this.renderer.setElementProperty(this.el.nativeElement, 'disabled', disabled);
 	}
 
@@ -26,4 +28,9 @@ export class AuthDirective implements OnInit, AfterViewInit {
 	disabled(permission?: string[]) {
 		return !(this.authService.isAutorzed() && this.authService.hasPermition(permission === undefined ? this.permission : permission));
 	}
+
+	hasPermission() {
+		return this.authService.isAutorzed() && this.authService.hasPermition(this.permission );
+	}
+
 }

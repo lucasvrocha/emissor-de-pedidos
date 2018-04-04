@@ -43,10 +43,10 @@
 						<button mat-raised-button class='btn-tipo'  (click)='pedido.tipo=group.value="venda";updateProdutos();stepper.next();'  color="primary">Venda</button>
 					</mat-button-toggle>
 					<mat-button-toggle value="compra">
-						<button class='btn-tipo' (click)='pedido.tipo=group.value="compra"' mat-raised-button [permission]='["ADMIN"]' >Compra</button>
+						<button class='btn-tipo' (click)='pedido.tipo=group.value="compra"' mat-raised-button permission [permission-expected]='["ADMIN"]' >Compra</button>
 					</mat-button-toggle>
 					<mat-button-toggle value="devolucao" >
-						<button class='btn-tipo' (click)='pedido.tipo=group.value="devolucao"' mat-raised-button color="accent"  [permission]='["ADMIN"]' >Devolução</button>
+						<button class='btn-tipo' (click)='pedido.tipo=group.value="devolucao"' mat-raised-button color="accent"  permission [permission-expected]='["ADMIN"]' >Devolução</button>
 					</mat-button-toggle>
 				</mat-button-toggle-group>
 				
