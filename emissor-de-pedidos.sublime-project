@@ -1,0 +1,20 @@
+{
+	"folders":
+	[
+		{
+			"path": "."
+		}
+	],
+	"settings":
+    {
+        "ArcticTypescript": {
+            "pre_processing_commands": ["node .settings/.components"],
+            "post_processing_commands": [
+                "node .settings/.silns.js",
+                "r.js.cmd -o .settings/.build.js",
+                "cat ${tsconfig}",
+                "echo a\\\\nbc | cat"
+            ]
+        }
+    }
+}

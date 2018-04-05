@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy,ElementRef,  Input } from '@angular/core';
+import { Component, OnInit, OnDestroy, ElementRef, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/do';
@@ -16,25 +16,25 @@ import { LoadingService } from './loading.service'
 export class LoadingComponent implements OnInit, OnDestroy {
 
 	@Input() name: string | 'main';
+	@Input() message: string;
 
 	modo: string | 'indeterminate';
 	progress: number;
 	loading: boolean = false;
-	
+
 
 	private process: boolean[] = new Array(0);
 
 	constructor(public service: LoadingService, private router: Router) {
-		router.events.subscribe((val) => {this.service.start()})
+		router.events.subscribe((val) => { this.service.start() })
 	}
 
 	ngOnInit() {
 		this.service.add(this);
 	}
 
-	ngOnDestroy(){
+	ngOnDestroy() {
 		this.service.remove(this);
-
 	}
 
 	init(qtdProcess: number) {
@@ -61,5 +61,9 @@ export class LoadingComponent implements OnInit, OnDestroy {
 			};
 		}
 		setTimeout(() => { this.loading = this.progress < 100; }, 500);
+	}
+
+	setMessage(msg: string) {
+		this.message = msg;
 	}
 }

@@ -20,7 +20,13 @@ export class FornecedorService {
 		return this.http.get<Fornecedor[]>(this.href);
 	}
 
+	getFornecedor(id: number): Observable<Fornecedor> {
+		return this.http.get<Fornecedor>(this.href + '/' + id);
+	}
 
+	putFornecedor(fornecedor : Fornecedor){
+		return this.http.put<Fornecedor>(this.href + '/' + fornecedor.id,  fornecedor );
+	}
 }
 
 export interface DataGrid<T> {

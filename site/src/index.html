@@ -11,6 +11,135 @@
 	<link rel="icon" href="/favicon.ico" type="image/x-icon">
 </head>
 <body>
+	<span id='loading'>
+		<style >
+			#loading {
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				height: 100vh;
+
+				color: rgba(0,0,0,0.8);
+				background-color: white;
+
+				text-transform: lowercase;
+				font-family: Roboto, Oxygen-Sans, Helvetica, sans-serif;
+				font-size: 1.2em;
+				font-weight: 500;
+
+			}
+
+			.fade-out {
+				animation: fadeout 2s linear 1 both !important;
+			}
+
+			@keyframes fadein {
+				0%,100% { opacity: 1 }
+				50% { opacity: 0 }
+			}
+
+			@keyframes fadeout {
+				100% { opacity: 0}
+			}
+
+
+			body {
+				background-color: white;
+				margin: 0;
+				padding: 0;
+			}
+			#loading .content {
+				display: inline-block;
+				display: -ms-flexbox;
+				text-align: center;
+				-webkit-box-align: center;
+				-ms-flex-align: center;
+				align-items: center;
+				width: 200px;
+				height: 200px;
+				margin: auto;
+			}
+			#loading .body{
+				background: white;
+				position: absolute;
+				display: flex;
+				bottom: 10%;
+				top: 0;
+				left: 0;
+				right: 0;
+			}
+
+			#loading .img-frame{
+				background-color: rgba(63, 81, 181,1);	
+				padding: 10px;
+				/*border-radius: 4px 4px 0px 0px;*/
+				border-radius: 10px;
+				border: 4px solid rgba(63, 81, 181,0.5);
+			}
+
+			#loading .message {
+				display: block;
+				margin-top: 10px;
+				font-weight: 500;
+				text-transform: lowercase;
+				color: rgba(0,0,0,0.8);
+				justify-content: center;
+				font-size: 1.2em;
+			}
+
+			#loading .logo{
+				width: 150px;
+				height: auto;
+			}
+
+			@keyframes dots {
+				50% {
+					transform: translateY(-.4rem);
+				}
+				100% {
+					transform: translateY(0);
+				}
+			}
+
+			.d {
+				animation: dots 1.5s ease-out infinite;
+				display: inline-block;
+			}
+			.d-2 {
+				animation-delay: .5s;
+			}
+			.d-3 {
+				animation-delay: 1s;
+			}
+		</style>
+		<div class='body'>
+			<div class='content'> 
+				<div class='img-frame'>
+					<img class='logo' src="assets/logo/logo-navbar-white.png" alt="logo white edp">
+				</div>
+				<span class='message'>Carregando<span class="d">.</span><span class="d d-2">.</span><span class="d d-3">.</span></span>
+			</div>
+		</div>
+		<script type="text/javascript">
+			var GLOBAL_APP_INITIALIZED = false;
+
+			function init(){
+				if(GLOBAL_APP_INITIALIZED){
+					document.getElementById("loading").innerHTML='';
+				}else{
+					setTimeout(function(){
+						init();
+					} , 250);
+				}
+			}
+			init();
+		</script>
+	</span>
 	<app-root></app-root>
 </body>
 </html>

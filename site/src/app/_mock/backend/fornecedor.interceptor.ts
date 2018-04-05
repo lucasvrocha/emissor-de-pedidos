@@ -10,6 +10,7 @@ import 'rxjs/add/operator/materialize';
 import 'rxjs/add/operator/dematerialize';
 
 import { environment as env } from '../../../environments/environment';
+import { Fornecedor } from '../../fornecedor'
 // --- mocks
 import { FORNECEDOR } from '../fornecedor.mock';
 
@@ -17,47 +18,25 @@ import { FORNECEDOR } from '../fornecedor.mock';
 @Injectable()
 export class FornecedorInterceptor implements HttpInterceptor {
 
-    private api: string = env.api;
+    readonly interceptUrl: string = env.api + '/fornecedor';
+    readonly regById = '\\/\\d{1,}$';
+    readonly regAllAngularList = '\\?q=repo:angular\\/material2';
+    readonly regAll = '(fornecedor |\\/)$';
 
     constructor() {
         console.log("Fake-FornecedorInterceptor is running");
     }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        if (env.mock === false || request.url.startsWith(this.api + '/fornecedor') === false)
+        if (env.mock === false || request.url.startsWith(this.interceptUrl) === false)
             return next.handle(request);
 
         return Observable.of(null).mergeMap(() => {
-            let response = null;
-
-            if (response == null && request.headers.get('Authorization') !== 'Bearer fake-jwt-token') {
-                response = new HttpResponse({ status: 401, body: null });
+            if (this.authenticated(request)) {
+                return Observable.of(new HttpResponse({ status: 401, body: null }));
             }
 
-            if (response == null && this.getFornecedorPorId(request)) {
-                let urlParts = request.url.split('/');
-                let id = urlParts[urlParts.length - 1];
-
-                let fornecedor = null;
-                if (id !== undefined)
-                    fornecedor = FORNECEDOR.find(x => '' + x.id === id);
-
-                response = new HttpResponse({ status: fornecedor === null ? 404 : 200, body: fornecedor });
-            } 
-            if (response == null && this.getFornecedorDataGrid(request)) {
-                response = new HttpResponse({
-                    status: 200, body: {
-                        total: FORNECEDOR.length,
-                        items: FORNECEDOR
-                    }
-                });
-
-            } 
-
-            if (response == null && this.getFornecedor(request)) {
-                response = new HttpResponse({ status: 200, body: FORNECEDOR });
-            }
-
+            let response = this[request.method](request);
             console.log("!!! Fake[" + request.method + "] " + request.url, response);
             return Observable.of(response);
         })
@@ -66,15 +45,61 @@ export class FornecedorInterceptor implements HttpInterceptor {
             .dematerialize();
     }
 
-    getFornecedorPorId(request: HttpRequest<any>) {
-        return request.url.startsWith(this.api + '/fornecedor/') && request.method === 'GET';
+    GET(request :HttpRequest<any>) {
+        let test = (reg: string) :boolean => new RegExp(reg).test(request.url);
+
+        if (test(this.regById)) {
+            let id = request.url.match('\\d$')[0];
+            let fornecedor = null;
+            if (id !== undefined)
+                fornecedor = FORNECEDOR.find(x => '' + x.id === id);
+
+            return new HttpResponse({ status: fornecedor === null ? 404 : 200, body: fornecedor });
+        }
+
+        if(test(this.regAllAngularList)){
+            return new HttpResponse({
+                status: 200, body: {
+                    total: FORNECEDOR.length,
+                    items: FORNECEDOR
+                }
+            });
+        }
+
+        if(test(this.regAll)){
+            return new HttpResponse({ status: 200, body: FORNECEDOR });
+        }
+        return null;
     }
 
-    getFornecedorDataGrid(request: HttpRequest<any>) {
-        return this.getFornecedor(request) && request.url.indexOf('q=repo:angular/material2', 0) >= 0;
+    PUT(request: HttpRequest<Fornecedor>): HttpResponse<Fornecedor> {
+        let test = (reg: string): boolean => new RegExp(reg).test(request.url);
+        if(test(this.regById)){
+            let id = request.url.match('\\d$')[0];
+            let fornecedor : Fornecedor = null;
+            console.log(FORNECEDOR);
+            if (id !== undefined){
+                let i = FORNECEDOR.findIndex(x => '' + x.id === id);
+                FORNECEDOR[i] = request.body
+                console.log(FORNECEDOR);
+            }
+            return new HttpResponse({ status: 200, body: fornecedor });
+        }
+
+
+        return null;
     }
-    getFornecedor(request: HttpRequest<any>) {
-        return (request.url.startsWith(this.api + '/fornecedor') && request.method === 'GET');
+
+    POST(request): HttpResponse<any> {
+        return null;
+    }
+
+    DELETE(request): HttpResponse<any> {
+        return null;
+    }
+
+    authenticated(request: HttpRequest<any>): boolean {
+        return request.headers.get('Authorization') !== 'Bearer fake-jwt-token'
     }
 
 
