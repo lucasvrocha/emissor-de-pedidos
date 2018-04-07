@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
-import { LoadingService } from '../../ui/loading';
+import { LoadService } from '../../ui/load';
 
 import { Produto } from '../../produto';
 import { AuthenticationService } from '../../auth'
@@ -24,8 +24,8 @@ export class ProdutoCadastroComponent implements OnInit {
 		{ value: 'tacos-2', viewValue: 'Tacos' }
 	];
 
-	constructor(private laodService: LoadingService, private authService: AuthenticationService) {
-		this.laodService.start();
+	constructor(private laodService: LoadService, private authService: AuthenticationService) {
+		
 
 		let permission  = this.authService.hasPermition(["admin"]);
 
@@ -41,7 +41,7 @@ export class ProdutoCadastroComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		this.laodService.end();
+		
 	}
 
 }

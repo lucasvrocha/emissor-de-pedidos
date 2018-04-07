@@ -8,7 +8,7 @@ import { ProdutoService, Produto } from '../../produto';
 import { FornecedorService, Fornecedor } from '../../fornecedor';
 
 import { Pedido, PedidoItem, PedidoPagamento } from '../../_model/pedido.model';
-import { LoadingService, LoadingComponent } from '../../ui/loading';
+import { LoadService, LoadComponent } from '../../ui/load';
 
 @Component({
 	moduleId: module.id,
@@ -67,10 +67,8 @@ export class CadastroComponent implements OnInit, OnDestroy {
 		private tb: ToolbarBuilder,
 		private produtoService: ProdutoService,
 		private fornecedorService: FornecedorService,
-		private loadService: LoadingService
-	) {
-		this.loadService.init('main', 2);
-	}
+		private loadService: LoadService
+	) {	}
 
 	ngOnInit() {
 
@@ -89,12 +87,11 @@ export class CadastroComponent implements OnInit, OnDestroy {
 		this.fornecedorService.getFornecedores()
 			.subscribe(fornecedores => {
 				this.fornecedores = fornecedores;
-				this.loadService.end();
 			});
 
 		this.dataSourceItens.data = this.pedido.itens;
 		this.dataSourcePagamentos.data = this.pedido.pagamentos;
-		this.loadService.end();
+		
 	}
 
 	ngOnDestroy() {
@@ -130,14 +127,13 @@ export class CadastroComponent implements OnInit, OnDestroy {
 	}
 
 	updateProdutos() {
-		let loaderFornecedor = this.loadService.init('loader-fornecedor');
 		let param = this.pedido.tipo === 'venda' ? undefined : { fornecedorId: this.pedido.fornecedorId };
 
 		this.produtoService
 			.getProdutos(param)
 			.subscribe(produtos => {
 				this.produtos = produtos;
-				loaderFornecedor.end();
+
 			});
 	}
 

@@ -24,8 +24,16 @@ export class FornecedorService {
 		return this.http.get<Fornecedor>(this.href + '/' + id);
 	}
 
+	postFornecedor(fornecedor :Fornecedor){
+		return this.http.post<Fornecedor>(this.href, fornecedor);
+	}
+
 	putFornecedor(fornecedor : Fornecedor){
 		return this.http.put<Fornecedor>(this.href + '/' + fornecedor.id,  fornecedor );
+	}
+
+	deleteFornecedor(fornecedor : Fornecedor){
+		return this.http.delete<Fornecedor>(this.href + '/' + fornecedor.id);
 	}
 }
 

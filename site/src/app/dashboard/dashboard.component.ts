@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { LoadingService, LoadingComponent } from '../ui/loading';
+import { LoadService, LoadComponent } from '../ui/load';
 
 @Component({
 	selector: 'app-dashboard',
@@ -8,16 +8,17 @@ import { LoadingService, LoadingComponent } from '../ui/loading';
 })
 export class DashboardComponent implements OnInit {
 
-	private loader : LoadingComponent;
-
-	constructor(private loadService : LoadingService) { 
-		this.loader = this.loadService.init('main',3);
+	constructor(private loadService : LoadService) { 
 	}
 
 	ngOnInit() {
-		setTimeout(()=>{this.loader.end()},750);
-		setTimeout(()=>{this.loader.end()},1500);
-		setTimeout(()=>{this.loader.end()},3000);
+		this.loadService.init('main').process((load) => {
+			load.progress(100);
+			setTimeout(() => {
+				load.end();
+			},1500);
+			
+		},'carregando o dashboard');
 	}
 
 }

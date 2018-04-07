@@ -11,7 +11,7 @@ import { environment as env } from '../../../environments/environment';
 export class DelayInterceptor implements HttpInterceptor {
 
 	private readonly delayMax: number = 0;
-	private readonly delayMin: number = 500;
+	private readonly delayMin: number = 2500;
 
 	constructor() {
 		console.log("Fake-DelayInterceptor is runing");

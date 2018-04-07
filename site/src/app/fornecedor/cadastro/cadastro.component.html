@@ -8,52 +8,70 @@
 		<button mat-icon-button>
 			<app-icon name='business'></app-icon>
 		</button>
-		<h2>Novo Fornecedor</h2>
+		<h2>{{fornecedor == null ? 'Novo Fornecedor' : fornecedor.fantasia}}</h2>
 	</ng-container>
-	<ng-container options>
-		<button mat-icon-button [disabled]='!auth.hasPermission()' >
+	<ng-container options *ngIf='fornecedor == null'>
+		<button mat-icon-button [disabled]='!auth.hasPermission() || load.isWorking() || formGroup.invalid' (click)='salvar()'>
 			<app-icon name='save'>
+				<app-icon *ngIf='auth.hasPermission() && formGroup.invalid' name='error_outline' color='red' [iconContent]='true'></app-icon>
+				<app-icon *ngIf='auth.hasPermission() && formGroup.valid' name='done' color='green' [iconContent]='true'></app-icon>
+				<app-icon *ngIf='!auth.hasPermission()' name='block' color='red' [iconContent]='true'></app-icon>
+			</app-icon>
+		</button>
+	</ng-container>
+	<ng-container options *ngIf='fornecedor != null'>
+		<button mat-icon-button [disabled]='!auth.hasPermission()'  (click)='novo()'>
+			<app-icon name='add_box'>
 				<app-icon *ngIf='!auth.hasPermission()' name='block' color='red' [iconContent]='true'></app-icon>
 			</app-icon>
 		</button>
 	</ng-container>
 	
-	<app-loading name='fornecedor'>
-		<form class="form" [formGroup]='formGroup'  >
+	<app-load name='fornecedor' [loaded]='false'>
+		<form class="form" [formGroup]='formGroup' (ngSubmit)="salvar()" >
 			<mat-form-field class="full-width">
 				<input matInput placeholder="#Código do Fornecedor" formControlName='id'>
 			</mat-form-field>
 
 			<table class="full-width" cellspacing="0"><tr>
-				<td><mat-form-field class="full-width" hintLabel="Maximo 18 caracteres" required >
-					<input matInput #cnpj maxlength="18" placeholder="CNPJ" formControlName='cnpj'>
+				<td><mat-form-field class="full-width" hintLabel="Maximo 18 caracteres"  >
+					<input type="number" matInput #cnpj maxlength="18" placeholder="CNPJ" formControlName='cnpj' required>
 					<mat-hint align="end">{{cnpj.value?.length || 0}}/18</mat-hint>
+					<mat-error *ngIf="formGroup.controls['cnpj'].invalid">
+						Campo <strong>obrigatório</strong>.
+					</mat-error>
 				</mat-form-field></td>
 			</tr></table>
-
+			
 			<table class="full-width" cellspacing="0"><tr>
-				<td><mat-form-field class="full-width" hintLabel="Maximo 9 caracteres" required >
-					<input matInput #ie maxlength="9" placeholder="Inscrição Estadual" formControlName='ie'>
+				<td><mat-form-field class="full-width" hintLabel="Maximo 9 caracteres"  >
+					<input type="number" matInput #ie maxlength="9" placeholder="Inscrição Estadual" formControlName='ie' required>
 					<mat-hint align="end">{{ie.value?.length || 0}}/9</mat-hint>
+					<mat-error *ngIf="formGroup.controls['ie'].invalid">
+						Campo <strong>obrigatório</strong>.
+					</mat-error>
 				</mat-form-field></td>
 			</tr></table>
 
 			<table class="full-width" cellspacing="0"><tr>
-				<td><mat-form-field class="full-width" hintLabel="Maximo 50 caracteres" required >
-					<input matInput #razao maxlength="50" placeholder="Razão Social" formControlName='razao'>
+				<td><mat-form-field class="full-width" hintLabel="Maximo 50 caracteres"  >
+					<input type='text' matInput #razao maxlength="50" placeholder="Razão Social" formControlName='razao' required>
 					<mat-hint align="end">{{razao.value?.length || 0}}/50</mat-hint>
+					<mat-error *ngIf="formGroup.controls['razao'].invalid">
+						Campo <strong>obrigatório</strong>.
+					</mat-error>
 				</mat-form-field></td>
 			</tr></table>
 
 			<table class="full-width" cellspacing="0"><tr>
-				<td><mat-form-field class="full-width" hintLabel="Maximo 50 caracteres" required >
-					<input matInput #fantasia maxlength="50" placeholder="Nome Fantasia" formControlName='fantasia'>
+				<td><mat-form-field class="full-width" hintLabel="Maximo 50 caracteres"  >
+					<input matInput #fantasia maxlength="50" placeholder="Nome Fantasia" formControlName='fantasia' required>
 					<mat-hint align="end">{{fantasia.value?.length || 0}}/50</mat-hint>
 				</mat-form-field></td>
 			</tr></table>
 			<table class="full-width" cellspacing="0"><tr>
 				<td><mat-form-field class="full-width">
-					<input matInput placeholder="Email" [errorStateMatcher]="matcher" formControlName='email'>
+					<input type='email' matInput placeholder="Email" [errorStateMatcher]="matcher" formControlName='email' required>
 					<mat-hint></mat-hint>
 					<mat-error *ngIf="formGroup.hasError('email') && !formGroup.hasError('required')">
 						Favor inserir um email valido
@@ -64,11 +82,11 @@
 				</mat-form-field></td>
 			</tr></table>
 
-		</form>
 		<div class="full-width">
-			<button [disabled]='formGroup.disabled' mat-button (click)='cancelar()'>Cancelar</button>
-			<button [disabled]='formGroup.disabled' mat-button color="warn" (click)='excluir()'>Excluir</button>
-			<button [disabled]='formGroup.disabled' mat-raised-button color="primary" (click)='salvar()'>Salvar</button>
+			<button type='button' [disabled]='formGroup.disabled' mat-button (click)='cancelar()'>Cancelar</button>
+			<button type='button' [disabled]='formGroup.disabled || fornecedor == null' mat-button color="warn" (click)='excluir()'>Excluir</button>
+			<button type='submit' [disabled]='formGroup.disabled || formGroup.invalid' mat-raised-button color="primary" >Salvar</button>
 		</div>
-	</app-loading>
+		</form>
+	</app-load>
 </ui-frame-list>

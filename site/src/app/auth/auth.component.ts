@@ -9,7 +9,7 @@ import { AuthenticationService } from './auth.service';
 import { MyErrorStateMatcher } from '../_helper/myErrorStateMatcher';
 import { Usuario } from '../_model/usuario.model';
 import { AppComponent } from '../app.component';
-import { LoadingService, LoadingComponent } from '../ui/loading';
+import { LoadService, LoadComponent } from '../ui/load';
 
 
 @Component({
@@ -22,7 +22,7 @@ export class AuthComponent implements OnInit, AfterViewInit {
 
 
     model: Usuario = new Usuario();
-    loading = false;
+    load = false;
     returnUrl: string;
 
     senhaControl = new FormControl('form', [
@@ -35,7 +35,7 @@ export class AuthComponent implements OnInit, AfterViewInit {
 
     validForm: string = 'disabled';
 
-    private loader: LoadingComponent;
+    private loader: LoadComponent;
 
     constructor(
         private route: ActivatedRoute,
@@ -44,9 +44,8 @@ export class AuthComponent implements OnInit, AfterViewInit {
         private alertService: AlertService,
         public matcher: MyErrorStateMatcher,
         public dialog: MatDialog,
-        private loadService: LoadingService) {
-        this.loader = this.loadService.start();
-    }
+        private loadService: LoadService
+    ) { }
 
     ngOnInit() {
         this.authService.logout();
@@ -56,11 +55,11 @@ export class AuthComponent implements OnInit, AfterViewInit {
 
     ngAfterViewInit() {
         this.validForm = (this.senhaControl.invalid || this.usuarioControl.invalid) ? 'disabled' : '';
-        this.loader.end();
+        
     }
 
     login() {
-        this.loading = true;
+        this.load = true;
         this.authService.login(this.model.usuario, this.model.senha)
             .subscribe(
                 data => {
@@ -68,7 +67,7 @@ export class AuthComponent implements OnInit, AfterViewInit {
                 },
                 error => {
                     this.alertService.error(error);
-                    this.loading = false;
+                    this.load = false;
                 });
     }
 

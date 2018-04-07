@@ -70,7 +70,7 @@
 
 		<mat-step [stepControl]="secondFormGroup">
 			<ng-template matStepLabel><span class='title'>Itens</span></ng-template>
-			<app-loading name='loader-fornecedor'> 
+			<app-load name='loader-fornecedor'> 
 				<div class='list-produto' >
 					<ng-container *ngIf='!produtos || produtos.length == 0' >
 						<br>
@@ -109,7 +109,7 @@
 					</mat-card>
 					<mat-card class='card-produto no-visible '></mat-card>
 				</div>
-			</app-loading>
+			</app-load>
 		</mat-step>
 
 

@@ -61,7 +61,7 @@ import { AlertService } from './ui/alert/alert.service';
 import { UnauthorizedProviver } from './_helper/unauthorized.interceptor';
 import { FakeBackendProvider } from './_mock/backend/fakeBackend.provider';
 import { MyErrorStateMatcherProvider } from './_helper/myErrorStateMatcher';
-import { LoadingService, LoadingComponent } from './ui/loading';
+import { LoadService, LoadComponent } from './ui/load';
 
 
 
@@ -91,7 +91,7 @@ import { LoadingService, LoadingComponent } from './ui/loading';
 		PedidoListaComponent,
 		DashboardComponent,
 		ListComponent,
-		LoadingComponent
+		LoadComponent
 	],
 	entryComponents: [
 		AuthDialogComponent,
@@ -136,7 +136,7 @@ import { LoadingService, LoadingComponent } from './ui/loading';
 		AlertService,
 		AuthenticationService,
 		MatStepper,
-		LoadingService,
+		LoadService,
 		FakeBackendProvider
 	],
 	bootstrap: [AppComponent]
