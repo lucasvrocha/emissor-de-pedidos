@@ -25,7 +25,7 @@ import { Fornecedor } from '../../_model/fornecedor.model';
 export class CadastroComponent implements OnInit, OnDestroy, AfterViewInit {
 
 	private sub: Subscription;
-	private fornecedor: Fornecedor;
+	fornecedor: Fornecedor;
 
 	private permission: boolean;
 	private formControlTemplate: { value: string, disabled: boolean };

@@ -17,7 +17,7 @@ export class LoadComponent implements OnInit, OnDestroy {
 	@Input('loaded') loaded: boolean = false;
 
 	private sub: any;
-	private process: LoadProcess;
+	process: LoadProcess;
 
 	constructor(
 		public service: LoadService,
