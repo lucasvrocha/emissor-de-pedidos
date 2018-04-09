@@ -22,10 +22,10 @@ export class UserComponent implements OnInit {
 		this.isAdmin = this.authService.hasPermition(['admin']) != null;
 
 		let user : Usuario  = this.authService.currentUser();
-		this.nome = user.nome;
-		this.foto = user.foto;
-		this.email = user.email;
-		this.id = user.id;
+		this.nome = this.guard.user().nome;
+		this.foto = this.guard.user().foto;
+		this.email = this.guard.user().email;
+		this.id = this.guard.user().id;
 	}
 
 }
