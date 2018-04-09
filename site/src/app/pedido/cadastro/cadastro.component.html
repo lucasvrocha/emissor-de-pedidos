@@ -40,13 +40,13 @@
 				<br>
 				<mat-button-toggle-group #group="matButtonToggleGroup" vertical >
 					<mat-button-toggle value="venda">
-						<button class='btn-tipo' matStepperNext (click)='pedido.tipo=group.value="venda";updateProdutos();'  mat-raised-button color="primary">Venda</button>
+						<button mat-raised-button class='btn-tipo'  (click)='pedido.tipo=group.value="venda";updateProdutos();stepper.next();'  color="primary">Venda</button>
 					</mat-button-toggle>
 					<mat-button-toggle value="compra">
-						<button class='btn-tipo' (click)='pedido.tipo=group.value="compra"' mat-raised-button>Compra</button>
+						<button class='btn-tipo' (click)='pedido.tipo=group.value="compra"' mat-raised-button permission [permission-expected]='["ADMIN"]' >Compra</button>
 					</mat-button-toggle>
 					<mat-button-toggle value="devolucao" >
-						<button class='btn-tipo' (click)='pedido.tipo=group.value="devolucao"' mat-raised-button color="accent">Devolução</button>
+						<button class='btn-tipo' (click)='pedido.tipo=group.value="devolucao"' mat-raised-button color="accent"  permission [permission-expected]='["ADMIN"]' >Devolução</button>
 					</mat-button-toggle>
 				</mat-button-toggle-group>
 				
@@ -55,13 +55,13 @@
 					<br>
 					<p>Escolha um Fornecedor</p>
 					<mat-form-field class="full-width">
-						<mat-select type='text' placeholder="Fornecedor" [(ngModel)]='pedido.fornecedorId'>
+						<mat-select  type='text' placeholder="Fornecedor" [(ngModel)]='pedido.fornecedorId'>
 							<mat-option *ngFor="let fornecedor of fornecedores" [value]="fornecedor.id">
 								#{{fornecedor.id}} - {{ fornecedor.razao }}
 							</mat-option>
 						</mat-select>
 					</mat-form-field>
-					<button mat-raised-button [disabled]='!pedido.fornecedorId' color="primary" matStepperNext (click)='updateProdutos()'>Adicionar Produtos</button>
+					<button mat-raised-button [disabled]='!pedido.fornecedorId' color="primary"  (click)='updateProdutos()'>Adicionar Produtos</button>
 				</ng-container>
 
 			</div>
@@ -70,44 +70,46 @@
 
 		<mat-step [stepControl]="secondFormGroup">
 			<ng-template matStepLabel><span class='title'>Itens</span></ng-template>
-			<div class='list-produto' >
-				<ng-container *ngIf='!produtos || produtos.length == 0' >
-					<br>
-					Nenhum produto encontrado
-					<br><br>
-					<button mat-raised-button color="primary" matStepperPrevious>Voltar</button>
-				</ng-container>
-				<mat-card class='card-produto' [class.no-padding]='media.isMobile()' *ngFor='let p of produtos'>
-					<mat-grid-list cols="5" rowHeight="60px">
-						<mat-grid-tile class='card-item' [colspan]="3" [rowspan]="2">
-							<img mat-card-avatar src="/assets/logo/logo-navbar-white.png" class="img" alt="Foto do produto {{p.descritivo}}">
-							<div class='descricao'>
-								#{{p.id}} - {{p.descritivo}}
-							</div>
-						</mat-grid-tile>
-						<mat-grid-tile class='card-basket' [colspan]="2" [rowspan]="2">
-							<div>
-								<p [style.color]='estoque(p)<=0?"red":"inherit"'> Estoque: {{estoque(p)}}</p> 
-								<p [style.color]='estoque(p)<=p.quantidadeMinima?"red":"inherit"'> Est. Minimo: {{p.quantidadeMinima}} </p> 
-								<p class='quantidade'>Qtd: <b>{{basket(p)}}</b> </p>
-								<p class='preco'>{{p.preco | currency : 'R$ '}}</p>
-							</div>
-						</mat-grid-tile>
-						<mat-grid-tile class='card-total' [colspan]="3" [rowspan]="1">
-							{{total(p) | currency : 'R$ '}}
-						</mat-grid-tile>
-						<mat-grid-tile class='card-action' [colspan]="2" [rowspan]="1">
-							<div class=''>
-								<button mat-icon-button [disabled]='basket(p)<=0' (click)='remove(p)'> <app-icon name='remove' [color]='basket(p)<=0?"grey":"red"' opacity=1></app-icon></button>
-							</div>
-							<div class=''>
-								<button mat-icon-button [disabled]='estoque(p)<=0' (click)='add(p)'> <app-icon name='add' [color]='estoque(p)<=0?"grey":"green"' opacity=1></app-icon></button>
-							</div>
-						</mat-grid-tile>
-					</mat-grid-list>								
-				</mat-card>
-				<mat-card class='card-produto no-visible '></mat-card>
-			</div>
+			<app-load name='loader-fornecedor'> 
+				<div class='list-produto' >
+					<ng-container *ngIf='!produtos || produtos.length == 0' >
+						<br>
+						Nenhum produto encontrado
+						<br><br>
+						<button mat-raised-button color="primary" matStepperPrevious>Voltar</button>
+					</ng-container>
+					<mat-card class='card-produto' [class.no-padding]='media.isMobile()' *ngFor='let p of produtos'>
+						<mat-grid-list cols="5" rowHeight="60px">
+							<mat-grid-tile class='card-item' [colspan]="3" [rowspan]="2">
+								<img mat-card-avatar src="/assets/logo/logo-navbar-white.png" class="img" alt="Foto do produto {{p.descritivo}}">
+								<div class='descricao'>
+									#{{p.id}} - {{p.descritivo}}
+								</div>
+							</mat-grid-tile>
+							<mat-grid-tile class='card-basket' [colspan]="2" [rowspan]="2">
+								<div>
+									<p [style.color]='estoque(p)<=0?"red":"inherit"'> Estoque: {{estoque(p)}}</p> 
+									<p [style.color]='estoque(p)<=p.quantidadeMinima?"red":"inherit"'> Est. Minimo: {{p.quantidadeMinima}} </p> 
+									<p class='quantidade'>Qtd: <b>{{basket(p)}}</b> </p>
+									<p class='preco'>{{p.preco | currency : 'R$ '}}</p>
+								</div>
+							</mat-grid-tile>
+							<mat-grid-tile class='card-total' [colspan]="3" [rowspan]="1">
+								{{total(p) | currency : 'R$ '}}
+							</mat-grid-tile>
+							<mat-grid-tile class='card-action' [colspan]="2" [rowspan]="1">
+								<div class=''>
+									<button mat-icon-button [disabled]='basket(p)<=0' (click)='remove(p)'> <app-icon name='remove' [color]='basket(p)<=0?"grey":"red"' opacity=1></app-icon></button>
+								</div>
+								<div class=''>
+									<button mat-icon-button [disabled]='estoque(p)<=0' (click)='add(p)'> <app-icon name='add' [color]='estoque(p)<=0?"grey":"green"' opacity=1></app-icon></button>
+								</div>
+							</mat-grid-tile>
+						</mat-grid-list>								
+					</mat-card>
+					<mat-card class='card-produto no-visible '></mat-card>
+				</div>
+			</app-load>
 		</mat-step>
 
 

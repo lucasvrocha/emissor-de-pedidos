@@ -53,11 +53,10 @@ export class AuthInterceptor implements HttpInterceptor {
                         id: user.id,
                         nome: user.nome,
                         foto: user.foto,
-                        adm: user.adm,
+                        roles : user.roles,
                         email: user.email,
                         jwt: 'fake-jwt-token'
                     };
-
                     return Observable.of(new HttpResponse({ status: 200, body: body }));
                 } else {
                     // else return 400 bad request
@@ -150,7 +149,7 @@ export class AuthInterceptor implements HttpInterceptor {
 
             // call materialize and dematerialize to ensure delay even if an error is thrown (https://github.com/Reactive-Extensions/RxJS/issues/648)
             .materialize()
-            .delay(500)
+            .delay(250)
             .dematerialize();
     }
 }

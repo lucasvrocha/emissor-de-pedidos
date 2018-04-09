@@ -1,8 +1,8 @@
 <app-toolbar class=""  title="Fornecedores"  iconName='business' add=true></app-toolbar>
 <div class="content-full-height"  [class.is-mobile]="media.isMobile()"  media-query #media='media'>
 	<div class="container mat-elevation-z4">
-		<div class="loading-shade" *ngIf="isLoadingResults || isRateLimitReached">
-			<mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+		<div class="load-shade" *ngIf="isLoadResults || isRateLimitReached">
+			<mat-spinner *ngIf="isLoadResults"></mat-spinner>
 			<div class="rate-limit-reached" *ngIf="isRateLimitReached">
 				Emissao de Pedidos API atingiu o limite de requisições. Em 1 minuto voltara a aceitar novas requisições, aguarde.
 			</div>

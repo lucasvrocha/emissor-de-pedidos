@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material';
 
@@ -8,7 +8,7 @@ import { ProdutoService, Produto } from '../../produto';
 import { FornecedorService, Fornecedor } from '../../fornecedor';
 
 import { Pedido, PedidoItem, PedidoPagamento } from '../../_model/pedido.model';
-import { LoadingService } from '../../ui/loading';
+import { LoadService, LoadComponent } from '../../ui/load';
 
 @Component({
 	moduleId: module.id,
@@ -17,7 +17,8 @@ import { LoadingService } from '../../ui/loading';
 	styleUrls: ['./cadastro.component.css', '../lista/lista.component.css'],
 	providers: [ToolbarBuilder, ProdutoService, FornecedorService]
 })
-export class CadastroComponent implements OnInit {
+export class CadastroComponent implements OnInit, OnDestroy {
+
 	frame: ListModel;
 
 	firstFormGroup: FormGroup;
@@ -66,10 +67,8 @@ export class CadastroComponent implements OnInit {
 		private tb: ToolbarBuilder,
 		private produtoService: ProdutoService,
 		private fornecedorService: FornecedorService,
-		private loadService: LoadingService
-	) {
-		this.loadService.init(2);
-	}
+		private loadService: LoadService
+	) {	}
 
 	ngOnInit() {
 
@@ -88,12 +87,15 @@ export class CadastroComponent implements OnInit {
 		this.fornecedorService.getFornecedores()
 			.subscribe(fornecedores => {
 				this.fornecedores = fornecedores;
-				this.loadService.end();
 			});
 
 		this.dataSourceItens.data = this.pedido.itens;
 		this.dataSourcePagamentos.data = this.pedido.pagamentos;
-		this.loadService.end();
+		
+	}
+
+	ngOnDestroy() {
+
 	}
 
 	estoque(produto: Produto) {
@@ -131,6 +133,7 @@ export class CadastroComponent implements OnInit {
 			.getProdutos(param)
 			.subscribe(produtos => {
 				this.produtos = produtos;
+
 			});
 	}
 

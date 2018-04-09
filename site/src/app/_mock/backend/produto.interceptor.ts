@@ -69,7 +69,7 @@ export class ProdutoInterceptor implements HttpInterceptor {
             return Observable.of(response);
         })
             .materialize()
-            .delay(500)
+            .delay(250)
             .dematerialize();
     }
 

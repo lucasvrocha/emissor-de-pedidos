@@ -1,0 +1,79 @@
+.bar >>>.mat-progress-bar-buffer{
+	background-color: #c5cae9 !important;
+}
+
+.content {
+	display: inline-block;
+    text-align: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+     align-items: center; 
+    padding: 20px;
+    height: 400px;
+    margin: auto;
+    -webkit-animation: fade 1s linear;
+    animation: fade 1s linear;
+    
+}
+.body{
+	position: fixed;
+    display: -ms-flexbox;
+    display: flex;
+    left: 0;
+    right: 0;
+    opacity: 0.8;
+    height: 100%;
+}
+
+.img-frame{
+	background-color: rgba(63, 81, 181,0.3);
+	padding: 10px;
+	border-radius: 10px;
+	margin: auto;
+	height: 87px;
+	align-items: center;
+	display: inline-flex;
+	align-items: center;
+}
+
+.message {
+	display: block;
+	margin-top: 10px;
+	font-weight: 500;
+	text-transform: lowercase;
+	color: rgba(0,0,0,0.8);
+	justify-content: center;
+	font-size: 1.2em;
+}
+
+.logo{
+	width: auto;
+	height: 108px;
+	margin: auto;
+	margin-top: -20px;
+}
+
+.d {
+	display: inline-block;
+	animation: dots 1.5s ease-out infinite;
+}
+.d-2 {
+	animation-delay: .5s;
+}
+.d-3 {
+	animation-delay: 1s;
+}
+
+@keyframes fade {
+	0% { opacity:  0}
+	50% { opacity: 1 }
+}
+
+@keyframes dots {
+	50% {
+		transform: translateY(-.4rem);
+	}
+	100% {
+		transform: translateY(0);
+	}
+}

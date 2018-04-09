@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, AfterViewInit ,ViewChild } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 import { AuthGuard } from './auth/auth.guard';
@@ -6,37 +6,29 @@ import { NavbarComponent } from './ui/navbar/navbar.component';
 import { DialogComponent as FullScreenDialog } from './ui/fullscreen/dialog/dialog.component';
 import * as screenfull from 'screenfull';
 
-import { LoadingService } from './ui/loading'
+declare var GLOBAL_APP_INITIALIZED: any;
 
 @Component({
 	selector: 'app-root',
 	templateUrl: './app.component.html',
-	styleUrls: ['./app.component.css'],
-	providers: [LoadingService]
+	styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, AfterViewInit {
 	private storage = localStorage;
 
 	title = 'Emissor de Pedido';
 	constructor(
 		public guard: AuthGuard,
-		public dialog: MatDialog,
-		private loadService: LoadingService
-	) {
-		this.loadService.init(2);
-	}
+		public dialog: MatDialog
+	) { }
 
 	ngOnInit() {
-		let opt: any = JSON.parse(this.storage.getItem('options'));
-		if (opt && opt.fullscreen === true && screenfull.isFullscreen === false) {
-			setTimeout(() => {
-				this.openDialog();
-				this.loadService.end();
-			});
-		}
-		this.loadService.end();
 	}
 
+	ngAfterViewInit(){
+		GLOBAL_APP_INITIALIZED = true;
+	}
+	
 	openDialog(): void {
 		let dialogRef = this.dialog.open(FullScreenDialog, {
 			data: null
@@ -46,7 +38,4 @@ export class AppComponent implements OnInit {
 			console.log('The dialog was closed', result);
 		});
 	}
-
-
-
 }

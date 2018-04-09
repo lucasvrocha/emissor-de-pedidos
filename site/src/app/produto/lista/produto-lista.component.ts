@@ -13,7 +13,7 @@ import { switchMap } from 'rxjs/operators/switchMap';
 import { Produto } from '../../_model/produto.model';
 import { ProdutoService } from '../produto.service';
 
-import { LoadingService } from '../../ui/loading';
+import { LoadService } from '../../ui/load';
 
 @Component({
 	moduleId: module.id,
@@ -28,7 +28,7 @@ export class ProdutoListaComponent implements OnInit, OnDestroy {
 	dataSource = new MatTableDataSource();
 
 	resultsLength = 0;
-	isLoadingResults = true;
+	isLoadResults = true;
 	isRateLimitReached = false;
 
 	@ViewChild(MatPaginator) paginator: MatPaginator;
@@ -42,8 +42,7 @@ export class ProdutoListaComponent implements OnInit, OnDestroy {
 		private http: HttpClient,
 		changeDetectorRef: ChangeDetectorRef,
 		media: MediaMatcher,
-		private loadService: LoadingService) {
-		this.loadService.init(2);
+		private loadService: LoadService) {
 		this.mobileQuery = media.matchMedia('(max-width: 599px)');
 		this._mobileQueryListener = () => changeDetectorRef.detectChanges();
 		this.mobileQuery.addListener(this._mobileQueryListener);
@@ -59,28 +58,26 @@ export class ProdutoListaComponent implements OnInit, OnDestroy {
 			.pipe(
 				startWith({}),
 				switchMap(() => {
-					this.isLoadingResults = true;
+					this.isLoadResults = true;
 					return this.exampleDatabase!.getRepoIssues(
 						this.sort.active, this.sort.direction, this.paginator.pageIndex);
 				}),
 				map(data => {
-					// Flip flag to show that loading has finished.
-					this.isLoadingResults = false;
+					// Flip flag to show that load has finished.
+					this.isLoadResults = false;
 					this.isRateLimitReached = false;
 					this.resultsLength = data.total_count;
 					return data.items;
 				}),
 				catchError(() => {
-					this.isLoadingResults = false;
+					this.isLoadResults = false;
 					// Catch if the GitHub API has reached its rate limit. Return empty data.
 					this.isRateLimitReached = true;
 					return observableOf([]);
 				})
 			).subscribe(data => {
 				this.dataSource.data = data;
-				this.loadService.end();
 			});
-		this.loadService.end();
 	}
 
 	ngOnDestroy(): void {

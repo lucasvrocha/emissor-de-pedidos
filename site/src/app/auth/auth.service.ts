@@ -31,8 +31,17 @@ export class AuthenticationService {
         return this.cachedRequests.pop();
     }
 
-    isAutorzed(){
+    isAutorzed() {
         return this.authorized;
+    }
+
+    hasPermition(permition: string[]) {
+        return this.user.roles.find(p => {
+            for (let r of permition) 
+                if (p.toLowerCase() === r.toLowerCase())
+                    return true;
+            return false;
+        });
     }
 
     currentUser(): Usuario {

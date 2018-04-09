@@ -1,0 +1,19 @@
+<ng-container *ngIf="!process.isWorking()">
+	<ng-content></ng-content>	
+</ng-container>
+<ng-container *ngIf="process.isWorking()">
+	<mat-progress-bar [mode]='process.modo()' [value]='process.progress()' color='accent' class='bar'	></mat-progress-bar>
+	<div class='body'>
+		<div class='content'> 
+			<div class='img-frame'>
+				<img class='logo' src="assets/logo/logo-navbar-white.png" alt="logo white edp">
+			</div>
+			<span class='message'>{{process.message().replace('...','')}}
+				<ng-container *ngIf='process.message().endsWith("...")'>
+					<span class="d">.</span><span class="d d-2">.</span><span class="d d-3">.</span>
+				</ng-container>
+			</span>
+		</div>
+	</div>
+</ng-container>
+

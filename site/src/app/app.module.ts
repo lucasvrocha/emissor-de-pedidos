@@ -27,6 +27,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatStepperModule, MatStepper } from '@angular/material/stepper';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { MatTooltipModule } from '@angular/material/tooltip';
+
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -52,14 +54,15 @@ import { FooterComponent } from './ui/footer/footer.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ListComponent } from './ui/frame/list/list.component';
 
-import { AuthProviver, AuthenticationService, AuthComponent, AuthGuard, DialogComponent as AuthDialogComponent } from './auth';
+import { AuthProviver, AuthenticationService, AuthComponent, AuthDirective, AuthGuard, DialogComponent as AuthDialogComponent } from './auth';
 
 import { AlertService } from './ui/alert/alert.service';
 
 import { UnauthorizedProviver } from './_helper/unauthorized.interceptor';
 import { FakeBackendProvider } from './_mock/backend/fakeBackend.provider';
 import { MyErrorStateMatcherProvider } from './_helper/myErrorStateMatcher';
-import { LoadingComponent } from './ui/loading/loading.component';
+import { LoadService, LoadComponent } from './ui/load';
+
 
 
 @NgModule({
@@ -77,6 +80,7 @@ import { LoadingComponent } from './ui/loading/loading.component';
 		AuthComponent,
 		AlertComponent,
 		AuthDialogComponent,
+		AuthDirective,
 		SpinerComponent,
 		FullscreenDirective,
 		FullscreenDialogComponent,
@@ -87,7 +91,7 @@ import { LoadingComponent } from './ui/loading/loading.component';
 		PedidoListaComponent,
 		DashboardComponent,
 		ListComponent,
-		LoadingComponent
+		LoadComponent
 	],
 	entryComponents: [
 		AuthDialogComponent,
@@ -121,16 +125,18 @@ import { LoadingComponent } from './ui/loading/loading.component';
 		MatExpansionModule,
 		MatStepperModule,
 		MatButtonToggleModule,
-		MatGridListModule
+		MatGridListModule,
+		MatTooltipModule
 	],
 	providers: [
 		MyErrorStateMatcherProvider,
 		AuthProviver,
-		AuthGuard, 
+		AuthGuard,
 		UnauthorizedProviver,
 		AlertService,
 		AuthenticationService,
 		MatStepper,
+		LoadService,
 		FakeBackendProvider
 	],
 	bootstrap: [AppComponent]

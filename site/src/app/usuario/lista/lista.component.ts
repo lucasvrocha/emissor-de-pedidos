@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Usuario } from '../../_model/usuario.model'
 import { USUARIO } from '../../_mock/usuario.mock';
 import { UsuarioService } from '../usuario.service';
-import { LoadingService } from '../../ui/loading';
+import { LoadService } from '../../ui/load';
 
 @Component({
 	selector: 'app-lista',
@@ -16,17 +16,21 @@ export class ListaComponent implements OnInit {
 
 	private service: UsuarioService | null;
 
-	constructor(private http: HttpClient, private loadService: LoadingService) {
-		this.loadService.init(2)
-	}
+	constructor(
+		private http: HttpClient, 
+		private loadService: LoadService
+		) {}
 
 	ngOnInit() {
 		this.service = new UsuarioService(this.http);
 		this.service.getAll().subscribe(usuarios => {
 			this.userList = usuarios;
-			this.loadService.end();
 		});
-		this.loadService.end();
 	}
+
+	isAdmin(usuario : Usuario){
+		return usuario.roles.findIndex(x => x === 'admin') >= 0;
+	}
+
 
 }

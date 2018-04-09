@@ -10,6 +10,7 @@ import 'rxjs/add/operator/materialize';
 import 'rxjs/add/operator/dematerialize';
 
 import { environment as env } from '../../../environments/environment';
+import { Fornecedor } from '../../fornecedor'
 // --- mocks
 import { FORNECEDOR } from '../fornecedor.mock';
 
@@ -17,64 +18,95 @@ import { FORNECEDOR } from '../fornecedor.mock';
 @Injectable()
 export class FornecedorInterceptor implements HttpInterceptor {
 
-    private api: string = env.api;
+    readonly interceptUrl: string = env.api + '/fornecedor';
+
+    readonly byId = (target: string) => new RegExp('\\/\\d{1,}$').test(target);
+    readonly byAngularList = (target: string) => new RegExp('\\?q=repo:angular\\/material2').test(target);
+    readonly byAll = (target: string) => new RegExp('(fornecedor |\\/)$').test(target);
 
     constructor() {
         console.log("Fake-FornecedorInterceptor is running");
     }
 
-    intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        if (env.mock === false || request.url.startsWith(this.api + '/fornecedor') === false)
+    intercept(request: HttpRequest<Fornecedor>, next: HttpHandler): Observable<HttpEvent<any>> {
+        if (env.mock === false || request.url.startsWith(this.interceptUrl) === false)
             return next.handle(request);
 
         return Observable.of(null).mergeMap(() => {
-            let response = null;
-
-            if (response == null && request.headers.get('Authorization') !== 'Bearer fake-jwt-token') {
-                response = new HttpResponse({ status: 401, body: null });
+            if (this.authenticated(request)) {
+                return Observable.of(new HttpResponse({ status: 401, body: null }));
             }
 
-            if (response == null && this.getFornecedorPorId(request)) {
-                let urlParts = request.url.split('/');
-                let id = urlParts[urlParts.length - 1];
-
-                let fornecedor = null;
-                if (id !== undefined)
-                    fornecedor = FORNECEDOR.find(x => '' + x.id === id);
-
-                response = new HttpResponse({ status: fornecedor === null ? 404 : 200, body: fornecedor });
-            } 
-            if (response == null && this.getFornecedorDataGrid(request)) {
-                response = new HttpResponse({
-                    status: 200, body: {
-                        total: FORNECEDOR.length,
-                        items: FORNECEDOR
-                    }
-                });
-
-            } 
-
-            if (response == null && this.getFornecedor(request)) {
-                response = new HttpResponse({ status: 200, body: FORNECEDOR });
-            }
-
-            console.log("!!! Fake[" + request.method + "] " + request.url, response);
+            let response = this[request.method](request);
+            console.log("! Fake[" + request.method + "] " + request.url, response);
             return Observable.of(response);
         })
             .materialize()
-            .delay(500)
+            .delay(250)
             .dematerialize();
     }
 
-    getFornecedorPorId(request: HttpRequest<any>) {
-        return request.url.startsWith(this.api + '/fornecedor/') && request.method === 'GET';
+    GET(request :HttpRequest<Fornecedor>) : HttpResponse<any>{
+        if (this.byId(request.url)) {
+            let id = request.url.match('\\d{1,}$')[0];
+            let fornecedor = null;
+            if (id !== undefined)
+                fornecedor = FORNECEDOR.find(x => '' + x.id === id);
+
+            return new HttpResponse({ status: fornecedor === null ? 404 : 200, body: fornecedor });
+        }
+
+        if(this.byAngularList(request.url)){
+            return new HttpResponse({
+                status: 200, body: {
+                    total: FORNECEDOR.length,
+                    items: FORNECEDOR
+                }
+            });
+        }
+
+        if(this.byAll(request.url)){
+            return new HttpResponse({ status: 200, body: FORNECEDOR });
+        }
+        return null;
     }
 
-    getFornecedorDataGrid(request: HttpRequest<any>) {
-        return this.getFornecedor(request) && request.url.indexOf('q=repo:angular/material2', 0) >= 0;
+
+    PUT(request: HttpRequest<Fornecedor>): HttpResponse<Fornecedor> {
+        if(this.byId(request.url)){
+            let id = +request.url.match('\\d{1,}$')[0];
+            let i = FORNECEDOR.findIndex(x => x.id == id);
+            if(i<0)
+                return new HttpResponse({status: 404})
+
+            let fornecedor = FORNECEDOR[i] = request.body;
+            return new HttpResponse({ status: 200, body: fornecedor });
+        }
+        return null;
     }
-    getFornecedor(request: HttpRequest<any>) {
-        return (request.url.startsWith(this.api + '/fornecedor') && request.method === 'GET');
+
+    POST(request: HttpRequest<Fornecedor>): HttpResponse<any> {
+        let fornecedor : Fornecedor = request.body;
+        fornecedor.id = + new Date();
+        FORNECEDOR.push(fornecedor);
+        return new HttpResponse({status: 201, body : fornecedor});
+    }
+
+    DELETE(request): HttpResponse<Fornecedor[]> {
+        if(this.byId(request.url)){
+            let id = +request.url.match('\\d{1,}$')[0];
+            let i = FORNECEDOR.findIndex(x => x.id == id);
+            let fornecedor = FORNECEDOR.splice(i, 1);
+            if(fornecedor == null)
+                return new HttpResponse({ status: 204 });
+
+            return new HttpResponse({ status: 204, body: fornecedor });
+        }
+        return null;
+    }
+
+    authenticated(request: HttpRequest<any>): boolean {
+        return request.headers.get('Authorization') !== 'Bearer fake-jwt-token'
     }
 
 

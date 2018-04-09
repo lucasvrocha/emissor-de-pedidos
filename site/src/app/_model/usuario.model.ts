@@ -4,9 +4,9 @@ export interface Usuario {
 	usuario: string;
 	senha: string;
 	email : string;
-	adm : boolean;
 	jwt : string;
 	foto : string;
+	roles: string[];
 }
 
 export class Usuario  implements Usuario {
