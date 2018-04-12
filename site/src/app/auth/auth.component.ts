@@ -69,7 +69,10 @@ export class AuthComponent implements OnInit, AfterViewInit {
         this.authService.login(this.model.usuario, this.model.senha)
             .subscribe(
                 data => {
-                    this.router.navigate([this.returnUrl]);
+                    if (data)
+                        this.router.navigate([this.returnUrl]);
+                    else
+                        this.alertService.error("Usuario e/ou senha incorreto");
                 },
                 error => {
                     this.alertService.error(error);

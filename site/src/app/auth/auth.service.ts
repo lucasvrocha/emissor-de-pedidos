@@ -37,7 +37,7 @@ export class AuthenticationService {
 
     login(username: string, password: string) {
         return this.http.post<any>(this._href, { usuario: username, senha: password })
-            .map(user => {
+            .map((user)=> {
                 this.user = user;
                 this.jwt = user ? user.jwt : null;
                 return this.user;

@@ -40,6 +40,7 @@ export class UnauthorizedInterceptor implements HttpInterceptor {
             case 401:
                 this.router.navigate(['/login'], { queryParams: { returnUrl: url } });
                 break
+
         }
 
     }
