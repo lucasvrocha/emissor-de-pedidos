@@ -8,71 +8,90 @@
 		<button mat-icon-button>
 			<app-icon name='account_box'></app-icon>
 		</button>
-		<h2>Novo Usuario</h2>
+		<h2>{{usuario == null ? 'Novo Usuario' : usuario.nome}}</h2>
 	</ng-container>
-	<ng-container options>
-		<button mat-icon-button [disabled]='!auth.hasPermission()' >
+	<ng-container options *ngIf='usuario == null'>
+		<button mat-icon-button [disabled]='!auth.hasPermission() ||  formGroup.invalid' (click)='salvar()'>
 			<app-icon name='save'>
+				<app-icon *ngIf='auth.hasPermission() && formGroup.invalid' name='error_outline' color='red' [iconContent]='true'></app-icon>
+				<app-icon *ngIf='auth.hasPermission() && formGroup.valid' name='done' color='green' [iconContent]='true'></app-icon>
 				<app-icon *ngIf='!auth.hasPermission()' name='block' color='red' [iconContent]='true'></app-icon>
 			</app-icon>
 		</button>
 	</ng-container>
 
-	<form class="form" [formGroup]='formGroup' >
-		<mat-form-field class="full-width">
-			<input matInput placeholder="# Código do Usuario" disabled value="Será gerado automáticamente.">
-		</mat-form-field>
+	<ng-container options *ngIf='usuario != null'>
+		<button mat-icon-button [disabled]='!auth.hasPermission()'  (click)='novo()'>
+			<app-icon name='add_box'>
+				<app-icon *ngIf='!auth.hasPermission()' name='block' color='red' [iconContent]='true'></app-icon>
+			</app-icon>
+		</button>
+	</ng-container>
+	
+	<app-load name='usuario' [loaded]='false'>
+		<form class="form" [formGroup]='formGroup' (ngSubmit)='salvar()' >
+			<mat-form-field class="full-width">
+				<input matInput placeholder="# Código do Usuario" value='Sera gerado automaticamente. ' formControlName='id'>
+			</mat-form-field>
 
-		<table class="full-width" cellspacing="0"><tr>
-			<td><mat-form-field class="full-width" hintLabel="Nome" required >
-				<input matInput #nome maxlength="30" placeholder="Nome" formControlName='nome'>
-				<mat-hint align="end">{{nome.value?.length || 0}}/30</mat-hint>
-			</mat-form-field></td>
-		</tr></table>
+			<table class="full-width" cellspacing="0"><tr>
+				<td><mat-form-field class="full-width" hintLabel="Nome" required >
+					<input matInput #nome maxlength="30" placeholder="Nome" formControlName='nome'>
+					<mat-hint align="end">{{nome.value?.length || 0}}/30</mat-hint>
+				</mat-form-field></td>
+			</tr></table>
 
-		<table class="full-width" cellspacing="0"><tr>
-			<td><mat-form-field class="full-width" hintLabel="Maximo 30 caracteres" required >
-				<input matInput #usuario maxlength="30" placeholder="Usuario" formControlName='usuario'>
-				<mat-hint align="end">{{usuario.value?.length || 0}}/30</mat-hint>
-			</mat-form-field></td>
-		</tr></table>
+			<table class="full-width" cellspacing="0"><tr>
+				<td><mat-form-field class="full-width" hintLabel="Maximo 30 caracteres" required >
+					<input matInput #ctrUsuario maxlength="30" placeholder="Usuario" formControlName='usuario'>
+					<mat-hint align="end">{{ctrUsuario.value?.length || 0}}/30</mat-hint>
+				</mat-form-field></td>
+			</tr></table>
 
-		<table class="full-width" cellspacing="0"><tr>
-			<td><mat-form-field class="full-width" hintLabel="Maximo 30 caracteres" required >
-				<input matInput #ie maxlength="30" placeholder="Senha" formControlName='senha'>
-				<mat-hint align="end">{{ie.value?.length || 0}}/30</mat-hint>
-			</mat-form-field></td>
-		</tr></table>
+			<table class="full-width" cellspacing="0"><tr>
+				<td><mat-form-field class="full-width">
+					<input matInput placeholder="Email" formControlName='email'
+					[errorStateMatcher]="matcher">
+					<mat-hint></mat-hint>
+					<mat-error *ngIf="formGroup.hasError('email') && !formGroup.hasError('required')">
+						Favor inserir um email valido
+					</mat-error>
+					<mat-error *ngIf="formGroup.hasError('required')">
+						Email <strong>obrigatório</strong>
+					</mat-error>
+				</mat-form-field></td>
+			</tr></table>
+			<fieldset formGroupName="roles">
+				<table class="full-width" cellspacing="0"><tr>
+					<td><mat-checkbox id='admin' formControlName='admin'>Administrador</mat-checkbox></td>
+					<td><mat-checkbox formControlName='seller'>Atendente</mat-checkbox></td>
+				</tr></table>
+			</fieldset>
 
-		<table class="full-width" cellspacing="0"><tr>
-			<td><mat-form-field class="full-width" hintLabel="Maximo 30 caracteres" required >
-				<input matInput #ie maxlength="30" placeholder="Digite novamente a senha" formControlName='senha2'>
-				<mat-hint align="end">{{ie.value?.length || 0}}/30</mat-hint>
-			</mat-form-field></td>
-		</tr></table>
+			<fieldset formGroupName="pw">
+				<table class="full-width" cellspacing="0"><tr>
+					<td><mat-form-field class="full-width" hintLabel="Maximo 30 caracteres" required >
+						<input matInput type='password' #ie maxlength="30" placeholder="Senha" formControlName='password'  autocomplete="off">
+						<mat-hint align="end">{{ie.value?.length || 0}}/30</mat-hint>
+					</mat-form-field></td>
+				</tr></table>
 
-		<table class="full-width" cellspacing="0"><tr>
-			<td><mat-form-field class="full-width">
-				<input matInput placeholder="Email" formControlName='email'
-				[errorStateMatcher]="matcher">
-				<mat-hint></mat-hint>
-				<mat-error *ngIf="formGroup.hasError('email') && !formGroup.hasError('required')">
-					Favor inserir um email valido
-				</mat-error>
-				<mat-error *ngIf="formGroup.hasError('required')">
-					Email <strong>obrigatório</strong>
-				</mat-error>
-			</mat-form-field></td>
-		</tr></table>
+				<table class="full-width" cellspacing="0"><tr>
+					<td><mat-form-field class="full-width" hintLabel="Maximo 30 caracteres" required >
+						<input matInput  type='password' #ie maxlength="30" placeholder="Digite novamente a senha" formControlName='confirmPassword' autocomplete="off">
+						<mat-hint align="end">{{ie.value?.length || 0}}/30</mat-hint>
+						<!-- <mat-error *ngIf='!formGroup.controls.pw.controls.confirmPassword.errors?.MutchPassword'>
+							Senha <strong>invalida</strong>
+						</mat-error> -->
+					</mat-form-field></td>
+				</tr></table>
+			</fieldset>
 
-		<table class="full-width" cellspacing="0"><tr>
-			<td><mat-checkbox formControlName='adm'>Administrador</mat-checkbox></td>
-		</tr></table>
-
-		<div class="full-width menu-action">
-			<button [disabled]='formGroup.disabled' mat-button>Cancelar</button>
-			<button [disabled]='formGroup.disabled' mat-button color="warn">Excluir</button>
-			<button [disabled]='formGroup.disabled' mat-raised-button color="primary">Salvar</button>
-		</div>
-	</form>
+			<div class="full-width menu-action">
+				<button [disabled]='' type='button' mat-button (click)='cancelar()'>Cancelar</button>
+				<button [disabled]='formGroup.invalid || pwGroup.invalid || usuario == null' type='button' mat-button color="warn" (click)='excluir()'>Excluir</button>
+				<button [disabled]='formGroup.invalid || pwGroup.invalid' type='submit' mat-raised-button color="primary">Salvar</button>
+			</div>
+		</form>
+	</app-load>
 </ui-frame-list>

@@ -19,6 +19,7 @@
 			</app-icon>
 		</button>
 	</ng-container>
+
 	<ng-container options *ngIf='fornecedor != null'>
 		<button mat-icon-button [disabled]='!auth.hasPermission()'  (click)='novo()'>
 			<app-icon name='add_box'>

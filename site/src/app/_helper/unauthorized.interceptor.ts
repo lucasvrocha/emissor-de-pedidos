@@ -22,20 +22,34 @@ export class UnauthorizedInterceptor implements HttpInterceptor {
             .do((event: HttpEvent<any>) => {
                 if (event instanceof HttpResponse) {
                     let resp: HttpResponse<any> = event;
-                    if (resp.status === 403) {
-                        this.router.navigate(['../']);
-                        this.alert.error('Não tem autorização de acesso!');
-                    }
+                    this.checkHttStatus(resp.status, resp.url);
                 }
             }, err => {
                 if (err instanceof HttpErrorResponse) {
-                    if (err.status === 403) {
-                        this.router.navigate(['../']);
-                        this.alert.error('Não tem autorização de acesso!');
-                    }
+                    this.checkHttStatus(err.status, err.url);
                 }
             });
     }
+
+    private checkHttStatus(status: number, url?: string) {
+        switch (status) {
+            case 403:
+                this.unauthorized();
+                break;
+
+            case 401:
+                this.router.navigate(['/login'], { queryParams: { returnUrl: url } });
+                break
+        }
+
+    }
+
+
+    private unauthorized() {
+        this.router.navigate(['../']);
+        this.alert.error('Não tem autorização de acesso!');
+    }
+
 }
 
 export let UnauthorizedProviver = {

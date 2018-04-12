@@ -8,7 +8,7 @@ import { environment as env } from '../../environments/environment';
 @Injectable()
 export class FornecedorService {
 
-	private href = env.api + '/fornecedor';
+	private href = '/api/fornecedor';
 	constructor(private http: HttpClient) { }
 
 	getRepoIssues(sort: string, order: string, page: number): Observable<DataGrid<Fornecedor>> {

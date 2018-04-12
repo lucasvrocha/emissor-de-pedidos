@@ -1,15 +1,18 @@
-import { Directive, Input, OnInit, OnChanges, AfterViewInit, ElementRef, Renderer } from '@angular/core';
+import { Directive, Input, OnInit, OnChanges, AfterViewInit, OnDestroy, ElementRef, Renderer } from '@angular/core';
 
 import { AuthenticationService } from './auth.service';
+import { Usuario } from '../usuario';
 
 @Directive({
-	selector: '[permission]', 
+	selector: '[permission]',
 	exportAs: 'auth'
 })
-export class AuthDirective implements OnInit, AfterViewInit {
+export class AuthDirective implements OnInit, AfterViewInit, OnDestroy {
 
 	@Input("permission-expected") permission: string[];
 
+	private _autorized: boolean;
+	private _sub: any;
 
 	constructor(
 		private authService: AuthenticationService,
@@ -17,20 +20,32 @@ export class AuthDirective implements OnInit, AfterViewInit {
 		public renderer: Renderer
 	) { }
 
-	ngAfterViewInit() {
-		let disabled =  !this.hasPermission();
-		this.renderer.setElementProperty(this.el.nativeElement, 'disabled', disabled);
+	ngOnInit() {
+		this._sub = this.authService.observable().subscribe(user => {
+			this.updateAuthorized(user);
+		});
+		
+		this.updateAuthorized(this.authService.user);
 	}
 
-	ngOnInit() {
+	private updateAuthorized(user : Usuario){
+		this._autorized = user != null && !!this.permission.find(x => user.roles[x]);
+	}
+
+	ngOnDestroy() {
+		if (this._sub) this._sub.unsubscribe();
+	}
+
+	ngAfterViewInit() {
+		this.renderer.setElementProperty(this.el.nativeElement, 'disabled', this._autorized);
 	}
 
 	disabled(permission?: string[]) {
-		return !(this.authService.isAutorzed() && this.authService.hasPermition(permission === undefined ? this.permission : permission));
+		return this._autorized;
 	}
 
 	hasPermission() {
-		return this.authService.isAutorzed() && this.authService.hasPermition(this.permission );
+		return this._autorized;
 	}
 
 }

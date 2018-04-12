@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AuthGuard, AuthenticationService } from '../../../auth';
 
 import { Usuario } from '../../../_model/usuario.model';
@@ -8,24 +8,26 @@ import { Usuario } from '../../../_model/usuario.model';
 	templateUrl: './user.component.html',
 	styleUrls: ['./user.component.css']
 })
-export class UserComponent implements OnInit {
+export class UserComponent implements OnInit, OnDestroy {
 
-	isAdmin : boolean = false;
-	nome: string; 
-	foto: string;
-	id: number;
-	email: string;
-
-	constructor(public guard: AuthGuard, public authService: AuthenticationService) { }
+	_user: Usuario;
+	_isAdmin : boolean = false;
+	
+	private _sub: any;
+	
+	constructor(public authService: AuthenticationService) { }
 
 	ngOnInit() {
-		this.isAdmin = this.authService.hasPermition(['admin']) != null;
-
-		let user : Usuario  = this.authService.currentUser();
-		this.nome = user.nome;
-		this.foto = user.foto;
-		this.email = user.email;
-		this.id = user.id;
+		this._user = this.authService.user;
+		this._isAdmin = this.authService.hasPermition(['admin']);
+		
+		this._sub = this.authService.observable().subscribe(user => {
+			this._user = user;
+			this._isAdmin = this.authService.hasPermition(['admin']);
+		});
 	}
 
+	ngOnDestroy() {
+		if (this._sub) this._sub.unsubscribe();
+	}
 }

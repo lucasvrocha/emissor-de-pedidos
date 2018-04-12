@@ -4,11 +4,11 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 
 import { Produto } from '../_model/produto.model';
-import { environment as env } from '../../environments/environment';
+
 
 @Injectable()
 export class ProdutoService {
-	readonly  href = env.api + '/produto';
+	readonly  href = '/api/produto';
 
 	constructor(private http: HttpClient) { }
 

@@ -1,14 +1,14 @@
 <mat-card  class="card" >
 	<mat-card-header>
-		<img mat-card-avatar src="{{foto}}" class="img" alt="Foto do {{nome}}">
+		<img mat-card-avatar src="{{_user?.foto}}" class="img" alt="Foto do {{_user?.nome}}">
 		<span class='hd-right'>
-			<mat-card-title>{{nome}}</mat-card-title>
-			<mat-card-subtitle>{{email}}</mat-card-subtitle>
-			<mat-card-subtitle *ngIf='isAdmin'>
+			<mat-card-title>{{_user?.nome}}</mat-card-title>
+			<mat-card-subtitle>{{_user?.email}}</mat-card-subtitle>
+			<mat-card-subtitle *ngIf='_isAdmin'>
 				<app-icon aria-label="Supervisor" name='supervisor_account' color='black' size=24 label='Supervisor'></app-icon>
 				<b>Administrador</b>
 			</mat-card-subtitle>
-			<mat-card-subtitle *ngIf='!isAdmin' >
+			<mat-card-subtitle *ngIf='!_isAdmin' >
 				<app-icon aria-label="Atendente" name='account_box' color='black' size=24 label='Atendente'></app-icon>
 				<b>Atendente</b>
 			</mat-card-subtitle>
@@ -20,8 +20,8 @@
 			<app-icon *ngIf=fs.isFullscreen() aria-label="Fullscreen" name="fullscreen_exit" color='black' label='FullScreen'></app-icon>
 			<app-icon *ngIf=!fs.isFullscreen() aria-label="Fullscreen" name="fullscreen" color='black' label='FullScreen'></app-icon>
 		</button>
-		<button  mat-button routerLink='./usuario/{{id}}'>Alterar informações</button>
-		<button  mat-icon-button  [routerLink]="['/login']">
+		<button  mat-button routerLink='./usuario/{{_user?.id}}'>Alterar informações</button>
+		<button  mat-icon-button  (click)='authService.logout()'>
 			<app-icon aria-label="Sair do Emissor de Pedidos" name='exit_to_app' color='black' label='sair'></app-icon>
 		</button>
 	</mat-card-actions>
