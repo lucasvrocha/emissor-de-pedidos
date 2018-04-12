@@ -48,14 +48,20 @@ export class AuthComponent implements OnInit, AfterViewInit {
     ) { }
 
     ngOnInit() {
-        this.authService.logout();
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
         this.usuarioControl.updateValueAndValidity();
+        this.loadService.init('main').process((load) => {
+            load.progress(85);
+            this.authService.verifyJwt().subscribe(user => {
+                if (user) this.router.navigate([this.returnUrl]);
+                load.end();
+            });
+        });
     }
 
     ngAfterViewInit() {
         this.validForm = (this.senhaControl.invalid || this.usuarioControl.invalid) ? 'disabled' : '';
-        
+
     }
 
     login() {

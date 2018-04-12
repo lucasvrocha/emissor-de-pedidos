@@ -29,7 +29,7 @@ export class ListaComponent implements OnInit {
 	}
 
 	isAdmin(usuario : Usuario){
-		return usuario.roles.findIndex(x => x === 'admin') >= 0;
+		return usuario.roles.admin;	
 	}
 
 

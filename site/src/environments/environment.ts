@@ -4,7 +4,15 @@
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
 export const environment = {
-  production: false
-  , mock : true
-  , api : 'http://localhost:8089/api'
+	production: false,
+	proxy: [
+		// { pattern: '/api\\/', api: 'http://localhost:8089/api/' }
+	],
+	mock: true,
+	api: 'http://localhost:8089/api/',
+	delay: 250,
+	logger: {
+		init: true,
+		pattern: '/api\\/'
+	}
 };

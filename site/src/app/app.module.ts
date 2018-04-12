@@ -40,8 +40,12 @@ import { ProdutoListaComponent } from './produto/lista/produto-lista.component';
 import { ProdutoCadastroComponent } from './produto/cadastro/produto-cadastro.component';
 import { CadastroComponent as FornecedorCadastroComponent } from './fornecedor/cadastro/cadastro.component';
 import { ListaComponent as FornecedorListaComponent } from './fornecedor/lista/lista.component';
-import { CadastroComponent as UsuarioCadastroComponent } from './usuario/cadastro/cadastro.component';
-import { ListaComponent as UsuarioListaComponent } from './usuario/lista/lista.component';
+import {
+	CadastroComponent as UsuarioCadastroComponent,
+	ListaComponent as UsuarioListaComponent, 
+	UsuarioService
+} from './usuario';
+
 import { ToolbarComponent } from './ui/toolbar/toolbar.component';
 import { IconComponent } from './ui/icon/icon.component';
 import { AlertComponent } from './ui/alert/alert.component';
@@ -59,11 +63,9 @@ import { AuthProviver, AuthenticationService, AuthComponent, AuthDirective, Auth
 import { AlertService } from './ui/alert/alert.service';
 
 import { UnauthorizedProviver } from './_helper/unauthorized.interceptor';
-import { FakeBackendProvider } from './_mock/backend/fakeBackend.provider';
+import { BackendProvider } from './_mock/backend';
 import { MyErrorStateMatcherProvider } from './_helper/myErrorStateMatcher';
 import { LoadService, LoadComponent } from './ui/load';
-
-
 
 @NgModule({
 	declarations: [
@@ -135,9 +137,10 @@ import { LoadService, LoadComponent } from './ui/load';
 		UnauthorizedProviver,
 		AlertService,
 		AuthenticationService,
+		UsuarioService,
 		MatStepper,
 		LoadService,
-		FakeBackendProvider
+		BackendProvider
 	],
 	bootstrap: [AppComponent]
 })
