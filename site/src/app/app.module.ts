@@ -66,6 +66,7 @@ import { UnauthorizedProviver } from './_helper/unauthorized.interceptor';
 import { BackendProvider } from './_mock/backend';
 import { MyErrorStateMatcherProvider } from './_helper/myErrorStateMatcher';
 import { LoadService, LoadComponent } from './ui/load';
+import { StopEventDirective } from './ui/directive/stop-event.directive';
 
 @NgModule({
 	declarations: [
@@ -93,7 +94,8 @@ import { LoadService, LoadComponent } from './ui/load';
 		PedidoListaComponent,
 		DashboardComponent,
 		ListComponent,
-		LoadComponent
+		LoadComponent,
+		StopEventDirective
 	],
 	entryComponents: [
 		AuthDialogComponent,

@@ -19,7 +19,7 @@ export class AuthServiceApi {
 	checkLogin(request) {
 		let jwt = request.headers.get('Authorization').split(' ')[1];
 		let obj = new DB('authenticate', []).data.find(x => x.jwt === jwt);
-		return new HttpResponse<any>({ status: 200, body: JSON.stringify(obj) });
+		return new HttpResponse<any>({ status: 200, body: obj });
 	}
 
 	@RequestMap('\\/api\\/authenticate$', 'POST')
@@ -33,6 +33,11 @@ export class AuthServiceApi {
 		user.jwt = 'fake-jwt-token';
 		this.dbAuth.insert(user);
 		return new HttpResponse({ status: 200, body: user });
+	}
+
+	@RequestMap('\\/api\\/authenticate/recuperar$', 'POST')
+	recuperar(request) {
+		return new HttpResponse({ status: 200 , body : {message:'Enviado uma solicitação no email '+request.body.email}});
 	}
 
 	@RequestMap('\\/api\\/authenticate$', 'DELETE')

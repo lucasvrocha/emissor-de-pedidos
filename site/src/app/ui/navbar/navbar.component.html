@@ -40,7 +40,6 @@
 		<mat-menu #menu="matMenu">
 			<ui-navbar-user></ui-navbar-user>
 		</mat-menu>
-
 	</mat-toolbar>
 
 	<mat-sidenav-container class="example-sidenav-container" >
@@ -51,23 +50,39 @@
 					<app-icon class='icon' aria-label="Criar um novo Pedido" name='add_shopping_cart' color='black'  label='Novo Pedido'></app-icon>Novo Pedido
 				</a>
 				<mat-divider></mat-divider>
-				<a class='item' mat-list-item routerLink='/pedido' >
+				<a class='item' mat-list-item ui-stop-event (click)='navegate("/pedido")' >
 					<app-icon class='icon' aria-label="Abrir a tela de Pedidos" name='assignment' color='black' label='Pedido'></app-icon>Pedidos
+					<span class="fill-space"></span>
+					<button mat-icon-button ui-stop-event (click)='navegate("/pedido/novo")' >
+						<app-icon  aria-label="Adicionar Pedidos" name='add_box' color='black' label='fornecedor'></app-icon>
+					</button>
 				</a>
 				<mat-divider></mat-divider>
-				<a class='item' mat-list-item routerLink='/fornecedor'>
+				<a class='item'  mat-list-item ui-stop-event (click)='navegate("/fornecedor")' >
 					<app-icon class='icon' aria-label="Abrir a tela de Fornecedor" name='business' color='black' label='fornecedor'></app-icon>
 					Fornecedor
+					<span class="fill-space"></span>
+					<button *ngIf="_adm" mat-icon-button ui-stop-event (click)='navegate("/fornecedor/novo")'>
+						<app-icon aria-label="Adicionar  Fornecedor" name='add_box' color='black' label='fornecedor'></app-icon>
+					</button>
 				</a>
 				<mat-divider></mat-divider>
-				<a class='item' mat-list-item  routerLink='/produto'>
+				<a class='item' mat-list-item ui-stop-event (click)='navegate("/produto")'>
 					<app-icon class='icon' aria-label="Abrir a tela de Produtos" name='business_center' color='black' label='produto'></app-icon>
 					Produto
+					<span class="fill-space"></span>
+					<button *ngIf="_adm" mat-icon-button ui-stop-event (click)='navegate("/produto/novo")'>
+						<app-icon aria-label="Adicionar Produtos" name='add_box' color='black' label='fornecedor'></app-icon>
+					</button>
 				</a>
 				<mat-divider></mat-divider>
-				<a class='item' mat-list-item routerLink='/usuario'>
+				<a class='item' mat-list-item ui-stop-event (click)='navegate("usuario")'>
 					<app-icon class='icon' aria-label="Abrir a tela de Usuarios" name='account_box' color='black' label='usuario'></app-icon>
 					Usuario
+					<span class="fill-space"></span>
+					<button *ngIf="_adm" mat-icon-button ui-stop-event (click)='navegate("/usuario/novo")'>
+						<app-icon aria-label="Adicionar Usurios" name='add_box' color='black' label='fornecedor'></app-icon>
+					</button>
 				</a>
 				<mat-divider></mat-divider>
 			</mat-nav-list>

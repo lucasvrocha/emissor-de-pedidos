@@ -18,7 +18,7 @@ export class LoggerInterceptor implements HttpInterceptor {
 
 	constructor() {
 		console.log("[backend] LoggerInterceptor is runing");
-		this.pattern = env ? env.logger ? env.logger.pattern : undefined : undefined;
+		this.pattern = env && env.logger ? env.logger.pattern : undefined ;
 
 	}
 
