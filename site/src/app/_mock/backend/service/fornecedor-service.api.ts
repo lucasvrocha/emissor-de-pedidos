@@ -59,7 +59,7 @@ export class FornecedorServiceApi {
 	@RequestMap('(\\/api\\/fornecedor$)|(\\/api\\/fornecedor\\//$)', 'POST')
 	@Authenticate()
 	add(request) {
-		let obj: any = request.body;
+		let obj: any = Object.assign(new Object(),request.body);
 		obj.id = + new Date();
 		this.db.insert(obj);
 		return new HttpResponse({ status: 201, body: obj });
