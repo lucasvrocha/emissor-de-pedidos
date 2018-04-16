@@ -21,8 +21,7 @@ import org.springframework.web.bind.annotation.*;
 @Entity
 public class Fornecedor implements Serializable {
     
-    @Id
-    @GeneratedValue(strategy=GenerationType.AUTO) 
+    @Column(nullable=false)
     private String  CNPJFornecedor;
     
     @Column(nullable=false)
@@ -31,7 +30,9 @@ public class Fornecedor implements Serializable {
     @Column(nullable=false)
     private String  RazaoSocial;
     
-    @Column(nullable=false)
+    
+    @Id
+    @GeneratedValue(strategy=GenerationType.AUTO) 
     private long     IDFornecedor;
 
     public Fornecedor() {
@@ -104,8 +105,8 @@ public class Fornecedor implements Serializable {
     private void Alterar(){}
     private void Excluir(){}*/
     
-    @RequestMapping("/fornecedor")
-    @ResponseBody
+    //@RequestMapping("/fornecedor")
+    //@ResponseBody
     String home() {
         return "Hue!";
     }
