@@ -21,17 +21,6 @@ export class UsuarioServiceApi {
 		return new HttpResponse({ status: obj == null ? 404 : 200, body: obj });
 	}
 
-	@RequestMap('\\/api\\/usuario?q=repo:angular\\/material2', 'GET')
-	@Authenticate()
-	byAngularList(request) {
-		return new HttpResponse({
-			status: 200, body: {
-				total: this.db.data.length,
-				items: this.db.data.map(x => { if (x['senha']) x['senha'] = null; return x })
-			}
-		});
-	}
-
 	@RequestMap('(\\/api\\/usuario\\/$)|(\\/api\\/usuario$)', 'GET')
 	@Authenticate()
 	byAll(request) {
@@ -61,7 +50,7 @@ export class UsuarioServiceApi {
 	@RequestMap('(\\/api\\/usuario$)|(\\/api\\/usuario\\//$)', 'POST')
 	@Authenticate()
 	add(request){
-		let obj: any = request.body;
+		let obj: any = Object.assign(new Object(),request.body);
 		obj.id = + new Date();
 		this.db.insert(obj);
 		return new HttpResponse({ status: 201, body: obj });
