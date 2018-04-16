@@ -83,5 +83,17 @@ public class FornecedorRepositorio implements FornecedorInterfaceRepositorio {
         String hql = "FROM Fornecedor as forn where forn.RazaoSocial=?";
         return (List<Fornecedor>) entityManager.createQuery(hql).setParameter(1, RazaoSocial).getResultList();
     }
+    
+    //      ENCONTRA O FORNECEDOR PELA FANTASIA
+    public List<Fornecedor> findByFantasia(String fantasia){
+        String hql = "FROM Fornecedor as forn where forn.fantasia=?";
+        return (List<Fornecedor>) entityManager.createQuery(hql).setParameter(1, fantasia).getResultList();
+    }
+    
+    //      ENCONTRA O FORNECEDOR PELO EMAIL
+    public List<Fornecedor> findByEmail(String email){
+        String hql = "FROM Fornecedor as forn where forn.email=?";
+        return (List<Fornecedor>) entityManager.createQuery(hql).setParameter(1, email).getResultList();
+    }
 
 }

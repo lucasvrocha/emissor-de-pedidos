@@ -23,6 +23,12 @@ public interface FornecedorInterfaceRepositorio
     //      ENCONTRA O FORNECEDOR PELA RAZÃO SOCIAL
     List<Fornecedor> findByRazaoSocial(String RazaoSocial);
     
+    //      ENCONTRA O FORNECEDOR PELA FANTASIA
+    List<Fornecedor> findByFantasia(String fantasia);
+    
+    //      ENCONTRA O FORNECEDOR PELO EMAIL
+    List<Fornecedor> findByEmail(String email);
+    
     List<Fornecedor> findAllFornecedor();
     
     
