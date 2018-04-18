@@ -94,7 +94,6 @@ export class ListaComponent implements OnInit, OnDestroy {
 	delete(fornecedor) {
 		this.exampleDatabase.deleteFornecedor(fornecedor).subscribe(data => {
 			this.loadData(null)
-		}
-		)
+		});
 	}
 }

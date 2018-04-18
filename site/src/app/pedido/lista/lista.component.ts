@@ -4,16 +4,15 @@ import { Pedido } from '../../_model/pedido.model';
 import { ToolbarBuilder } from '../../ui/toolbar';
 
 import { LoadService } from '../../ui/load'
+import { PedidoService } from '../pedido.service';
 
-// mock
-import { PEDIDOS } from '../../_mock/pedido.mock';
 
 
 @Component({
 	selector: 'app-lista',
 	templateUrl: './lista.component.html',
 	styleUrls: ['./lista.component.css'],
-	providers: [ToolbarBuilder]
+	providers: [ToolbarBuilder, PedidoService]
 })
 export class ListaComponent implements OnInit {
 
@@ -24,11 +23,12 @@ export class ListaComponent implements OnInit {
 
 	panel: number;
 
-	pedidos: Pedido[] = PEDIDOS.concat(PEDIDOS).concat(PEDIDOS).concat(PEDIDOS);
+	pedidos: Pedido[];
 
 	constructor(
 		private tb: ToolbarBuilder,
-		private loadService: LoadService
+		private loadService: LoadService,
+		private pedidoService: PedidoService
 	) { }
 
 	ngOnInit() {
@@ -41,6 +41,10 @@ export class ListaComponent implements OnInit {
 			title: 'Pedidos',
 			toolbar: toolbar
 		};
+
+		this.pedidoService.load().subscribe(pedidos => {
+			this.pedidos = pedidos;
+		});
 	}
 
 	setPanel(panel: number) {
@@ -89,6 +93,10 @@ export class ListaComponent implements OnInit {
 			return 'email'
 
 		return 'undefined'
+	}
 
+
+	salvar(){
+		
 	}
 }
