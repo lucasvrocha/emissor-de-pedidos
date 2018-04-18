@@ -212,7 +212,7 @@
 
 						<ng-container *ngIf='pedido.tipo==="venda"'>
 							<span *ngIf='pedido.pagamentos' class='pagamento-table'>
-								<mat-table class=''  [dataSource]="dataSourcePagamentos">
+								<mat-table class='' [dataSource]="dataSourcePagamentos">
 									<ng-container matColumnDef="especie">
 										<mat-header-cell *matHeaderCellDef> <strong>Pagamentos</strong></mat-header-cell>
 										<mat-cell *matCellDef="let element"> {{element.especie}}
@@ -230,14 +230,14 @@
 									<mat-row  class='row' *matRowDef="let row; columns: pagamentoColumns;"></mat-row>
 								</mat-table>
 							</span>
+
 						</ng-container>
-
-						<div class='full-width t-center action-form'>
-							<button mat-button matStepperPrevious>Voltar</button>
-							<button mat-raised-button color="primary" routerLink='../' >Finalizar</button>
-						</div>
+						<br>
+							<div class='full-width t-center action-form'>
+								<button mat-button matStepperPrevious>Voltar</button>
+								<button mat-raised-button color="primary" [disabled]="!canFinalizar()" (click)='finalizar()' >Finalizar</button>
+							</div>
 					</div>
-
 				</mat-expansion-panel>
 			</mat-accordion>
 		</div>

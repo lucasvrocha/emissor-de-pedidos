@@ -5,6 +5,7 @@ import { ToolbarBuilder } from '../../ui/toolbar';
 
 import { LoadService } from '../../ui/load'
 import { PedidoService } from '../pedido.service';
+import { FornecedorService } from '../../fornecedor/fornecedor.service';
 
 
 
@@ -12,7 +13,7 @@ import { PedidoService } from '../pedido.service';
 	selector: 'app-lista',
 	templateUrl: './lista.component.html',
 	styleUrls: ['./lista.component.css'],
-	providers: [ToolbarBuilder, PedidoService]
+	providers: [ToolbarBuilder, PedidoService, FornecedorService]
 })
 export class ListaComponent implements OnInit {
 
@@ -23,12 +24,13 @@ export class ListaComponent implements OnInit {
 
 	panel: number;
 
-	pedidos: Pedido[];
+	pedidos: any[];
 
 	constructor(
 		private tb: ToolbarBuilder,
 		private loadService: LoadService,
-		private pedidoService: PedidoService
+		private pedidoService: PedidoService, 
+		private fornecedorService : FornecedorService
 	) { }
 
 	ngOnInit() {
@@ -42,7 +44,13 @@ export class ListaComponent implements OnInit {
 			toolbar: toolbar
 		};
 
+		this.loadPedidos();
+	}
+
+	loadPedidos(){
 		this.pedidoService.load().subscribe(pedidos => {
+			for (let p of pedidos)
+				if (p.fornecedorId != null) this.fornecedorService.getFornecedor(p.fornecedorId).subscribe(fornecedor => p['destinatario'] = fornecedor.razao);
 			this.pedidos = pedidos;
 		});
 	}
@@ -95,8 +103,14 @@ export class ListaComponent implements OnInit {
 		return 'undefined'
 	}
 
-
-	salvar(){
-		
+	canCancelar(pedido: Pedido){
+		return pedido.tipo === 'venda'&&  pedido.status !== 'cancelado' ;
 	}
+
+	cancelar(pedido : Pedido){
+		this.pedidoService.cancelar(pedido).subscribe(retorno => { 
+			if (retorno != null) this.loadPedidos();
+		});
+	}
+	
 }
