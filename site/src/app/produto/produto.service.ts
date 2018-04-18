@@ -24,6 +24,10 @@ export class ProdutoService {
 		const requestUrl = `${this.href}?q=repo:angular/material2&sort=${sort}&order=${order}&page=${page + 1}`;
 		return this.http.get<DataGrid<Produto>>(requestUrl);
 	}
+
+	deleteProduto(id : number){
+		return this.http.delete<any>(this.href + '/' + id);
+	}
 }
 
 export interface DataGrid<T> {
