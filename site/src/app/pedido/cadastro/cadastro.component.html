@@ -61,7 +61,7 @@
 							</mat-option>
 						</mat-select>
 					</mat-form-field>
-					<button mat-raised-button [disabled]='!pedido.fornecedorId' color="primary"  (click)='updateProdutos()'>Adicionar Produtos</button>
+					<button mat-raised-button [disabled]='!pedido.fornecedorId' color="primary"  (click)='updateProdutos();stepper.next();'>Adicionar Produtos</button>
 				</ng-container>
 
 			</div>
