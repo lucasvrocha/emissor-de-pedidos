@@ -28,6 +28,18 @@ export class ProdutoService {
 	deleteProduto(id : number){
 		return this.http.delete<any>(this.href + '/' + id);
 	}
+
+	getProduto(id : number ){
+		return this.http.get<Produto>(this.href + '/' + id);
+	}
+
+	postProduto(produto: Produto) {
+		return this.http.post<Produto>(this.href, produto);
+	}
+
+	putProduto(produto: Produto) {
+		return this.http.put<Produto>(this.href + '/' + produto.id, produto);
+	}
 }
 
 export interface DataGrid<T> {

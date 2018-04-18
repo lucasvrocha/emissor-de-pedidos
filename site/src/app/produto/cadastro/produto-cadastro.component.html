@@ -8,40 +8,90 @@
 		<button mat-icon-button>
 			<app-icon name='business_center'></app-icon>
 		</button>
-		<h2>Novo Produto</h2>
+		<h2>{{produto == null ? 'Novo Produto' : produto.descritivo}}</h2>
 	</ng-container>
-	<ng-container options>
-		<button mat-icon-button [disabled]='!auth.hasPermission()' >
+	<ng-container options *ngIf='produto == null'>
+		<button mat-icon-button [disabled]='!auth.hasPermission() || load.isWorking() || formGroup.invalid' (click)='salvar()'>
 			<app-icon name='save'>
+				<app-icon *ngIf='auth.hasPermission() && formGroup.invalid' name='error_outline' color='red' [iconContent]='true'></app-icon>
+				<app-icon *ngIf='auth.hasPermission() && formGroup.valid' name='done' color='green' [iconContent]='true'></app-icon>
 				<app-icon *ngIf='!auth.hasPermission()' name='block' color='red' [iconContent]='true'></app-icon>
 			</app-icon>
 		</button>
 	</ng-container>
 
-	<form class="form" [formGroup]='formGroup'  >
-		<mat-form-field class="full-width">
-			<input matInput placeholder="# Código do produto" disabled value="Será gerado automáticamente.">
-		</mat-form-field>
+	<ng-container options *ngIf='produto != null'>
+		<button mat-icon-button [disabled]='!auth.hasPermission()'  (click)='novo()'>
+			<app-icon name='add_box'>
+				<app-icon *ngIf='!auth.hasPermission()' name='block' color='red' [iconContent]='true'></app-icon>
+			</app-icon>
+		</button>
+	</ng-container>
+	
+	<app-load name='produto' [loaded]='false'>
+		<form class="form" [formGroup]='formGroup' (ngSubmit)="salvar()" >
+			
+			<mat-form-field class="full-width">
+				<input matInput placeholder="#Código do Fornecedor" formControlName='id'>
+			</mat-form-field>
 
-		<table class="full-width" cellspacing="0"><tr>
-			<td><mat-form-field class="full-width" hintLabel="Maximo 80 caracteres" required >
-				<input matInput #input maxlength="80" placeholder="Nome do produto" formControlName="nome">
-				<mat-hint align="end">{{input.value?.length || 0}}/80</mat-hint>
-			</mat-form-field></td>
-		</tr></table>
 
-		<mat-form-field class="full-width">
-			<mat-select placeholder="Fornecedor" formControlName='fornecedor'  required >
-				<mat-option *ngFor="let fornecedor of fornecedores" [value]="fornecedor.value">
-					{{fornecedor.viewValue}}
-				</mat-option>
-			</mat-select>
-		</mat-form-field>
+			<table class="full-width" cellspacing="0"><tr>
+				<td><mat-form-field class="full-width">
+					<mat-select placeholder="Fornecedor" formControlName='fornecedorId'  required >
+						<mat-option *ngFor="let fornecedor of fornecedores" [value]="fornecedor.value">
+							{{fornecedor.viewValue}}
+						</mat-option>	
+					</mat-select>
+				</mat-form-field></td>
+			</tr></table>
 
-		<div class="full-width">
-			<button [disabled]="formGroup.disabled" mat-button>Cancelar</button>
-			<button [disabled]="formGroup.disabled" mat-button color="warn">Excluir</button>
-			<button [disabled]="formGroup.disabled" mat-raised-button color="primary">Salvar</button>
-		</div>
-	</form>
+			
+			<table class="full-width" cellspacing="0"><tr>
+				<td><mat-form-field class="full-width" hintLabel="Maximo 50 caracteres"  >
+					<input type="text" matInput #descritivo maxlength="50" placeholder="Descritivo" formControlName='descritivo' required>
+					<mat-hint align="end">{{descritivo.value?.length || 0}}/50</mat-hint>
+					<mat-error *ngIf="formGroup.controls['descritivo'].invalid">
+						Campo <strong>obrigatório</strong>.
+					</mat-error>
+				</mat-form-field></td>
+			</tr></table>
+			
+			<table class="full-width" cellspacing="0"><tr>
+				<td><mat-form-field class="full-width" hintLabel="Informe a quantidade que existe em estoque"  >
+					<input type="number" matInput #qtd maxlength="3" placeholder="Quantidade em Estoque" formControlName='quantidade' required>
+					<mat-hint align="end">{{qtd.value?.length || 0}}/3</mat-hint>
+					<mat-error *ngIf="formGroup.controls['quantidade'].invalid">
+						Campo <strong>obrigatório</strong>.
+					</mat-error>
+				</mat-form-field></td>
+			</tr></table>
+
+			<table class="full-width" cellspacing="0"><tr>
+				<td><mat-form-field class="full-width" hintLabel="Informe a quantidade minima a ter no estoque"  >
+					<input type='text' matInput #qtdMin maxlength="3" placeholder="Quantidade Minima em Estoque" formControlName='quantidadeMinima' required>
+					<mat-hint align="end">{{qtdMin.value?.length || 0}}/3</mat-hint>
+					<mat-error *ngIf="formGroup.controls['quantidadeMinima'].invalid">
+						Campo <strong>obrigatório</strong>.
+					</mat-error>
+				</mat-form-field></td>
+			</tr></table>
+
+			<table class="full-width" cellspacing="0"><tr>
+				<td><mat-form-field class="full-width" hintLabel=""  >
+					<input type="number" matInput #preco maxlength="3" placeholder="Valor de Venda" formControlName='preco' required>
+					<mat-hint align="end">{{preco.value?.length || 0}}/3</mat-hint>
+					<mat-error *ngIf="formGroup.controls['preco'].invalid">
+						Campo <strong>obrigatório</strong>.
+					</mat-error>
+				</mat-form-field></td>
+			</tr></table>
+
+			<div class="full-width">
+				<button type='button' [disabled]='formGroup.disabled' mat-button (click)='cancelar()'>Cancelar</button>
+				<button type='button' [disabled]='formGroup.disabled || produto == null' mat-button color="warn" (click)='excluir()'>Excluir</button>
+				<button type='submit' [disabled]='formGroup.disabled || formGroup.invalid' mat-raised-button color="primary" >Salvar</button>
+			</div>
+		</form>
+	</app-load>
 </ui-frame-list>

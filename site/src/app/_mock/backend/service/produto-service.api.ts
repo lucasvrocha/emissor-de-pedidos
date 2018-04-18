@@ -27,7 +27,8 @@ export class ProdutoServiceApi {
 	byAngularList(request) {
 		let data = this.db.data;
 		for(let d of data){
-			let fornecedor =  this.dbFornecedor.data.find(x => x.id = d.fornecedorId);
+			let fornecedor =  this.dbFornecedor.data.find(x => x.id == d.fornecedorId);
+			console.log(d, fornecedor);
 			d['fornecedor'] = fornecedor.fantasia;
 		}
 
