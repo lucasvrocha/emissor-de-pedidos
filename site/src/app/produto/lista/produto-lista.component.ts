@@ -42,7 +42,8 @@ export class ProdutoListaComponent implements OnInit, OnDestroy {
 		private http: HttpClient,
 		changeDetectorRef: ChangeDetectorRef,
 		media: MediaMatcher,
-		private loadService: LoadService) {
+		private loadService: LoadService
+	) {
 		this.mobileQuery = media.matchMedia('(max-width: 599px)');
 		this._mobileQueryListener = () => changeDetectorRef.detectChanges();
 		this.mobileQuery.addListener(this._mobileQueryListener);
@@ -54,6 +55,14 @@ export class ProdutoListaComponent implements OnInit, OnDestroy {
 		// If the user changes the sort order, reset back to the first page.
 		this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
 
+		this.loadData();
+	}
+
+	ngOnDestroy(): void {
+		this.mobileQuery.removeListener(this._mobileQueryListener);
+	}
+
+	loadData(){
 		merge(this.sort.sortChange, this.paginator.page)
 			.pipe(
 				startWith({}),
@@ -80,11 +89,10 @@ export class ProdutoListaComponent implements OnInit, OnDestroy {
 			});
 	}
 
-	ngOnDestroy(): void {
-		this.mobileQuery.removeListener(this._mobileQueryListener);
+	delete(id: number) {
+		this.exampleDatabase.deleteProduto(id).subscribe(data =>{
+			this.loadData();
+		});
 	}
 }
-
-
-
 

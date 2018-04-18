@@ -25,10 +25,16 @@ export class ProdutoServiceApi {
 	@RequestMap('\\/api\\/produto\\?q=repo:angular\\/material2', 'GET')
 	@Authenticate()
 	byAngularList(request) {
+		let data = this.db.data;
+		for(let d of data){
+			let fornecedor =  this.dbFornecedor.data.find(x => x.id == d.fornecedorId);
+			d['fornecedor'] = fornecedor.fantasia;
+		}
+
 		return new HttpResponse({
 			status: 200, body: {
-				total: this.db.data.length,
-				items: this.db.data
+				total: data.length,
+				items: data
 			}
 		});
 	}

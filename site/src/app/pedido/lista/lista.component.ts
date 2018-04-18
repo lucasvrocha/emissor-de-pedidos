@@ -4,16 +4,16 @@ import { Pedido } from '../../_model/pedido.model';
 import { ToolbarBuilder } from '../../ui/toolbar';
 
 import { LoadService } from '../../ui/load'
+import { PedidoService } from '../pedido.service';
+import { FornecedorService } from '../../fornecedor/fornecedor.service';
 
-// mock
-import { PEDIDOS } from '../../_mock/pedido.mock';
 
 
 @Component({
 	selector: 'app-lista',
 	templateUrl: './lista.component.html',
 	styleUrls: ['./lista.component.css'],
-	providers: [ToolbarBuilder]
+	providers: [ToolbarBuilder, PedidoService, FornecedorService]
 })
 export class ListaComponent implements OnInit {
 
@@ -24,11 +24,13 @@ export class ListaComponent implements OnInit {
 
 	panel: number;
 
-	pedidos: Pedido[] = PEDIDOS.concat(PEDIDOS).concat(PEDIDOS).concat(PEDIDOS);
+	pedidos: any[];
 
 	constructor(
 		private tb: ToolbarBuilder,
-		private loadService: LoadService
+		private loadService: LoadService,
+		private pedidoService: PedidoService, 
+		private fornecedorService : FornecedorService
 	) { }
 
 	ngOnInit() {
@@ -41,6 +43,16 @@ export class ListaComponent implements OnInit {
 			title: 'Pedidos',
 			toolbar: toolbar
 		};
+
+		this.loadPedidos();
+	}
+
+	loadPedidos(){
+		this.pedidoService.load().subscribe(pedidos => {
+			for (let p of pedidos)
+				if (p.fornecedorId != null) this.fornecedorService.getFornecedor(p.fornecedorId).subscribe(fornecedor => p['destinatario'] = fornecedor.razao);
+			this.pedidos = pedidos;
+		});
 	}
 
 	setPanel(panel: number) {
@@ -89,6 +101,16 @@ export class ListaComponent implements OnInit {
 			return 'email'
 
 		return 'undefined'
-
 	}
+
+	canCancelar(pedido: Pedido){
+		return pedido.tipo === 'venda'&&  pedido.status !== 'cancelado' ;
+	}
+
+	cancelar(pedido : Pedido){
+		this.pedidoService.cancelar(pedido).subscribe(retorno => { 
+			if (retorno != null) this.loadPedidos();
+		});
+	}
+	
 }

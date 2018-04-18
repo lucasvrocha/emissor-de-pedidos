@@ -1,5 +1,6 @@
 <ui-frame-list class='frame-list' [model]='frameListModel' media-query #media='media' >
 	<mat-accordion class="body headers-align">
+
 		<mat-expansion-panel  *ngFor='let p of pedidos;let i = index' hideToggle="true" [expanded]="panel === i" (opened)="setPanel(i)">
 			<mat-expansion-panel-header [ngClass]="{'painel-is-opened': panel===i}" >
 				<mat-panel-title class='title line'>		
@@ -37,7 +38,7 @@
 					<mat-row  class='row' *matRowDef="let row; columns: itemColumns;"></mat-row>
 				</mat-table>
 
-				<span *ngIf='p.pagamentos' class='pagamento-table margin-auto'>
+				<span *ngIf='p.pagamentos && p.pagamentos.length >0' class='pagamento-table margin-auto'>
 					<mat-table class=''  [dataSource]="p.pagamentos">
 						<ng-container matColumnDef="especie">
 							<mat-header-cell *matHeaderCellDef><strong>Pagamentos</strong></mat-header-cell>
@@ -52,8 +53,10 @@
 						<mat-row  class='row' *matRowDef="let row; columns: pagamentoColumns;"></mat-row>
 					</mat-table>
 				</span>
+				<br>
+				<button mat-button color="primary" color="accent" [disabled]='!canCancelar(p)' (click)='cancelar(p)'>Cancelar</button>
 			</div>
-
 		</mat-expansion-panel>
+
 	</mat-accordion>
 </ui-frame-list>

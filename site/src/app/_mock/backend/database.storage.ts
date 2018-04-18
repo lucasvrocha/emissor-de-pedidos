@@ -16,7 +16,13 @@ export class DataBaseStorage {
     }
 
     set data(data: any[]) {
-        this.driver.setItem('tb-' + this.name, JSON.stringify(data));
+        this.driver.setItem('tb-' + this.name, JSON.stringify(
+            data.sort(function comp(a, b) {
+                if (a.id > b.id) return 1;
+                if (a.id < b.id) return -1;
+                return 0;
+            })
+        ));
     }
 
     get data(): any[] {

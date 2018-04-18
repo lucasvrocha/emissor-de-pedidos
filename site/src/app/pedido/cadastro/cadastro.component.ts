@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material';
 
@@ -6,6 +7,7 @@ import { ListModel } from '../../ui/frame';
 import { ToolbarBuilder } from '../../ui/toolbar';
 import { ProdutoService, Produto } from '../../produto';
 import { FornecedorService, Fornecedor } from '../../fornecedor';
+import { PedidoService } from '../pedido.service';
 
 import { Pedido, PedidoItem, PedidoPagamento } from '../../_model/pedido.model';
 import { LoadService, LoadComponent } from '../../ui/load';
@@ -15,7 +17,7 @@ import { LoadService, LoadComponent } from '../../ui/load';
 	selector: 'app-cadastro',
 	templateUrl: './cadastro.component.html',
 	styleUrls: ['./cadastro.component.css', '../lista/lista.component.css'],
-	providers: [ToolbarBuilder, ProdutoService, FornecedorService]
+	providers: [ToolbarBuilder, ProdutoService, FornecedorService, PedidoService]
 })
 export class CadastroComponent implements OnInit, OnDestroy {
 
@@ -43,60 +45,39 @@ export class CadastroComponent implements OnInit, OnDestroy {
 		status: ""
 	};
 
-	pagamentos: PedidoPagamento[] = [
-		{ id: undefined, especie: 'dinheiro', parcelas: 0, valor: 0 },
-		{ id: undefined, especie: 'debito', parcelas: 0, valor: 0 },
-		{ id: undefined, especie: 'credito', parcelas: 0, valor: 0 }
-	]
-
-	parcelas = [
-		{ value: 1, viewValue: '1x' },
-		{ value: 2, viewValue: '2x' },
-		{ value: 3, viewValue: '3x' },
-		{ value: 4, viewValue: '4x' },
-		{ value: 5, viewValue: '5x' },
-		{ value: 6, viewValue: '6x' },
-		{ value: 7, viewValue: '7x' },
-		{ value: 8, viewValue: '8x' },
-		{ value: 9, viewValue: '9x' },
-		{ value: 10, viewValue: '10x' }
-	];
+	pagamentos: PedidoPagamento[];
+	parcelas: any[];
 
 	constructor(
 		private _formBuilder: FormBuilder,
 		private tb: ToolbarBuilder,
 		private produtoService: ProdutoService,
 		private fornecedorService: FornecedorService,
-		private loadService: LoadService
+		private pedidoService : PedidoService,
+		private loadService: LoadService,
+		private router : Router
 	) {	}
 
 	ngOnInit() {
-
-		this.firstFormGroup = this._formBuilder.group({});
-		this.secondFormGroup = this._formBuilder.group({});
-		this.thirdFormGroup = this._formBuilder.group({});
-
 		this.frame = {
 			title: 'Novo Pedido',
 			toolbar: this.tb
 				.withTitle({ description: 'Novo Pedido', icon: this.tb.icon('add_shopping_cart').build() })
 				.build()
 		};
-
-		//this.produtoService.getProdutos(null).subscribe(produtos => { this.produtos = produtos });
-		this.fornecedorService.getFornecedores()
-			.subscribe(fornecedores => {
-				this.fornecedores = fornecedores;
-			});
-
 		this.dataSourceItens.data = this.pedido.itens;
 		this.dataSourcePagamentos.data = this.pedido.pagamentos;
-		
+
+		this.firstFormGroup = this._formBuilder.group({});
+		this.secondFormGroup = this._formBuilder.group({});
+		this.thirdFormGroup = this._formBuilder.group({});
+
+		this.fornecedorService.getFornecedores().subscribe(fornecedores => this.fornecedores = fornecedores);
+		this.pedidoService.pagamentos().subscribe(pagamentos => this.pagamentos = pagamentos);
+		this.pedidoService.parcelas().subscribe(parcelas => this.parcelas = parcelas);
 	}
 
-	ngOnDestroy() {
-
-	}
+	ngOnDestroy() {	}
 
 	estoque(produto: Produto) {
 		let i: PedidoItem[] = this.pedido.itens.filter(i => i.produtoId === produto.id);
@@ -120,21 +101,13 @@ export class CadastroComponent implements OnInit, OnDestroy {
 
 	remove(produto: Produto) {
 		let i = this.pedido.itens.filter(i => i.produtoId === produto.id);
-		for (let p of i) {
-			p.qtd <= 0 ? this.splice(i, this.pedido.itens) : p.qtd--;
-		}
+		for (let p of i) p.qtd <= 0 ? this.splice(i, this.pedido.itens) : p.qtd--;
 		this.updateDataSourceItens();
 	}
 
 	updateProdutos() {
 		let param = this.pedido.tipo === 'venda' ? undefined : { fornecedorId: this.pedido.fornecedorId };
-
-		this.produtoService
-			.getProdutos(param)
-			.subscribe(produtos => {
-				this.produtos = produtos;
-
-			});
+		this.produtoService.getProdutos(param).subscribe(produtos => this.produtos = produtos);
 	}
 
 	updatePagamento() {
@@ -178,6 +151,25 @@ export class CadastroComponent implements OnInit, OnDestroy {
 		return soma;
 	}
 
+	canFinalizar(){
+		if (this.totalItens() <= 0)
+			return false;
+
+		if(this.pedido.tipo === 'venda')
+			return this.totalReceber() <= 0;
+
+		return this.totalReceber() != 0;
+	}
+
+	finalizar(){
+
+		this.pedidoService.salvar(this.pedido).subscribe(retorno =>{
+			if (retorno)
+				this.router.navigate(['pedido']);
+		});
+
+	}
+
 	private valorTotal(i: PedidoItem) {
 		return i && i.qtd > 0 ? i.qtd * i.valor : 0;
 	}
@@ -199,8 +191,6 @@ export class CadastroComponent implements OnInit, OnDestroy {
 			data.splice(index, 1);
 		}
 	}
-
-
 
 }
 

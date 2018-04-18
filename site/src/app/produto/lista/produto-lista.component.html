@@ -18,7 +18,7 @@
 
       <ng-container matColumnDef="produto">
         <mat-header-cell *matHeaderCellDef>Descrição do Produto</mat-header-cell>
-        <mat-cell *matCellDef="let row">{{ row.descritivo }}</mat-cell>
+        <mat-cell *matCellDef="let row">{{ row.descritivo }}<br>{{row.fornecedor}}</mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="estoque">
@@ -37,7 +37,7 @@
           <button mat-icon-button routerLink='/produto/{{row.id}}' >
             <app-icon name='edit' color='black' label='produto'></app-icon>
           </button>
-          <button  [hidden]='media.isMobile()' mat-icon-button onclick="">
+          <button  [hidden]='media.isMobile()' mat-icon-button (click)="delete(row.id)">
             <app-icon name='delete' color='black' label='deletar'></app-icon>
           </button>
         </mat-cell>

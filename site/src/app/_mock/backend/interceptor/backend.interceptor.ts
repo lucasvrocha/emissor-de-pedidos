@@ -13,7 +13,8 @@ import {
     ProdutoServiceApi,
     AuthServiceApi,
     UsuarioServiceApi,
-    FornecedorServiceApi
+    FornecedorServiceApi,
+    PedidoServiceApi
 } from '../service';
 
 @Injectable()
@@ -35,7 +36,8 @@ export class BackendInterceptor implements HttpInterceptor {
             new AuthServiceApi(),
             new UsuarioServiceApi(),
             new FornecedorServiceApi(),
-            new ProdutoServiceApi()
+            new ProdutoServiceApi(),
+            new PedidoServiceApi(),
         ]
     }
 
