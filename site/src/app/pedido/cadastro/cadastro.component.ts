@@ -53,10 +53,10 @@ export class CadastroComponent implements OnInit, OnDestroy {
 		private tb: ToolbarBuilder,
 		private produtoService: ProdutoService,
 		private fornecedorService: FornecedorService,
-		private pedidoService : PedidoService,
+		private pedidoService: PedidoService,
 		private loadService: LoadService,
-		private router : Router
-	) {	}
+		private router: Router
+	) { }
 
 	ngOnInit() {
 		this.frame = {
@@ -77,7 +77,7 @@ export class CadastroComponent implements OnInit, OnDestroy {
 		this.pedidoService.parcelas().subscribe(parcelas => this.parcelas = parcelas);
 	}
 
-	ngOnDestroy() {	}
+	ngOnDestroy() { }
 
 	estoque(produto: Produto) {
 		let i: PedidoItem[] = this.pedido.itens.filter(i => i.produtoId === produto.id);
@@ -111,7 +111,12 @@ export class CadastroComponent implements OnInit, OnDestroy {
 	}
 
 	updatePagamento() {
-		this.dataSourcePagamentos.data = this.pedido.pagamentos = this.pagamentos.filter(p => p.valor > 0);
+		this.dataSourcePagamentos.data = this.pedido.pagamentos = this.pagamentos.filter(p => {
+			if (p.especie === 'credito')
+				p.parcelas = p.valor > 0 ? p.parcelas <= 0 ? 1 : p.parcelas : 0;
+			
+			return p.valor > 0;
+		});
 	}
 
 	updateDataSourceItens() {
@@ -151,19 +156,18 @@ export class CadastroComponent implements OnInit, OnDestroy {
 		return soma;
 	}
 
-	canFinalizar(){
+	canFinalizar() {
 		if (this.totalItens() <= 0)
 			return false;
 
-		if(this.pedido.tipo === 'venda')
+		if (this.pedido.tipo === 'venda')
 			return this.totalReceber() <= 0;
 
 		return this.totalReceber() != 0;
 	}
 
-	finalizar(){
-
-		this.pedidoService.salvar(this.pedido).subscribe(retorno =>{
+	finalizar() {
+		this.pedidoService.salvar(this.pedido).subscribe(retorno => {
 			if (retorno)
 				this.router.navigate(['pedido']);
 		});
