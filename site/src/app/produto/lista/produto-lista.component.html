@@ -18,7 +18,7 @@
 
       <ng-container matColumnDef="produto">
         <mat-header-cell *matHeaderCellDef>Descrição do Produto</mat-header-cell>
-        <mat-cell *matCellDef="let row">{{ row.descritivo }}</mat-cell>
+        <mat-cell *matCellDef="let row">{{ row.descritivo }}<br>{{row.fornecedor}}</mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="estoque">

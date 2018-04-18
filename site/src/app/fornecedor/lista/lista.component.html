@@ -30,7 +30,7 @@
 					<button mat-icon-button routerLink='/fornecedor/{{row.id}}' >
 						<app-icon name='edit' color='black' label='editar'></app-icon>
 					</button>
-					<button [hidden]='media.isMobile()' mat-icon-button onclick="">
+					<button [hidden]='media.isMobile()' mat-icon-button (click)="delete(row)">
 						<app-icon name='delete' color='black' label='deletar'></app-icon>
 					</button>
 				</mat-cell>
