@@ -87,13 +87,14 @@ export class ListaComponent implements OnInit, OnDestroy {
 				})
 			).subscribe(data => {
 				this.dataSource.data = data;
-				if(load)load.end();
+				if (load) load.end();
 			});
 	}
 
-	delete(fornecedor){
-		this.exampleDatabase.deleteFornecedor(fornecedor).subscribe(data=>{
+	delete(fornecedor) {
+		this.exampleDatabase.deleteFornecedor(fornecedor).subscribe(data => {
 			this.loadData(null)
 		}
+		)
 	}
 }
