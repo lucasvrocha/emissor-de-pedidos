@@ -29,9 +29,9 @@ public class FornecedorControlador {
               return (List<Fornecedor>) FornecedorRepositorio.findAllFornecedor();
         }
         
-        // RETORNA FORNECEDOR DE DETERMINADO CNPJ
+        // RETORNA FORNECEDOR DE DETERMINADO ID
         @ResponseBody
-        @RequestMapping(value = "/{idfornecedor}", method = RequestMethod.GET)
+        @RequestMapping(value = "/get/{idfornecedor}", method = RequestMethod.GET)
         public Fornecedor fornecedor(@PathVariable("idfornecedor") String idfornecedor) {
               Fornecedor fornecedor = FornecedorRepositorio.findByIDFornecedor(Integer.parseInt(idfornecedor));
               
@@ -49,7 +49,7 @@ public class FornecedorControlador {
         
         // ATUALIZA UM FORNECEDOR
         @ResponseBody
-        @RequestMapping(value = "/{CNPJFornecedor}", method = RequestMethod.PUT)
+        @RequestMapping(value = "/update/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Fornecedor> updateArticle(@RequestBody Fornecedor fornecedor) {
 		FornecedorRepositorio.updateFornecedor(fornecedor);
 		return new ResponseEntity<Fornecedor>(fornecedor, HttpStatus.OK);
@@ -57,7 +57,7 @@ public class FornecedorControlador {
         
         // DELETE UM NOVO FORNECEDOR
         @ResponseBody
-        @RequestMapping(value = "/{CNPJFornecedor}", method = RequestMethod.DELETE)
+        @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Void> deleteArticle(@PathVariable("IDFornecedor") Integer idfornecedor) {
 		FornecedorRepositorio.deleteFornecedor(idfornecedor);
 		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);

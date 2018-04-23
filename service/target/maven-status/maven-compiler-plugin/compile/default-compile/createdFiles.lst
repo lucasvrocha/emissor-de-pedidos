@@ -1,6 +1,10 @@
 hello\FornecedorInterfaceRepositorio.class
-hello\Fornecedor.class
+hello\UsuarioControlador.class
 hello\Hello.class
 hello\Usuario.class
 hello\FornecedorControlador.class
 hello\FornecedorRepositorio.class
+hello\UsuarioRepositorio.class
+hello\controller\Usuario.class
+hello\Fornecedor.class
+hello\UsuarioInterfaceRepositorio.class
