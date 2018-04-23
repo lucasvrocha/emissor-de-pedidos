@@ -21,6 +21,10 @@ import org.springframework.web.bind.annotation.*;
 @Entity
 public class Fornecedor implements Serializable {
     
+    @Id
+    @GeneratedValue(strategy=GenerationType.AUTO) 
+    private long     IDFornecedor;
+    
     @Column(nullable=false)
     private String  CNPJFornecedor;
     
@@ -30,19 +34,23 @@ public class Fornecedor implements Serializable {
     @Column(nullable=false)
     private String  RazaoSocial;
     
+    @Column(nullable=false)
+    private String  fantasia;
     
-    @Id
-    @GeneratedValue(strategy=GenerationType.AUTO) 
-    private long     IDFornecedor;
+    @Column(nullable=false)
+    private String  email;
+    
+    
 
     public Fornecedor() {
     }
 
-    public Fornecedor(String CNPJFornecedor, String IE, String RazaoSocial, long IDFornecedor) {
+    public Fornecedor(String CNPJFornecedor, String IE, String RazaoSocial, String fantasia, String email) {
         this.CNPJFornecedor = CNPJFornecedor;
-        this.IE = IE;
-        this.RazaoSocial = RazaoSocial;
-        this.IDFornecedor = IDFornecedor;
+        this.IE             = IE;
+        this.RazaoSocial    = RazaoSocial;
+        this.fantasia       = fantasia;
+        this.email          = email;
     }
 
     
@@ -61,6 +69,14 @@ public class Fornecedor implements Serializable {
 
     public String getRazaoSocial() {
         return RazaoSocial;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getFantasia() {
+        return fantasia;
     }
 
     public long getIDFornecedor() {
@@ -87,26 +103,20 @@ public class Fornecedor implements Serializable {
     public void setIDFornecedor(long IDFornecedor) {
         this.IDFornecedor = IDFornecedor;
     }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setFantasia(String fantasia) {
+        this.fantasia = fantasia;
+    }
     
     
     /***************************************************************************************************************
      ***************************************************************************************************************
      ***************************************************************************************************************/
-        
-    //(SELECT * FROM FORNECEDOR);
-            
-    /*private String  CNPJFornecedor;
-    private String  IE;
-    private String  RazaoSocial;
-    private long     IDFornecedor;
     
-    
-    private void Salvar(){}
-    private void Alterar(){}
-    private void Excluir(){}*/
-    
-    //@RequestMapping("/fornecedor")
-    //@ResponseBody
     String home() {
         return "Hue!";
     }

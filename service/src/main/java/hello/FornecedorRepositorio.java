@@ -24,13 +24,10 @@ public class FornecedorRepositorio implements FornecedorInterfaceRepositorio {
     public Fornecedor getFornecedorByIDFornecedor(int IDFornecedor) {
         return entityManager.find(Fornecedor.class, IDFornecedor);
     }
-
-    @SuppressWarnings("unchecked")
-    @Override
-    public List<Fornecedor> findAllFornecedor() {
-        String hql = "FROM Fornecedor as forn ORDER BY forn.IDFornecedor";
-        return (List<Fornecedor>) entityManager.createQuery(hql).getResultList();
-    }
+    
+    /*********************************************
+    ********   ALTERACOES DE DADOS      **********
+    *********************************************/
 
     @Override
     public void addFornecedor(Fornecedor fornecedor) {
@@ -50,6 +47,9 @@ public class FornecedorRepositorio implements FornecedorInterfaceRepositorio {
         entityManager.remove(getFornecedorByIDFornecedor((int) IDFornecedor));
     }
 
+    /*********************************************
+    *******      CHECA EXISTENCIA         ********
+    *********************************************/
     @Override
     public boolean fornecedorExists(String IE, String RazaoSocial) {
         String hql = "FROM Fornecedor as forn WHERE forn.IE = ? and forn.RazaoSocial = ?";
@@ -57,13 +57,26 @@ public class FornecedorRepositorio implements FornecedorInterfaceRepositorio {
                 .setParameter(2, RazaoSocial).getResultList().size();
         return count > 0 ? true : false;
     }
+    
+    
+    /*********************************************
+    ************      FINDS         **************
+    *********************************************/
 
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<Fornecedor> findAllFornecedor() {
+        String hql = "FROM Fornecedor as forn ORDER BY forn.IDFornecedor";
+        return (List<Fornecedor>) entityManager.createQuery(hql).getResultList();
+    }
+    
     @Override
     public List<Fornecedor> findByCNPJFornecedor(String CNPJFornecedor) {
         String hql = "FROM Fornecedor as forn where forn.CNPJFornecedor=?";
         return (List<Fornecedor>) entityManager.createQuery(hql).setParameter(1, CNPJFornecedor).getResultList();
     }
-
+    
+    
     //      ENCONTRA O FORNECEDOR PELO ID
     @Override
     public Fornecedor findByIDFornecedor(long IDFornecedor) {
@@ -82,6 +95,18 @@ public class FornecedorRepositorio implements FornecedorInterfaceRepositorio {
     public List<Fornecedor> findByRazaoSocial(String RazaoSocial) {
         String hql = "FROM Fornecedor as forn where forn.RazaoSocial=?";
         return (List<Fornecedor>) entityManager.createQuery(hql).setParameter(1, RazaoSocial).getResultList();
+    }
+    
+    //      ENCONTRA O FORNECEDOR PELA FANTASIA
+    public List<Fornecedor> findByFantasia(String fantasia){
+        String hql = "FROM Fornecedor as forn where forn.fantasia=?";
+        return (List<Fornecedor>) entityManager.createQuery(hql).setParameter(1, fantasia).getResultList();
+    }
+    
+    //      ENCONTRA O FORNECEDOR PELO EMAIL
+    public List<Fornecedor> findByEmail(String email){
+        String hql = "FROM Fornecedor as forn where forn.email=?";
+        return (List<Fornecedor>) entityManager.createQuery(hql).setParameter(1, email).getResultList();
     }
 
 }

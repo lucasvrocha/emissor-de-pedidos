@@ -21,10 +21,7 @@ public class FornecedorControlador {
     @Autowired
     private FornecedorInterfaceRepositorio FornecedorRepositorio;
     
-        /*public FornecedorControlador( FornecedorInterfaceRepositorio fornecedorRepositorio) {
-              this.FornecedorRepositorio = fornecedorRepositorio;
-        }
-   */
+        
         // RETORNA UMA LISTA CONTENDO TODOS OS REGISTROS 
         @ResponseBody
         @RequestMapping(value = "/all", method = RequestMethod.GET)
@@ -32,11 +29,11 @@ public class FornecedorControlador {
               return (List<Fornecedor>) FornecedorRepositorio.findAllFornecedor();
         }
         
-        // RETORNA FORNECEDOR DE DETERMINADO CNPJ
+        // RETORNA FORNECEDOR DE DETERMINADO ID
         @ResponseBody
-        @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-        public Fornecedor fornecedor(@PathVariable("id") String id) {
-              Fornecedor fornecedor = FornecedorRepositorio.findByIDFornecedor(Integer.parseInt(id));
+        @RequestMapping(value = "/get/{idfornecedor}", method = RequestMethod.GET)
+        public Fornecedor fornecedor(@PathVariable("idfornecedor") String idfornecedor) {
+              Fornecedor fornecedor = FornecedorRepositorio.findByIDFornecedor(Integer.parseInt(idfornecedor));
               
               return fornecedor;
         };
@@ -52,7 +49,7 @@ public class FornecedorControlador {
         
         // ATUALIZA UM FORNECEDOR
         @ResponseBody
-        @RequestMapping(value = "/{CNPJFornecedor}", method = RequestMethod.PUT)
+        @RequestMapping(value = "/update/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Fornecedor> updateArticle(@RequestBody Fornecedor fornecedor) {
 		FornecedorRepositorio.updateFornecedor(fornecedor);
 		return new ResponseEntity<Fornecedor>(fornecedor, HttpStatus.OK);
@@ -60,16 +57,20 @@ public class FornecedorControlador {
         
         // DELETE UM NOVO FORNECEDOR
         @ResponseBody
-        @RequestMapping(value = "/{CNPJFornecedor}", method = RequestMethod.DELETE)
+        @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Void> deleteArticle(@PathVariable("IDFornecedor") Integer idfornecedor) {
 		FornecedorRepositorio.deleteFornecedor(idfornecedor);
 		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 	}
-    
-        /*@ResponseBody
-        @RequestMapping(value = "/all", method = RequestMethod.GET)
-        public String listaFornecedor() {
-              return "Foi";
-        }*/
-    
+        
+        
+        /*************************************************************
+        **************************************************************
+        **************************************************************/
+        @ResponseBody
+        @RequestMapping(value="/testeinsercao")
+        public void testeInsercao(){
+        Fornecedor fornecedor = new Fornecedor("1231132123123","111111111111111110000","razao","fantasia","email@email.com");
+        FornecedorRepositorio.addFornecedor(fornecedor);
+    }
 }
