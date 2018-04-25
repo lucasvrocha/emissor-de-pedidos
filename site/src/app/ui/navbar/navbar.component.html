@@ -25,6 +25,9 @@
 		<button mat-icon-button routerLink='/pedido'>
 			<app-icon aria-label="Abrir a tela de Pedidos" name='assignment' color='white' label='Pedido'></app-icon>
 		</button>
+		<button mat-icon-button routerLink='/caixa'>
+			<app-icon aria-label="Abrir a tela de Pedidos" name='monetization_on' color='white' label='Caixa'></app-icon>
+		</button>
 		<button mat-icon-button routerLink='/fornecedor'>
 			<app-icon aria-label="Abrir a tela de Fornecedor" name='business' color='white' label='fornecedor'></app-icon>
 		</button>
@@ -57,6 +60,16 @@
 						<app-icon  aria-label="Adicionar Pedidos" name='add_box' color='black' label='fornecedor'></app-icon>
 					</button>
 				</a>
+
+				<mat-divider></mat-divider>
+				<a class='item' mat-list-item ui-stop-event (click)='navegate("/caixa")' >
+					<app-icon class='icon' aria-label="Abrir a tela de Caixa" name='monetization_on' color='black' label='Pedido'></app-icon>Caixa
+					<span class="fill-space"></span>
+					<button mat-icon-button ui-stop-event (click)='navegate("/caixa/lancamento")' >
+						<app-icon  aria-label="Adicionar Lacamentos" name='add_box' color='black' label='caixa'></app-icon>
+					</button>
+				</a>
+
 				<mat-divider></mat-divider>
 				<a class='item'  mat-list-item ui-stop-event (click)='navegate("/fornecedor")' >
 					<app-icon class='icon' aria-label="Abrir a tela de Fornecedor" name='business' color='black' label='fornecedor'></app-icon>

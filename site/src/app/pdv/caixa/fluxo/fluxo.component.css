@@ -1,0 +1,60 @@
+.headers-align .mat-expansion-panel-header-title, 
+.headers-align .mat-expansion-panel-header-description {
+}
+
+.headers-align .mat-expansion-panel-header-title{
+	text-align: left;
+}
+
+.headers-align .mat-expansion-panel-header-description {
+	align-items: center;
+	margin: 0px;
+	text-align: right;
+	flex-basis: 0;
+}
+
+.description { 
+	white-space: nowrap;
+    
+	text-align: right;
+	font-size: 1rem;
+	font-weight: 500;
+	text-transform: uppercase;
+	font-style: italic;
+	margin-right: 10px !important;
+}
+
+.movimentacao-item >*{
+	font-size: 0.8rem !important;
+}			
+
+.title-total {
+	position: absolute;
+	right: 10px;
+	white-space: normal;
+	font-weight: 500;
+}
+
+
+.title {
+	align-items: center;
+	width: 100%;
+	text-align: left;
+}
+
+.title .icon {
+	padding-right: 10px;
+}
+
+.title .sub-line{
+	font-size: 0.8rem;
+	font-weight: 500;
+	font-style: italic;
+	color: rgba(0,0,0,0.4);
+	text-align: center;
+}
+
+
+.sub-line:first-letter{
+	text-transform: capitalize;
+}

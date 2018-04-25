@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
 
-import { Pedido, PedidoItem, PedidoPagamento } from '../_model/pedido.model';
+import { Pedido, PedidoItem, PedidoPagamento } from '../.././_model/pedido.model';
 
 @Injectable()
 export class PedidoService {

@@ -34,8 +34,8 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './ui/navbar/navbar.component';
-import { CadastroComponent as PedidoCadastroComponent } from './pedido/cadastro/cadastro.component';
-import { ListaComponent as PedidoListaComponent } from './pedido/lista/lista.component';
+import { CadastroComponent as PedidoCadastroComponent } from './pdv/pedido/cadastro/cadastro.component';
+import { ListaComponent as PedidoListaComponent } from './pdv/pedido/lista/lista.component';
 import { ProdutoListaComponent } from './produto/lista/produto-lista.component';
 import { ProdutoCadastroComponent } from './produto/cadastro/produto-cadastro.component';
 import { CadastroComponent as FornecedorCadastroComponent } from './fornecedor/cadastro/cadastro.component';
@@ -67,6 +67,8 @@ import { BackendProvider } from './_mock/backend';
 import { MyErrorStateMatcherProvider } from './_helper/myErrorStateMatcher';
 import { LoadService, LoadComponent } from './ui/load';
 import { StopEventDirective } from './ui/directive/stop-event.directive';
+import { FluxoComponent } from './pdv/caixa/fluxo/fluxo.component';
+import { LancamentoComponent } from './pdv/caixa/lancamento/lancamento.component';
 
 @NgModule({
 	declarations: [
@@ -95,7 +97,9 @@ import { StopEventDirective } from './ui/directive/stop-event.directive';
 		DashboardComponent,
 		ListComponent,
 		LoadComponent,
-		StopEventDirective
+		StopEventDirective,
+		FluxoComponent,
+		LancamentoComponent
 	],
 	entryComponents: [
 		AuthDialogComponent,

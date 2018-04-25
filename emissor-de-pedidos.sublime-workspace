@@ -4,6 +4,66 @@
 		"selected_items":
 		[
 			[
+				"so",
+				"sort\tmethod"
+			],
+			[
+				"load",
+				"loadPedidos\tmethod"
+			],
+			[
+				"p",
+				"pedidoService\tproperty"
+			],
+			[
+				"id",
+				"fornecedorId\tproperty"
+			],
+			[
+				"ge",
+				"getFornecedor\tmethod"
+			],
+			[
+				"re",
+				"totalReceber\tmethod"
+			],
+			[
+				"peddi",
+				"pedidoService\tproperty"
+			],
+			[
+				"forn",
+				"fornecedorService\tproperty"
+			],
+			[
+				"pe",
+				"pedidos\tproperty"
+			],
+			[
+				"pedido",
+				"pedidoService\tproperty"
+			],
+			[
+				"pdouto",
+				"produtoService\tproperty"
+			],
+			[
+				"for",
+				"fornecedores\tproperty"
+			],
+			[
+				"get",
+				"getFornecedores\tmethod"
+			],
+			[
+				"h",
+				"href\tproperty"
+			],
+			[
+				"d",
+				"dbFornecedor\tgetter"
+			],
+			[
 				"request",
 				"requestBody\tlet"
 			],
@@ -156,10 +216,6 @@
 				"loadService\tproperty"
 			],
 			[
-				"load",
-				"loadService\tproperty"
-			],
-			[
 				"de",
 				"delay\tproperty"
 			],
@@ -200,10 +256,6 @@
 				"authenticate\tproperty"
 			],
 			[
-				"get",
-				"getItem\tmethod"
-			],
-			[
 				"Usuar",
 				"UsuarioService\talias"
 			],
@@ -238,10 +290,6 @@
 			[
 				"set",
 				"setErrors\tmethod"
-			],
-			[
-				"p",
-				"pwGroup\tproperty"
 			],
 			[
 				"ap",
@@ -306,10 +354,6 @@
 			[
 				"imp",
 				"implements\tkeyword"
-			],
-			[
-				"d",
-				"dematerialize\tproperty"
 			],
 			[
 				"ma",
@@ -436,10 +480,6 @@
 				"byId\tproperty"
 			],
 			[
-				"for",
-				"fornecedorService\tproperty"
-			],
-			[
 				"marg",
 				"margin"
 			],
@@ -474,58 +514,52 @@
 			[
 				"fornece",
 				"FORNECEDOR\talias"
-			],
-			[
-				"in",
-				"findIndex\tmethod"
-			],
-			[
-				"fornecedo",
-				"FORNECEDOR\talias"
-			],
-			[
-				"reg",
-				"regById\tproperty"
-			],
-			[
-				"fo",
-				"fornecedorService\tproperty"
-			],
-			[
-				"ge",
-				"getRawValue\tmethod"
-			],
-			[
-				"form",
-				"formGroup\tproperty"
-			],
-			[
-				"setVal",
-				"setValue\tmethod"
-			],
-			[
-				"afterv",
-				"AfterViewInit\talias"
-			],
-			[
-				"Subi",
-				"Subscription\texternal module name"
-			],
-			[
-				"_mo",
-				"_model\tdirectory"
 			]
 		]
 	},
 	"buffers":
 	[
 		{
-			"contents": "#bug - Não esta carregando a foto de castro novo\n---> deve criar um modulo para buscar esse tipo de imagem.",
+			"file": "site/src/app/pdv/caixa/fluxo/fluxo.component.html",
 			"settings":
 			{
-				"buffer_size": 107,
+				"buffer_size": 669,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "site/src/app/pdv/pedido/lista/lista.component.html",
+			"settings":
+			{
+				"buffer_size": 2953,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "site/src/app/ui/frame/list/list.component.html",
+			"settings":
+			{
+				"buffer_size": 482,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "#bug - Não esta carregando a foto de castro novo\n|-> deve criar um modulo para buscar esse tipo de imagem.\n\t\n",
+			"settings":
+			{
+				"buffer_size": 109,
 				"line_ending": "Windows",
 				"name": "#bug - Não esta carregando a foto de castro novo"
+			}
+		},
+		{
+			"file": "site/src/app/_mock/pedido.mock.ts",
+			"settings":
+			{
+				"buffer_size": 1576,
+				"line_ending": "Windows"
 			}
 		}
 	],
@@ -536,8 +570,8 @@
 	"build_varint": "",
 	"command_palette":
 	{
-		"height": 242.0,
-		"last_filter": "artich",
+		"height": 67.0,
+		"last_filter": "",
 		"selected_items":
 		[
 			[
@@ -779,44 +813,74 @@
 		"/D/dev/git/github/emissor-de-pedidos/site",
 		"/D/dev/git/github/emissor-de-pedidos/site/src",
 		"/D/dev/git/github/emissor-de-pedidos/site/src/app",
-		"/D/dev/git/github/emissor-de-pedidos/site/src/app/_mock",
-		"/D/dev/git/github/emissor-de-pedidos/site/src/app/_mock/backend"
+		"/D/dev/git/github/emissor-de-pedidos/site/src/app/pdv",
+		"/D/dev/git/github/emissor-de-pedidos/site/src/app/pdv/caixa",
+		"/D/dev/git/github/emissor-de-pedidos/site/src/app/pdv/caixa/fluxo",
+		"/D/dev/git/github/emissor-de-pedidos/site/src/app/pdv/pedido",
+		"/D/dev/git/github/emissor-de-pedidos/site/src/app/pdv/pedido/cadastro",
+		"/D/dev/git/github/emissor-de-pedidos/site/src/app/pdv/pedido/lista",
+		"/D/dev/git/github/emissor-de-pedidos/site/src/app/ui",
+		"/D/dev/git/github/emissor-de-pedidos/site/src/app/ui/frame",
+		"/D/dev/git/github/emissor-de-pedidos/site/src/app/ui/frame/list"
 	],
 	"file_history":
 	[
+		"/D/dev/git/github/emissor-de-pedidos/site/src/app/app-routing.module.ts",
+		"/D/dev/git/github/emissor-de-pedidos/site/src/app/ui/navbar/navbar.component.html",
+		"/D/dev/git/github/emissor-de-pedidos/site/src/app/_mock/backend/service/produto-service.api.ts",
+		"/D/dev/git/github/emissor-de-pedidos/site/src/app/_mock/backend/service/pedido-service.api.ts",
+		"/D/dev/git/github/emissor-de-pedidos/site/src/app/pdv/pedido/index.ts",
+		"/D/dev/git/github/emissor-de-pedidos/site/src/app/pdv/pedido/cadastro/cadastro.component.ts",
+		"/D/dev/git/github/emissor-de-pedidos/site/src/app/pdv/pedido/lista/lista.component.ts",
+		"/D/dev/git/github/emissor-de-pedidos/site/src/app/pdv/pedido/pedido.service.ts",
+		"/D/dev/git/github/emissor-de-pedidos/site/src/app/app.module.ts",
+		"/D/dev/git/github/emissor-de-pedidos/site/src/app/pedido/pedido.service.ts",
+		"/D/dev/git/github/emissor-de-pedidos/site/src/app/pedido/cadastro/cadastro.component.html",
+		"/D/dev/git/github/emissor-de-pedidos/site/src/app/pedido/cadastro/cadastro.component.ts",
+		"/D/dev/git/github/emissor-de-pedidos/site/src/app/pedido/lista/lista.component.ts",
+		"/D/dev/git/github/emissor-de-pedidos/site/src/app/pedido/lista/lista.component.html",
+		"/D/dev/git/github/emissor-de-pedidos/site/src/app/_mock/backend/database.storage.ts",
+		"/D/dev/git/github/emissor-de-pedidos/site/src/app/_mock/index.ts",
+		"/D/dev/git/github/emissor-de-pedidos/site/src/app/_mock/pagamento.mock.ts",
 		"/D/dev/git/github/emissor-de-pedidos/site/src/app/_mock/backend/interceptor/backend.interceptor.ts",
-		"/D/dev/git/github/emissor-de-pedidos/site/src/app/_mock/backend/interceptor/proxy.interceptor.ts",
+		"/D/dev/git/github/emissor-de-pedidos/site/src/app/_mock/backend/service/index.ts",
+		"/D/dev/git/github/emissor-de-pedidos/site/src/app/_mock/backend/backend.provider.ts",
+		"/D/dev/git/github/emissor-de-pedidos/site/src/app/_model/produto.model.ts",
+		"/D/dev/git/github/emissor-de-pedidos/site/src/app/_mock/fornecedor.mock.ts",
 		"/D/dev/git/github/emissor-de-pedidos/site/src/app/fornecedor/fornecedor.service.ts",
+		"/D/dev/git/github/emissor-de-pedidos/site/src/app/produto/cadastro/produto-cadastro.component.html",
+		"/D/dev/git/github/emissor-de-pedidos/site/src/app/produto/cadastro/produto-cadastro.component.ts",
+		"/D/dev/git/github/emissor-de-pedidos/site/src/app/produto/produto.service.ts",
+		"/D/dev/git/github/emissor-de-pedidos/site/src/app/fornecedor/lista/lista.component.ts",
+		"/D/dev/git/github/emissor-de-pedidos/site/src/app/produto/lista/produto-lista.component.ts",
+		"/D/dev/git/github/emissor-de-pedidos/site/src/app/_mock/backend/service/fornecedor-service.api.ts",
+		"/D/dev/git/github/emissor-de-pedidos/site/src/app/fornecedor/cadastro/cadastro.component.ts",
+		"/D/dev/git/github/emissor-de-pedidos/site/src/app/fornecedor/cadastro/cadastro.component.html",
+		"/D/dev/git/github/emissor-de-pedidos/site/src/app/fornecedor/lista/lista.component.html",
+		"/D/dev/git/github/emissor-de-pedidos/site/src/app/produto/lista/produto-lista.component.html",
+		"/D/dev/git/github/emissor-de-pedidos/site/src/app/_mock/backend/interceptor/proxy.interceptor.ts",
 		"/D/dev/git/github/emissor-de-pedidos/site/src/app/_mock/backend/interceptor/delay.interceptor.ts",
 		"/D/dev/git/github/emissor-de-pedidos/site/src/app/_mock/backend/service/usuario-service.api.ts",
 		"/D/dev/git/github/emissor-de-pedidos/site/src/app/_mock/backend/interceptor/logger.interceptor.ts",
-		"/D/dev/git/github/emissor-de-pedidos/site/src/app/_mock/backend/service/fornecedor-service.api.ts",
-		"/D/dev/git/github/emissor-de-pedidos/site/src/app/_mock/backend/backend.provider.ts",
 		"/D/dev/git/github/emissor-de-pedidos/site/src/app/_mock/backend/service/auth-service.api.ts",
 		"/D/dev/git/github/emissor-de-pedidos/site/src/app/ui/directive/stop-event.directive.ts",
 		"/D/dev/git/github/emissor-de-pedidos/site/src/app/_helper/unauthorized.interceptor.ts",
 		"/D/dev/git/github/emissor-de-pedidos/site/src/app/auth/auth.service.ts",
 		"/D/dev/git/github/emissor-de-pedidos/site/src/app/auth/auth.component.ts",
 		"/D/dev/git/github/emissor-de-pedidos/site/src/app/ui/navbar/navbar.component.ts",
-		"/D/dev/git/github/emissor-de-pedidos/site/src/app/ui/navbar/navbar.component.html",
-		"/D/dev/git/github/emissor-de-pedidos/site/src/app/app.module.ts",
 		"/D/dev/git/github/emissor-de-pedidos/site/src/app/usuario/cadastro/cadastro.component.html",
 		"/D/dev/git/github/emissor-de-pedidos/site/src/app/usuario/cadastro/cadastro.component.ts",
 		"/D/dev/git/github/emissor-de-pedidos/README.md",
 		"/D/dev/git/github/emissor-de-pedidos/site/src/app/auth/auth.guard.ts",
 		"/D/dev/git/github/emissor-de-pedidos/site/src/app/usuario/usuario.service.ts",
 		"/D/dev/git/github/emissor-de-pedidos/site/src/app/_mock/produto.mock.ts",
-		"/D/dev/git/github/emissor-de-pedidos/site/src/app/produto/produto.service.ts",
-		"/D/dev/git/github/emissor-de-pedidos/site/src/app/_mock/backend/service/produto-service.api.ts",
 		"/D/dev/git/github/emissor-de-pedidos/site/src/environments/environment.prod.ts",
 		"/D/dev/git/github/emissor-de-pedidos/site/src/environments/environment.ts",
 		"/D/dev/git/github/emissor-de-pedidos/site/src/app/_mock/backend/interceptor/index.ts",
 		"/D/dev/git/github/emissor-de-pedidos/site/src/app/_mock/backend/backend.interceptor.ts",
-		"/D/dev/git/github/emissor-de-pedidos/site/src/app/_mock/backend/service/index.ts",
 		"/D/dev/git/github/emissor-de-pedidos/site/src/app/fornecedor/index.ts",
 		"/D/dev/git/github/emissor-de-pedidos/site/src/app/_mock/backend/decorator/request-map.decorator.ts",
 		"/D/dev/git/github/emissor-de-pedidos/site/src/app/_mock/backend/service/logger.interceptor.ts",
-		"/D/dev/git/github/emissor-de-pedidos/site/src/app/_mock/index.ts",
 		"/D/dev/git/github/emissor-de-pedidos/site/src/app/_mock/backend/decorator/authenticate.decorator.ts",
 		"/D/dev/git/github/emissor-de-pedidos/site/src/app/auth/dialog/dialog.component.ts",
 		"/D/dev/git/github/emissor-de-pedidos/site/src/app/_mock/backend/decorator/index.ts",
@@ -848,40 +912,29 @@
 		"/D/dev/git/github/emissor-de-pedidos/site/src/app/ui/form/index.ts",
 		"/D/dev/git/github/emissor-de-pedidos/site/src/app/ui/form/password/password.component.html",
 		"/D/dev/git/github/emissor-de-pedidos/site/src/app/ui/form/password.validation.ts",
-		"/D/dev/git/github/emissor-de-pedidos/site/src/app/fornecedor/cadastro/cadastro.component.ts",
-		"/D/dev/git/github/emissor-de-pedidos/site/src/app/fornecedor/cadastro/cadastro.component.html",
 		"/D/dev/git/github/emissor-de-pedidos/site/src/app/usuario/cadastro/cadastro.component.css",
 		"/D/dev/git/github/emissor-de-pedidos/site/src/app/usuario/index.ts",
 		"/D/dev/git/github/emissor-de-pedidos/site/src/app/_mock/backend/usuario.interceptor.ts",
 		"/D/dev/git/github/emissor-de-pedidos/site/src/app/_mock/backend/fornecedor.interceptor.ts",
 		"/D/dev/git/github/emissor-de-pedidos/site/src/app/_model/fornecedor.model.ts",
-		"/D/dev/git/github/emissor-de-pedidos/site/src/app/_mock/fornecedor.mock.ts",
 		"/D/dev/git/github/emissor-de-pedidos/site/src/app/_mock/backend/json.interceptor.ts",
 		"/D/dev/git/github/emissor-de-pedidos/site/src/app/_model/user.model.ts",
 		"/D/dev/git/github/emissor-de-pedidos/site/src/app/usuario/lista/lista.component.html",
 		"/D/dev/git/github/emissor-de-pedidos/site/src/app/ui/navbar/user/user.component.spec.ts",
 		"/D/dev/git/github/emissor-de-pedidos/site/src/app/ui/load/load.component.html",
 		"/D/dev/git/github/emissor-de-pedidos/site/src/app/ui/load/load.component.css",
-		"/D/dev/git/github/emissor-de-pedidos/site/src/app/fornecedor/lista/lista.component.ts",
 		"/D/dev/git/github/emissor-de-pedidos/site/src/app/dashboard/dashboard.component.ts",
 		"/D/dev/git/github/emissor-de-pedidos/site/src/app/fornecedor/cadastro/cadastro.component.spec.ts",
 		"/D/dev/git/github/emissor-de-pedidos/site/src/app/_helper/myErrorStateMatcher.ts",
 		"/D/dev/git/github/emissor-de-pedidos/site/src/app/app.component.html",
 		"/D/dev/git/github/emissor-de-pedidos/site/src/app/dashboard/dashboard.component.html",
-		"/D/dev/git/github/emissor-de-pedidos/site/src/app/fornecedor/lista/lista.component.html",
 		"/D/dev/git/github/emissor-de-pedidos/site/src/app/app.component.ts",
-		"/D/dev/git/github/emissor-de-pedidos/site/src/app/pedido/cadastro/cadastro.component.ts",
-		"/D/dev/git/github/emissor-de-pedidos/site/src/app/pedido/lista/lista.component.ts",
-		"/D/dev/git/github/emissor-de-pedidos/site/src/app/produto/lista/produto-lista.component.ts",
-		"/D/dev/git/github/emissor-de-pedidos/site/src/app/produto/cadastro/produto-cadastro.component.ts",
 		"/D/dev/git/github/emissor-de-pedidos/site/node_modules/@angular/material/autocomplete.d.ts",
 		"/D/dev/git/github/emissor-de-pedidos/site/src/app/auth/auth.component.html",
 		"/D/dev/git/github/emissor-de-pedidos/site/src/index.html",
 		"/D/dev/git/github/emissor-de-pedidos/site/src/app/ui/load/load.service.spec.ts",
 		"/D/dev/git/github/emissor-de-pedidos/site/src/app/ui/load/load.component.spec.ts",
-		"/D/dev/git/github/emissor-de-pedidos/site/src/app/produto/lista/produto-lista.component.html",
 		"/D/dev/git/github/emissor-de-pedidos/site/src/app/fornecedor/lista/lista.component.css",
-		"/D/dev/git/github/emissor-de-pedidos/site/src/app/pedido/cadastro/cadastro.component.html",
 		"/D/dev/git/github/emissor-de-pedidos/site/src/app/produto/lista/produto-lista.component.css",
 		"/D/dev/git/github/emissor-de-pedidos/site/src/polyfills.ts",
 		"/D/dev/git/github/emissor-de-pedidos/site/src/app/ui/load/index.ts",
@@ -891,7 +944,6 @@
 		"/D/dev/git/github/emissor-de-pedidos/site/src/app/ui/loading/loading.service.ts",
 		"/D/dev/git/github/emissor-de-pedidos/site/src/app/ui/loading/loading.component.css",
 		"/D/dev/git/github/emissor-de-pedidos/site/src/app/ui/loading/loading.component.spec.ts",
-		"/D/dev/git/github/emissor-de-pedidos/site/src/app/app-routing.module.ts",
 		"/D/dev/git/github/emissor-de-pedidos/site/src/main.ts",
 		"/D/dev/git/github/emissor-de-pedidos/site/node_modules/@schematics/angular/application/other-files/app.component.html",
 		"/D/dev/git/github/emissor-de-pedidos/site/node_modules/serve-index/public/style.css",
@@ -899,19 +951,8 @@
 		"/D/dev/git/github/emissor-de-pedidos/emissor-de-pedidos.sublime-project",
 		"/D/dev/git/github/emissor-de-pedidos/site/src/styles.css",
 		"/C/Users/Lucas Rocha/AppData/Roaming/Sublime Text 3/Packages/TypeScript/TypeScript.sublime-settings",
-		"/D/dev/git/github/emissor-de-pedidos/site/src/app/produto/cadastro/produto-cadastro.component.html",
 		"/D/dev/git/github/emissor-de-pedidos/site/src/app/fornecedor/cadastro/cadastro.component.css",
-		"/D/dev/git/github/emissor-de-pedidos/site/src/app/produto/cadastro/produto-cadastro.component.css",
-		"/D/dev/git/github/emissor-de-pedidos/site/src/app/ui/icon/icon.component.html",
-		"/D/dev/git/github/emissor-de-pedidos/site/src/app/pedido/lista/lista.component.html",
-		"/D/dev/git/github/emissor-de-pedidos/site/node_modules/@angular/compiler/testing/src/schema_registry_mock.d.ts",
-		"/D/dev/git/github/emissor-de-pedidos/site/src/app/auth/index.ts",
-		"/D/dev/git/github/emissor-de-pedidos/site/src/app/pedido/lista/lista.component.css",
-		"/D/dev/git/github/emissor-de-pedidos/site/src/app/pedido/cadastro/cadastro.component.css",
-		"/D/dev/git/github/emissor-de-pedidos/site/src/app/ui/loading/index.ts",
-		"/D/dev/git/github/emissor-de-pedidos/site/src/app/ui/alert/alert.service.ts",
-		"/D/dev/git/github/emissor-de-pedidos/site/package.json",
-		"/D/dev/git/github/emissor-de-pedidos/site/src/app/_helper/jwt.interceptor.ts"
+		"/D/dev/git/github/emissor-de-pedidos/site/src/app/produto/cadastro/produto-cadastro.component.css"
 	],
 	"find":
 	{
@@ -930,9 +971,13 @@
 	},
 	"find_state":
 	{
-		"case_sensitive": true,
+		"case_sensitive": false,
 		"find_history":
 		[
+			"PUT",
+			"finaliz",
+			"finalizar",
+			"console.lgo",
 			"class='icon'",
 			"\t/",
 			"\\\\\\/",
@@ -1004,8 +1049,592 @@
 	"groups":
 	[
 		{
+			"selected": 0,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "site/src/app/pdv/caixa/fluxo/fluxo.component.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 669,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								467,
+								467
+							]
+						],
+						"settings":
+						{
+							"auto_complete_triggers":
+							[
+								{
+									"characters": "<",
+									"selector": "text.html"
+								},
+								{
+									"characters": ".#",
+									"selector": "text.html"
+								}
+							],
+							"bracket_highlighter.busy": false,
+							"bracket_highlighter.clone": -1,
+							"bracket_highlighter.clone_locations":
+							{
+								"close":
+								{
+								},
+								"icon":
+								{
+								},
+								"open":
+								{
+								},
+								"unmatched":
+								{
+								}
+							},
+							"bracket_highlighter.clone_regions":
+							[
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content"
+							],
+							"bracket_highlighter.locations":
+							{
+								"close":
+								{
+								},
+								"icon":
+								{
+								},
+								"open":
+								{
+								},
+								"unmatched":
+								{
+								}
+							},
+							"bracket_highlighter.regions":
+							[
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content"
+							],
+							"syntax": "Packages/Ngx HTML/Angular2HTML.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "site/src/app/pdv/pedido/lista/lista.component.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2953,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								863,
+								863
+							]
+						],
+						"settings":
+						{
+							"auto_complete_triggers":
+							[
+								{
+									"characters": "<",
+									"selector": "text.html"
+								},
+								{
+									"characters": ".#",
+									"selector": "text.html"
+								}
+							],
+							"bracket_highlighter.busy": false,
+							"bracket_highlighter.clone": -1,
+							"bracket_highlighter.clone_locations":
+							{
+								"close":
+								{
+								},
+								"icon":
+								{
+								},
+								"open":
+								{
+								},
+								"unmatched":
+								{
+								}
+							},
+							"bracket_highlighter.clone_regions":
+							[
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content"
+							],
+							"bracket_highlighter.locations":
+							{
+								"close":
+								{
+								},
+								"icon":
+								{
+								},
+								"open":
+								{
+								},
+								"unmatched":
+								{
+								}
+							},
+							"bracket_highlighter.regions":
+							[
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content"
+							],
+							"syntax": "Packages/Ngx HTML/Angular2HTML.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "site/src/app/ui/frame/list/list.component.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 482,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								232,
+								239
+							]
+						],
+						"settings":
+						{
+							"auto_complete_triggers":
+							[
+								{
+									"characters": "<",
+									"selector": "text.html"
+								},
+								{
+									"characters": ".#",
+									"selector": "text.html"
+								}
+							],
+							"bracket_highlighter.busy": false,
+							"bracket_highlighter.clone": -1,
+							"bracket_highlighter.clone_locations":
+							{
+								"close":
+								{
+								},
+								"icon":
+								{
+								},
+								"open":
+								{
+								},
+								"unmatched":
+								{
+								}
+							},
+							"bracket_highlighter.clone_regions":
+							[
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content"
+							],
+							"bracket_highlighter.locations":
+							{
+								"close":
+								{
+									"1":
+									[
+										239,
+										240
+									]
+								},
+								"icon":
+								{
+									"1":
+									[
+										"Packages/BracketHighlighter/icons/square_bracket.png",
+										"region.bluish"
+									]
+								},
+								"open":
+								{
+									"1":
+									[
+										231,
+										232
+									]
+								},
+								"unmatched":
+								{
+								}
+							},
+							"bracket_highlighter.regions":
+							[
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content"
+							],
+							"syntax": "Packages/Ngx HTML/Angular2HTML.sublime-syntax",
+							"typescript_plugin_format_options":
+							{
+								"convertTabsToSpaces": false,
+								"indentSize": 4,
+								"tabSize": 4
+							}
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				}
 			]
 		},
 		{
@@ -1013,19 +1642,19 @@
 			"sheets":
 			[
 				{
-					"buffer": 0,
+					"buffer": 3,
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 107,
+						"buffer_size": 109,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								107,
-								107
+								109,
+								109
 							]
 						],
 						"settings":
@@ -1050,31 +1679,51 @@
 							},
 							"bracket_highlighter.clone_regions":
 							[
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_round_content",
 								"bh_regex",
 								"bh_regex_center",
 								"bh_regex_open",
 								"bh_regex_close",
 								"bh_regex_content",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content",
 								"bh_curly",
 								"bh_curly_center",
 								"bh_curly_open",
 								"bh_curly_close",
 								"bh_curly_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
 								"bh_single_quote",
 								"bh_single_quote_center",
 								"bh_single_quote_open",
 								"bh_single_quote_close",
 								"bh_single_quote_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
 								"bh_unmatched",
 								"bh_unmatched_center",
 								"bh_unmatched_open",
@@ -1084,27 +1733,7 @@
 								"bh_c_define_center",
 								"bh_c_define_open",
 								"bh_c_define_close",
-								"bh_c_define_content",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_tag_content",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_double_quote_content"
+								"bh_c_define_content"
 							],
 							"bracket_highlighter.locations":
 							{
@@ -1123,31 +1752,51 @@
 							},
 							"bracket_highlighter.regions":
 							[
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_round_content",
 								"bh_regex",
 								"bh_regex_center",
 								"bh_regex_open",
 								"bh_regex_close",
 								"bh_regex_content",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content",
 								"bh_curly",
 								"bh_curly_center",
 								"bh_curly_open",
 								"bh_curly_close",
 								"bh_curly_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
 								"bh_single_quote",
 								"bh_single_quote_center",
 								"bh_single_quote_open",
 								"bh_single_quote_close",
 								"bh_single_quote_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
 								"bh_unmatched",
 								"bh_unmatched_center",
 								"bh_unmatched_open",
@@ -1157,27 +1806,7 @@
 								"bh_c_define_center",
 								"bh_c_define_open",
 								"bh_c_define_close",
-								"bh_c_define_content",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_tag_content",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_double_quote_content"
+								"bh_c_define_content"
 							],
 							"syntax": "Packages/Text/Plain text.tmLanguage"
 						},
@@ -1185,7 +1814,208 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "site/src/app/_mock/pedido.mock.ts",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1576,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								791,
+								791
+							]
+						],
+						"settings":
+						{
+							"auto_complete": true,
+							"auto_complete_triggers":
+							[
+								{
+									"characters": ".",
+									"selector": "source.ts"
+								},
+								{
+									"characters": ".#",
+									"selector": "text.html"
+								}
+							],
+							"bracket_highlighter.busy": false,
+							"bracket_highlighter.clone": -1,
+							"bracket_highlighter.clone_locations":
+							{
+								"close":
+								{
+								},
+								"icon":
+								{
+								},
+								"open":
+								{
+								},
+								"unmatched":
+								{
+								}
+							},
+							"bracket_highlighter.clone_regions":
+							[
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content"
+							],
+							"bracket_highlighter.locations":
+							{
+								"close":
+								{
+								},
+								"icon":
+								{
+								},
+								"open":
+								{
+								},
+								"unmatched":
+								{
+								}
+							},
+							"bracket_highlighter.regions":
+							[
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content"
+							],
+							"extensions":
+							[
+								"ts"
+							],
+							"history_list_is_closing": true,
+							"syntax": "Packages/TypeScript/TypeScript.tmLanguage",
+							"translate_tabs_to_spaces": false,
+							"typescript_plugin_format_options":
+							{
+								"convertTabsToSpaces": false,
+								"indentSize": 4,
+								"tabSize": 4
+							},
+							"use_tab_stops": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
 					"type": "text"
 				}
 			]
@@ -1219,7 +2049,7 @@
 		"cols":
 		[
 			0.0,
-			0.838710937125,
+			0.753651585654,
 			1.0
 		],
 		"rows":
@@ -1266,6 +2096,122 @@
 		"last_filter": "",
 		"selected_items":
 		[
+			[
+				"approute",
+				"site\\src\\app\\app-routing.module.ts"
+			],
+			[
+				"pedidomock",
+				"site\\src\\app\\_mock\\pedido.mock.ts"
+			],
+			[
+				"pedidolistacomts",
+				"site\\src\\app\\pedido\\lista\\lista.component.ts"
+			],
+			[
+				"pedidolistahtml",
+				"site\\src\\app\\pedido\\lista\\lista.component.html"
+			],
+			[
+				"pedidomoc",
+				"site\\src\\app\\_mock\\pedido.mock.ts"
+			],
+			[
+				"pedidoserap",
+				"site\\src\\app\\_mock\\backend\\service\\pedido-service.api.ts"
+			],
+			[
+				"pedidocadatrots",
+				"site\\src\\app\\pedido\\cadastro\\cadastro.component.ts"
+			],
+			[
+				"pedidocadastro",
+				"site\\src\\app\\pedido\\cadastro\\cadastro.component.html"
+			],
+			[
+				"backendapi",
+				"site\\src\\app\\_mock\\backend\\backend.provider.ts"
+			],
+			[
+				"pedidolista",
+				"site\\src\\app\\pedido\\lista\\lista.component.html"
+			],
+			[
+				"fornelistacomts",
+				"site\\src\\app\\fornecedor\\lista\\lista.component.ts"
+			],
+			[
+				"fornemock",
+				"site\\src\\app\\_mock\\fornecedor.mock.ts"
+			],
+			[
+				"produtoapi",
+				"site\\src\\app\\_mock\\backend\\service\\produto-service.api.ts"
+			],
+			[
+				"proutolistats",
+				"site\\src\\app\\produto\\lista\\produto-lista.component.ts"
+			],
+			[
+				"forneceservice",
+				"site\\src\\app\\fornecedor\\fornecedor.service.ts"
+			],
+			[
+				"produtoservice",
+				"site\\src\\app\\produto\\produto.service.ts"
+			],
+			[
+				"forneservice",
+				"site\\src\\app\\fornecedor\\fornecedor.service.ts"
+			],
+			[
+				"appmodule",
+				"site\\src\\app\\app.module.ts"
+			],
+			[
+				"produtomodel",
+				"site\\src\\app\\_model\\produto.model.ts"
+			],
+			[
+				"fornecadastrts",
+				"site\\src\\app\\fornecedor\\cadastro\\cadastro.component.ts"
+			],
+			[
+				"fornecadasthtml",
+				"site\\src\\app\\fornecedor\\cadastro\\cadastro.component.html"
+			],
+			[
+				"produtoservic",
+				"site\\src\\app\\_mock\\backend\\service\\produto-service.api.ts"
+			],
+			[
+				"produtocadastcomts",
+				"site\\src\\app\\produto\\cadastro\\produto-cadastro.component.ts"
+			],
+			[
+				"producadastrhtml",
+				"site\\src\\app\\produto\\cadastro\\produto-cadastro.component.html"
+			],
+			[
+				"fornecelistacomphtml",
+				"site\\src\\app\\fornecedor\\lista\\lista.component.html"
+			],
+			[
+				"fornecelistcomhtml",
+				"site\\src\\app\\fornecedor\\lista\\lista.component.html"
+			],
+			[
+				"produtoservi",
+				"site\\src\\app\\produto\\produto.service.ts"
+			],
+			[
+				"produtolistacomts",
+				"site\\src\\app\\produto\\lista\\produto-lista.component.ts"
+			],
+			[
+				"produtolista",
+				"site\\src\\app\\produto\\lista\\produto-lista.component.html"
+			],
 			[
 				"fornecedorservie",
 				"site\\src\\app\\fornecedor\\fornecedor.service.ts"
@@ -1661,122 +2607,6 @@
 			[
 				"loadervice",
 				"site\\src\\app\\ui\\load\\load.service.ts"
-			],
-			[
-				"forneserv",
-				"site\\src\\app\\fornecedor\\fornecedor.service.ts"
-			],
-			[
-				"loadcomth",
-				"site\\src\\app\\ui\\load\\load.component.html"
-			],
-			[
-				"loadservic",
-				"site\\src\\app\\ui\\load\\load.service.ts"
-			],
-			[
-				"usuarlistacomts",
-				"site\\src\\app\\usuario\\lista\\lista.component.ts"
-			],
-			[
-				"usuaiocadastcomt",
-				"site\\src\\app\\usuario\\cadastro\\cadastro.component.ts"
-			],
-			[
-				"produ-listats",
-				"site\\src\\app\\produto\\lista\\produto-lista.component.ts"
-			],
-			[
-				"pedilistacomts",
-				"site\\src\\app\\pedido\\lista\\lista.component.ts"
-			],
-			[
-				"pedidcadascomts",
-				"site\\src\\app\\pedido\\cadastro\\cadastro.component.ts"
-			],
-			[
-				"dashboarts",
-				"site\\src\\app\\dashboard\\dashboard.component.ts"
-			],
-			[
-				"autcomts",
-				"site\\src\\app\\auth\\auth.component.ts"
-			],
-			[
-				"autocomts",
-				"site\\node_modules\\@angular\\material\\autocomplete.d.ts"
-			],
-			[
-				"authcomth",
-				"site\\src\\app\\auth\\auth.component.html"
-			],
-			[
-				"fornlistacomts",
-				"site\\src\\app\\fornecedor\\lista\\lista.component.ts"
-			],
-			[
-				"indexhtm",
-				"site\\src\\index.html"
-			],
-			[
-				"appcomts",
-				"site\\src\\app\\app.component.ts"
-			],
-			[
-				"inde",
-				"site\\src\\index.html"
-			],
-			[
-				"appcomphtml",
-				"site\\src\\app\\app.component.html"
-			],
-			[
-				"oadcomts",
-				"site\\src\\app\\ui\\load\\load.component.ts"
-			],
-			[
-				"fornecadastr",
-				"site\\src\\app\\fornecedor\\cadastro\\cadastro.component.ts"
-			],
-			[
-				"fornececadscomht",
-				"site\\src\\app\\fornecedor\\cadastro\\cadastro.component.html"
-			],
-			[
-				"pedidocadastrots",
-				"site\\src\\app\\pedido\\cadastro\\cadastro.component.ts"
-			],
-			[
-				"fornecelistacomts",
-				"site\\src\\app\\fornecedor\\lista\\lista.component.ts"
-			],
-			[
-				"dashboare",
-				"site\\src\\app\\dashboard\\dashboard.component.ts"
-			],
-			[
-				"loadindexts",
-				"site\\src\\app\\ui\\load\\index.ts"
-			],
-			[
-				"appmodule",
-				"site\\src\\app\\app.module.ts"
-			],
-			[
-				"load.ser",
-				"site\\src\\app\\ui\\load\\load.service.ts"
-			],
-			[
-				"appmodu",
-				"site\\node_modules\\@angular\\core\\src\\application_module.d.ts"
-			],
-			[
-				"appcomhtml",
-				"site\\src\\app\\app.component.html"
-			],
-			[
-				"loadcomht",
-				"site\\src\\app\\ui\\loading\\loading.component.html"
 			]
 		],
 		"width": 0.0
@@ -1826,12 +2656,12 @@
 			]
 		]
 	},
-	"show_minimap": true,
+	"show_minimap": false,
 	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 279.0,
-	"status_bar_visible": true,
+	"side_bar_width": 409.0,
+	"status_bar_visible": false,
 	"template_settings":
 	{
 	}

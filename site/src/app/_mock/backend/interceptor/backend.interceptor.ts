@@ -14,7 +14,8 @@ import {
     AuthServiceApi,
     UsuarioServiceApi,
     FornecedorServiceApi,
-    PedidoServiceApi
+    PedidoServiceApi, 
+    CaixaServiceApi
 } from '../service';
 
 @Injectable()
@@ -22,13 +23,7 @@ export class BackendInterceptor implements HttpInterceptor {
 
     private _storage = localStorage;
 
-    readonly byId = (api: string, url: string) => new RegExp('\\/\\d{1,}$').test(url);
-    readonly byAngularList = (api: string, url: string) => new RegExp('\\?q=repo:angular\\/material2').test(url);
-    readonly byAll = (api: string, url: string) => new RegExp('(\\/' + api + '\\/)|(\\/' + api + '$)').test(url);
-    readonly login = (api: string, url: string) => url.match(api + /$/);
-    readonly recoveryAccount = (api: string, url: string) => url.match(/\// + api + /\/recuperar$/)
-
-    private services: any[]
+    private services: any[];
 
     constructor() {
         console.log("[backend] BackendInterceptor is running");
@@ -38,6 +33,7 @@ export class BackendInterceptor implements HttpInterceptor {
             new FornecedorServiceApi(),
             new ProdutoServiceApi(),
             new PedidoServiceApi(),
+            new CaixaServiceApi()
         ]
     }
 

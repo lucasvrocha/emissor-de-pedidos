@@ -3,14 +3,14 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material';
 
-import { ListModel } from '../../ui/frame';
-import { ToolbarBuilder } from '../../ui/toolbar';
-import { ProdutoService, Produto } from '../../produto';
-import { FornecedorService, Fornecedor } from '../../fornecedor';
+import { ListModel } from '../../../ui/frame';
+import { ToolbarBuilder } from '../../../ui/toolbar';
+import { ProdutoService, Produto } from '../../../produto';
+import { FornecedorService, Fornecedor } from '../../../fornecedor';
 import { PedidoService } from '../pedido.service';
 
-import { Pedido, PedidoItem, PedidoPagamento } from '../../_model/pedido.model';
-import { LoadService, LoadComponent } from '../../ui/load';
+import { Pedido, PedidoItem, PedidoPagamento } from '../../../_model/pedido.model';
+import { LoadService, LoadComponent } from '../../../ui/load';
 
 @Component({
 	moduleId: module.id,

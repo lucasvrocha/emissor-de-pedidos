@@ -4,8 +4,10 @@ import { AuthGuard } from './auth/auth.guard';
 
 import { AuthComponent } from './auth/auth.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { CadastroComponent as PedidoCadastroComponent } from './pedido/cadastro/cadastro.component';
-import { ListaComponent as PedidoListaComponent } from './pedido/lista/lista.component';
+import { CadastroComponent as PedidoCadastroComponent } from './pdv/pedido/cadastro/cadastro.component';
+import { FluxoComponent as CaixaFluxoComponent } from './pdv/caixa/fluxo/fluxo.component';
+import { LancamentoComponent as CaixaLancamentoComponent } from './pdv/caixa/lancamento/lancamento.component';
+import { ListaComponent as PedidoListaComponent } from './pdv/pedido/lista/lista.component';
 import { ProdutoListaComponent } from './produto/lista/produto-lista.component'
 import { ProdutoCadastroComponent } from './produto/cadastro/produto-cadastro.component'
 import { CadastroComponent as FornecedorCadastroComponent } from './fornecedor/cadastro/cadastro.component';
@@ -17,6 +19,8 @@ const routes: Routes = [
 	{ path: '', component: DashboardComponent, canActivate: [AuthGuard] }
 	, { path: 'pedido', component: PedidoListaComponent, canActivate: [AuthGuard] }
 	, { path: 'pedido/novo', component: PedidoCadastroComponent, canActivate: [AuthGuard] }
+	, { path: 'caixa', component: CaixaFluxoComponent, canActivate: [AuthGuard] }
+	, { path: 'caixa/lancamento', component: CaixaLancamentoComponent, canActivate: [AuthGuard] }
 	, { path: 'fornecedor', component: FornecedorListaComponent, canActivate: [AuthGuard] }
 	, { path: 'fornecedor/:id', component: FornecedorCadastroComponent, canActivate: [AuthGuard] }
 	, { path: 'login', component: AuthComponent }

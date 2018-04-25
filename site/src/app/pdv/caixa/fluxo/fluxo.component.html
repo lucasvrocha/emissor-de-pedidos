@@ -1,0 +1,64 @@
+<ui-frame-list>
+	<ng-container back> 
+		<button mat-icon-button routerLink='../'>
+			<app-icon name='arrow_back' label='voltar'></app-icon>
+		</button>
+	</ng-container>
+	<ng-container title>
+		<button mat-icon-button>
+			<app-icon name='monetization_on'></app-icon>
+		</button>
+		<h2>Movimentação</h2>
+	</ng-container>
+	<ng-container options>
+		<button mat-icon-button routerLink='./lancamento'>
+			<app-icon name='add_box'></app-icon>
+		</button>
+	</ng-container>
+	
+	<mat-card>
+		<mat-card-header>
+			<div mat-card-avatar> 
+				<app-icon name='attach_money' size='45'></app-icon>
+			</div>
+			<mat-card-title>Movimentação do mês corrente</mat-card-title>
+			<mat-card-subtitle>01 de abril até 24 de abril</mat-card-subtitle>
+		</mat-card-header>
+		<mat-card-content>
+			<div><canvas id="canvas-dashboard" #canvasMovimentacaoMensal></canvas></div>
+		</mat-card-content>
+	</mat-card>
+
+	<mat-accordion class="body headers-align">
+		<mat-expansion-panel *ngFor='let c of caixas; let i =index'>
+			<mat-expansion-panel-header>
+				<mat-panel-title class='title line'>
+					<app-icon class='icon' name='attach_money' size='30'></app-icon>
+					<div class='line'>
+						{{c.date}}
+						<br>
+						<div class='sub-line'>{{c.status}} por {{c.author}}</div>
+					</div>
+					
+				</mat-panel-title>
+				<mat-panel-description class='description' >
+					{{total(c.movimentacao) | currency :'R$ '}}
+				</mat-panel-description>
+			</mat-expansion-panel-header>
+
+			<mat-grid-list cols="4" rowHeight="30px">
+				<mat-grid-tile rowspan=5 colspan=2>
+					<div><canvas id="canvas-{{i}}" #canvas ></canvas></div>
+				</mat-grid-tile>
+				<ng-container *ngFor='let m of c.movimentacao'>
+					<mat-grid-tile>{{m.pagamento}}</mat-grid-tile>
+					<mat-grid-tile>{{m.valor | currency : 'R$ '}}</mat-grid-tile>
+				</ng-container>
+				<mat-grid-tile colspan=2 rowspan=2>
+					<button mat-raised-button color='primary' [disabled]='c.status === "encerrado"' (click)='encerrar(c)' >ENCERRAR</button>
+				</mat-grid-tile>
+			</mat-grid-list>
+		</mat-expansion-panel>
+	</mat-accordion>
+
+</ui-frame-list>
