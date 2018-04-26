@@ -14,12 +14,24 @@ export class CaixaService {
 		return this.http.get<any>(this.href + `?q=graph&begin=${inicio}&end=${fim}`);
 	}
 
+	getCurrentCaixa(){
+		return this.http.get<any>(this.href+'/atual');
+	}
+
 	getCaixas(){
 		return this.http.get<any[]>(this.href);
 	}
 
 	encerrar(id : number){
 		return this.http.put<any>(this.href +'/'+id+'/encerrar', null);
+	}
+
+	insert(data, caixa ){
+		return this.http.post<any>(this.href +'/' +caixa.id+'/lancamento', data);
+	}
+
+	createCaixa(){
+		return this.http.post<any>(this.href + '/novo', null);
 	}
 
 

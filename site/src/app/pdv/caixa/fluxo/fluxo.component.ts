@@ -18,6 +18,8 @@ export class FluxoComponent implements OnInit {
 	caixas: any[] = [];
 	chartCaixa: any[] = [];
 
+	detalheColumns = ['descritivo', 'pagamento', 'valor'];
+
 	chart: any;
 	readonly chartBackgroundColor = [
 		'rgba(255, 99, 132, 0.2)',
@@ -48,14 +50,14 @@ export class FluxoComponent implements OnInit {
 		Chart.defaults.line.spanGaps = true;
 		this.caixaService.getGraphData(null, null).subscribe(data => this.updateChartMensal(data));
 		this.caixaService.getCaixas()
-		.map(data =>{
-			return data.sort(function comp(a, b) {
-				if (a.id < b.id) return 1;
-				if (a.id > b.id) return -1;
-				return 0;
+			.map(data => {
+				return data.sort(function comp(a, b) {
+					if (a.id < b.id) return 1;
+					if (a.id > b.id) return -1;
+					return 0;
+				})
 			})
-		})
-		.subscribe(data => this.buildChartCaixa(data));
+			.subscribe(data => this.buildChartCaixa(data));
 	}
 
 	ngAfterViewInit() {
@@ -63,15 +65,15 @@ export class FluxoComponent implements OnInit {
 	}
 
 
-	total(data){
+	total(data) {
 		return data.map(m => m.valor).reduce((a, b) => a + b, 0)
 	}
 
-	encerrar(data){
-		this.caixaService.encerrar(data.id).subscribe(data=>{
+	encerrar(data) {
+		this.caixaService.encerrar(data.id).subscribe(data => {
 			let target = this.caixas.findIndex(x => x.id == data.id);
 			this.caixas[target].status = data.status;
-			this.ref.detectChanges();	
+			this.ref.detectChanges();
 		})
 	}
 
@@ -81,13 +83,27 @@ export class FluxoComponent implements OnInit {
 
 		let i = 0;
 		this.canvas.forEach(canvas => {
+			let caixa = this.caixas[i];
+			caixa.detalhe = [];
+			caixa.movimentacao.forEach(x => caixa.detalhe.push(Object.assign({}, x)));
+			
 			this.chartCaixa.push(new Chart(canvas.nativeElement, {
 				type: 'doughnut',
 				data: {
-					labels: this.caixas[i].movimentacao.map(x => x.pagamento),
+					labels: caixa.movimentacao.map(x => x.pagamento),
 					datasets: [
 						{
-							data: this.caixas[i].movimentacao.map(x => x.valor),
+							data: caixa.movimentacao.map(x => {
+								let grupo = caixa.movimentacao.filter(xx=> xx.pagamento === x.pagamento && xx.id != x.id);
+								grupo.forEach(xx => {
+									x.valor += xx.valor;
+									x.descricao = 'Total';
+									let ind = caixa.movimentacao.findIndex(xxx => xx.id == xxx.id);
+									if (ind >= 0)
+										caixa.movimentacao.splice(ind, 1);
+								});
+								return x;
+							}).map(x => x.valor),
 							backgroundColor: this.chartBackgroundColor,
 							borderColor: this.chartBorderColor
 						}

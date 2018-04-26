@@ -1,3 +1,69 @@
-<p>
-  lancamento works!
-</p>
+<ui-frame-list>
+	<ng-container back> 
+		<button mat-icon-button routerLink='../'>
+			<app-icon name='arrow_back' label='voltar'></app-icon>
+		</button>
+	</ng-container>
+	<ng-container title>
+		<button mat-icon-button>
+			<app-icon name='attach_money'></app-icon>
+		</button>
+		<h2>Novo Lançamento</h2>
+	</ng-container>
+	<ng-container options>
+		<app-icon name='save'></app-icon>
+	</ng-container>
+	<br>
+	<span *ngIf='caixa && lancamento '>Este movimento foi lançado no caixa <strong>#{{caixa?.id}}</strong> aberto por {{caixa?.author}} em {{caixa?.date | date :'dd/MMMM'}}</span>
+	
+	<span *ngIf='caixa && !lancamento'>Este movimento será lancado no caixa <strong>#{{caixa?.id}}</strong> aberto por {{caixa?.author}} em {{caixa?.date | date :'dd/MMMM'}}</span>
+	
+	<span *ngIf='!caixa'>Este lancamento irá abrir um novo caixa</span>
+	
+	<form class="form" [formGroup]='formGroup' (ngSubmit)="salvar()" >
+
+		<mat-form-field class="full-width" >
+			<input matInput placeholder="#Código do Lancamento" formControlName='id'>
+		</mat-form-field>
+
+		<table class="full-width" cellspacing="0"><tr>
+			<td><mat-form-field class="full-width">
+				<mat-select placeholder="Pagamentos" formControlName='pagamento'  required >
+					<mat-option *ngFor="let p of pagamentos" [value]="p.value">
+						{{p.viewValue}}
+					</mat-option>	
+				</mat-select>
+			</mat-form-field></td>
+		</tr></table>
+
+
+		<table class="full-width" cellspacing="0"><tr>
+			<td><mat-form-field class="full-width" hintLabel="Maximo 50 caracteres"  >
+				<input type="text" matInput #descricao maxlength="50" placeholder="Descritivo" formControlName='descricao' required>
+				<mat-hint align="end">{{descricao.value?.length || 0}}/50</mat-hint>
+				<mat-error *ngIf="formGroup.controls['descricao'].invalid">
+					Campo <strong>obrigatório</strong>.
+				</mat-error>
+			</mat-form-field></td>
+		</tr></table>
+
+		<table class="full-width" cellspacing="0"><tr>
+			<td><mat-form-field class="full-width" hintLabel=""  >
+				<input type="number" matInput #valor maxlength="3" placeholder="Valor" formControlName='valor' required>
+				<mat-hint align="end">{{valor.value?.length || 0}}/3</mat-hint>
+				<mat-error *ngIf="formGroup.controls['valor'].invalid">
+					Campo <strong>obrigatório</strong>.
+				</mat-error>
+			</mat-form-field></td>
+			<td>
+				<button type='button' mat-button [disabled]='formGroup.disabled || valor.value?.length==0' (click)='formGroup.controls["valor"].value  = valor.value = valor.value *-1'>Saida/Entrada</button></td>
+			</tr></table>
+
+			<div class="full-width">
+				<button type='button' [disabled]='formGroup.disabled' mat-button (click)='cancelar()'>Cancelar</button>
+				<button type='submit' [disabled]='formGroup.disabled || formGroup.invalid' mat-raised-button color="primary" >Salvar</button>
+			</div>
+		</form>
+
+
+	</ui-frame-list>

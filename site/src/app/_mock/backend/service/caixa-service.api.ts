@@ -16,7 +16,7 @@ export class CaixaServiceApi {
 
 	@RequestMap('\\/api\\/pdv\\/caixa\\?|q=graph', 'GET')
 	@Authenticate()
-	byId(request) {
+	allByPeriodo(request) {
 		let inicio = request.url.match('begin=\\w*')[0].split('=')[1];
 		let fim = request.url.match('end=\\w*')[0].split('=')[1];
 		console.log('inicio', inicio, 'fim', fim);
@@ -44,22 +44,71 @@ export class CaixaServiceApi {
 		return new HttpResponse({ status: 200, body: this.db.data });
 	}
 
+
+	@RequestMap('\\/api\\/pdv\\/caixa\\/atual$', 'GET')
+	@Authenticate()
+	getCurrentCaixa(request) {
+		let caixa = this.db.data.find(x => x.status === 'aberto');
+		if(caixa == null)
+			return new HttpResponse({ status: 404, body: caixa });	
+		
+		return new HttpResponse({ status: 200, body: caixa});
+	}
+
+	@RequestMap('\\/api\\/pdv\\/caixa\\/novo$', 'POST')
+	@Authenticate()
+	createCaixa(request) {
+		let user = this.getCurrentUser(request);
+		let caixa = {
+			id: +new Date(),
+			date: new Date(),
+			status: 'aberto',
+			author: user.usuario,
+			movimentacao: []
+		};
+		this.db.insert(caixa);
+		return new HttpResponse({ status: 200, body: caixa });
+	}
+
+
 	@RequestMap('\\/api\\/pdv\\/caixa\\/\\d{1,}\\/encerrar$', 'PUT')
 	@Authenticate()
 	encerrar(request) {
-		let jwt = request.headers.get('Authorization').split(' ')[1];
+		let user = this.getCurrentUser(request);
 		let id = request.url.match('\\d{1,}')[0];
-
-		let user = this.dbAuth.data.find(x => x.jwt === jwt);
 		let mov = this.db.data.find(x => x.id == id)
-		if(mov == null)
-			return new HttpResponse({ status: 404 });	
+		if (mov == null)
+			return new HttpResponse({ status: 404 });
 
 		mov.status = 'encerrado';
 		mov.author = user.usuario;
 		this.db.update(mov);
-		return new HttpResponse({ status: 204, body: mov});
-		
+		return new HttpResponse({ status: 204, body: mov });
 	}
 
+
+
+	@RequestMap('\\/api\\/pdv\\/caixa\\/\\d{1,}\\/lancamento$', 'POST')
+	@Authenticate()
+	cadastrarLancamento(request) {
+		let idCaixa = request.url.match('\\d{1,}')[0];
+
+		let caixa = this.db.data.find(x => x.id == idCaixa);
+		if (caixa == null)
+			return new HttpResponse({ status: 404 });
+
+		let data = request.body;
+		data.id = +new Date();
+		caixa.movimentacao.push(data);
+		this.db.update(caixa);
+
+		return new HttpResponse({ status: 200, body: data })
+
+	}
+
+
+	private getCurrentUser(request) {
+		let jwt = request.headers.get('Authorization').split(' ')[1];
+		return this.dbAuth.data.find(x => x.jwt === jwt);
+	}
 }
