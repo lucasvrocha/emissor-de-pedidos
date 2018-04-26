@@ -56,7 +56,7 @@
 				</mat-error>
 			</mat-form-field></td>
 			<td>
-				<button type='button' mat-button [disabled]='formGroup.disabled || valor.value?.length==0' (click)='formGroup.controls["valor"].value  = valor.value = valor.value *-1'>Saida/Entrada</button></td>
+				<button type='button' mat-button [disabled]='formGroup.disabled || valor.value?.length==0' (click)='changeValue()'>Saida/Entrada</button></td>
 			</tr></table>
 
 			<div class="full-width">

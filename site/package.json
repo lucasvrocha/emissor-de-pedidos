@@ -4,9 +4,9 @@
     "license": "MIT",
     "scripts": {
         "ng": "ng",
-        "start:dev": "ng serve --disable-host-check --host 0.0.0.0",
+        "start:dev": "ng serve --aot --locale=pt --disable-host-check --host 0.0.0.0",
         "start": "node server.js",
-        "build": "ng build --prod --build-optimizer",
+        "build": "ng build --prod --build-optimizer --locale=pt",
         "test": "ng test",
         "lint": "ng lint",
         "e2e": "ng e2e",

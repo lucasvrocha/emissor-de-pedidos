@@ -67,6 +67,12 @@ export class LancamentoComponent implements OnInit {
 		this.loadControls();
 	}
 
+	changeValue(){
+		//formGroup.controls["valor"].value = valor.value = valor.value * -1
+		let ctrValor = this.formGroup.controls["valor"];
+		ctrValor.setValue(ctrValor.value * -1);
+	}
+
 	private loadControls(lancamento = undefined) {
 		if (!lancamento) {
 			for (let c in this.formGroup.controls)
