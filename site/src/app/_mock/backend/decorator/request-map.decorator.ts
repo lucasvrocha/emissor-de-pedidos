@@ -16,6 +16,8 @@ export function RequestMap(map: string, method: string, debug: boolean = false):
 			  }
 			if (v1 && v2)
 				return originalMethod.call(target, ...args);
+			else
+				return null;
 		}
 		return descriptor;
 	};

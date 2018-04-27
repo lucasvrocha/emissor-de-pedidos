@@ -40,7 +40,7 @@ export class CaixaServiceApi {
 
 	@RequestMap('\\/api\\/pdv\\/caixa$', 'GET')
 	@Authenticate()
-	all(request) {
+	allCaixa(request) {
 		return new HttpResponse({ status: 200, body: this.db.data });
 	}
 
@@ -49,10 +49,10 @@ export class CaixaServiceApi {
 	@Authenticate()
 	getCurrentCaixa(request) {
 		let caixa = this.db.data.find(x => x.status === 'aberto');
-		if(caixa == null)
-			return new HttpResponse({ status: 404, body: caixa });	
-		
-		return new HttpResponse({ status: 200, body: caixa});
+		if (caixa == null)
+			return new HttpResponse({ status: 404, body: caixa });
+
+		return new HttpResponse({ status: 200, body: caixa });
 	}
 
 	@RequestMap('\\/api\\/pdv\\/caixa\\/novo$', 'POST')
@@ -69,6 +69,7 @@ export class CaixaServiceApi {
 		this.db.insert(caixa);
 		return new HttpResponse({ status: 200, body: caixa });
 	}
+
 	@RequestMap('\\/api\\/pdv\\/caixa\\/\\d{1,}\\/lancamento\\/\\d{1,}', 'DELETE')
 	@Authenticate()
 	estornarLancamento(request) {
@@ -77,7 +78,7 @@ export class CaixaServiceApi {
 		let user = this.getCurrentUser(request);
 
 		let caixa = this.db.data.find(x => x.id == caixaId);
-		if(!caixa)
+		if (!caixa)
 			return new HttpResponse({ status: 404 });
 
 		let lancamento = caixa.movimentacao.find(x => x.id == lancamentoId);
@@ -90,7 +91,7 @@ export class CaixaServiceApi {
 		caixa.movimentacao.push(estorno);
 
 		this.db.update(caixa);
-		return new HttpResponse({ status: 200, body: lancamento });
+		return new HttpResponse({ status: 200, body: estorno });
 	}
 
 

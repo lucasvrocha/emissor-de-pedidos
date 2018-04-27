@@ -1,4 +1,5 @@
-import { Component, OnInit, ChangeDetectorRef, ChangeDetectionStrategy, ViewChildren } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, ChangeDetectionStrategy,ViewChild, ViewChildren } from '@angular/core';
+import { MatTableDataSource } from '@angular/material';
 import { Chart } from 'chart.js';
 
 import { CaixaService } from '../caixa.service';
@@ -11,14 +12,14 @@ import { CaixaService } from '../caixa.service';
 	providers: [CaixaService]
 })
 export class FluxoComponent implements OnInit {
-
+	@ViewChild('btnEstornar') btnEstornar: any;
 	@ViewChildren('canvas') canvas: any
 	@ViewChildren('canvasMovimentacaoMensal') canvasDashBoard: any
 
 	caixas: any[] = [];
 	chartCaixa: any[] = [];
 
-	detalheColumns = ['id','descritivo', 'valor'];
+	detalheColumns = ['id', 'descritivo', 'valor', 'options'];
 
 	chart: any;
 	readonly chartBackgroundColor = [
@@ -76,62 +77,78 @@ export class FluxoComponent implements OnInit {
 		});
 	}
 
-	private buildChartCaixa(data: any[]) {
-		this.caixas = data;
+	estornarLancamento(btn, caixa, lancamento) {
+		btn.disabled = true;
+		this.caixaService.estornarLancamento(caixa, lancamento)
+			.subscribe(lancamento => {
+				caixa.movimentacao.push(lancamento)
+				caixa.dataSourceTable = new MatTableDataSource(caixa.movimentacao);
+				btn.disabled = false;
+				this.ref.detectChanges();
+			});
+	}
+
+	canEstornarLancamento(caixa, lancamento) {
+		if (caixa.status !== 'aberto')
+			return false;
+
+		if (caixa.movimentacao.find(x => x.descricao.indexOf('Lancamento #' + lancamento.id, 0) > -1))
+			return false;
+		return true;
+	}
+
+
+	private clone(target: any[]) {
+		let cloned = new Array();
+		target.forEach(x => cloned.push(Object.assign(new Object(), x)));
+		return cloned;
+	}
+
+	private buildChartCaixa(caixas: any[]) {
+		this.caixas = caixas;
 		this.ref.detectChanges();
 
 		let i = 0;
 		this.canvas.forEach(canvas => {
 			let caixa = this.caixas[i];
-			caixa.detalhe = [];
-			caixa.movimentacao.forEach(x => caixa.detalhe.push(Object.assign({}, x)));
-			
-			this.chartCaixa.push(new Chart(canvas.nativeElement, {
-				type: 'doughnut',
-				data: {
-					labels: caixa.movimentacao.map(x => x.pagamento),
-					datasets: [
-						{
-							data: caixa.movimentacao.map(x => {
-								let grupo = caixa.movimentacao.filter(xx=> xx.pagamento === x.pagamento && xx.id != x.id);
-								grupo.forEach(xx => {
-									x.valor += xx.valor;
-									x.descricao = 'Total';
-									let ind = caixa.movimentacao.findIndex(xxx => xx.id == xxx.id);
-									if (ind >= 0)
-										caixa.movimentacao.splice(ind, 1);
-								});
-								return x;
-							}).map(x => x.valor),
-							backgroundColor: this.chartBackgroundColor,
-							borderColor: this.chartBorderColor
-						}
-					]
-				},
-				options: {
-					legend: {
-						display: false
-					}
-				}
-			}));
+			caixa.movimentacao.map(x => x.pagamento = x.pagamento.toUpperCase());
+
+			caixa.dataSourceTable = new MatTableDataSource(caixa.movimentacao);
+			caixa.dataChart = [];
+			caixa.movimentacao.map(x => {
+				let d = caixa.dataChart.find(xx => xx.label == x.pagamento);
+				if (!d)
+					caixa.dataChart.push({ label: x.pagamento, valor: x.valor });
+				else
+					d.valor += x.valor;
+			});
+
+			this.buildChartDoughnut(canvas, caixa.dataChart.map(x => x.label), caixa.dataChart.map(x => x.valor));
 			i++;
 		});
 
-		this.chartCaixa.forEach(chart => {
-			let i = 0;
-			chart.data.datasets.forEach((dataset) => {
-				if (!dataset.backgroundColor) dataset.backgroundColor = [];
-				dataset.backgroundColor.push(this.chartBackgroundColor[i])
-
-				if (!dataset.borderColor) dataset.borderColor = [];
-				dataset.borderColor.push(this.chartBorderColor[i])
-
-				i++;
-			});
-			chart.update();
-		});
 	}
 
+	private buildChartDoughnut(canvas: any, labels: string[], data: number[]) {
+		return new Chart(canvas.nativeElement, {
+			type: 'doughnut',
+			data: {
+				labels: labels,
+				datasets: [
+					{
+						data: data,
+						backgroundColor: this.chartBackgroundColor,
+						borderColor: this.chartBorderColor
+					}
+				]
+			},
+			options: {
+				legend: {
+					display: false
+				}
+			}
+		});
+	}
 
 	private buildChartMensal() {
 		let ctx = document.getElementById('canvas-dashboard');

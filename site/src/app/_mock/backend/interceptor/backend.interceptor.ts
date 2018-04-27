@@ -14,7 +14,7 @@ import {
     AuthServiceApi,
     UsuarioServiceApi,
     FornecedorServiceApi,
-    PedidoServiceApi, 
+    PedidoServiceApi,
     CaixaServiceApi
 } from '../service';
 
@@ -23,7 +23,7 @@ export class BackendInterceptor implements HttpInterceptor {
 
     private _storage = localStorage;
 
-    private services: any[];
+    readonly services: any[];
 
     constructor() {
         console.log("[backend] BackendInterceptor is running");
@@ -43,9 +43,17 @@ export class BackendInterceptor implements HttpInterceptor {
 
         let response;
         for (let s of this.services) {
-            for (let f in s)
-                if (typeof s[f] === "function" && (response = s[f](request)))
-                    return Observable.of(response);
+            for (let f in s) {
+                if (typeof s[f] === "function") {
+                    try {
+                        response = s[f](request)
+                        if (response instanceof HttpResponse)
+                            return Observable.of(response);
+                    } catch (e) {
+                        console.error(e);
+                    }
+                }
+            }
         }
 
         return next.handle(request);

@@ -20,7 +20,7 @@
 	
 	<span *ngIf='!caixa'>Este lancamento irá abrir um novo caixa</span>
 	
-	<form class="form" [formGroup]='formGroup' (ngSubmit)="salvar()" >
+	<form class="form" #form [formGroup]='formGroup' (ngSubmit)="salvar(btnSalvar)" >
 
 		<mat-form-field class="full-width" >
 			<input matInput placeholder="#Código do Lancamento" formControlName='id'>
@@ -59,8 +59,8 @@
 
 			<div class="full-width">
 				<button type='button' [disabled]='formGroup.disabled' mat-button (click)='cancelar()'>Cancelar</button>
-				<button type='button' [disabled]='!(lancamento && lancamento.id)' mat-button (click)='estornar()'>Estornar</button>
-				<button type='submit' [disabled]='formGroup.disabled || formGroup.invalid' mat-raised-button color="primary" >Salvar</button>
+				<button type='button' [disabled]='!(lancamento && lancamento.id)' mat-button #btn (click)='estornar(btn)'>Estornar</button>
+				<button #btnSalvar type='submit' [disabled]='formGroup.disabled || formGroup.invalid' mat-raised-button color="primary" >Salvar</button>
 			</div>
 		</form>
 

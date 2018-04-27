@@ -54,8 +54,11 @@
 
 .mat-column-valor {
 	max-width: 100px;
-	text-align: right;
 	padding-left: 4px;
+}
+
+.mat-column-options {
+	max-width: 40px;
 }
 
 .mat-header-row,

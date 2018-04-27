@@ -30,6 +30,7 @@ export class LancamentoComponent implements OnInit {
 		private caixaService: CaixaService
 	) { }
 
+	
 	ngOnInit() {
 		this.permission = !!this.authService.hasPermition(["admin"]);
 
@@ -48,13 +49,15 @@ export class LancamentoComponent implements OnInit {
 		});
 	}
 
-	salvar() {
+	salvar(btn) {
+		btn.disabled = true;
 		if (this.caixa == null)
 			this.caixaService.createCaixa().subscribe(caixa => {
 				this.caixa = caixa;
 				this.caixaService.insert(this.formGroup.getRawValue(), caixa)
 					.subscribe(lancamento => {
 						this.loadControls(lancamento);
+						btn.disabled = false;
 						this.formGroup.disable({}); 
 					});
 			});
@@ -62,14 +65,17 @@ export class LancamentoComponent implements OnInit {
 			this.caixaService.insert(this.formGroup.getRawValue(), this.caixa)
 				.subscribe(lancamento => {
 					this.loadControls(lancamento);
+					btn.disabled = false;
 					this.formGroup.disable({});
 				});
 	}
 
-	estornar(){
+	estornar(btn){
+		btn.disabled = true;
 		this.caixaService.estornarLancamento(this.caixa, this.lancamento)
 			.subscribe(lancamento => {
 				this.loadControls(lancamento);
+				btn.disabled = false;
 				this.formGroup.disable({});
 			});
 	}

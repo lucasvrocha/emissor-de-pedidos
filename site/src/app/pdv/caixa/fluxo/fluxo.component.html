@@ -49,9 +49,9 @@
 				<mat-grid-tile rowspan=5 colspan=2>
 					<div><canvas id="canvas-{{i}}" #canvas ></canvas></div>
 				</mat-grid-tile>
-				<ng-container *ngFor='let m of c.movimentacao'>
-					<mat-grid-tile>{{m.pagamento}}</mat-grid-tile>
-					<mat-grid-tile>{{m.valor | currency : 'BRL'}}</mat-grid-tile>
+				<ng-container *ngFor='let c of c.dataChart'>
+					<mat-grid-tile>{{c.label}}</mat-grid-tile>
+					<mat-grid-tile>{{c.valor | currency : 'BRL'}}</mat-grid-tile>
 				</ng-container>
 				<mat-grid-tile colspan=2 rowspan=2>
 					<button mat-raised-button color='primary' [disabled]='c.status === "encerrado"' (click)='encerrar(c)' >ENCERRAR</button>
@@ -59,7 +59,7 @@
 			</mat-grid-list>
 
 			
-			<mat-table class='' [dataSource]="c.detalhe">
+			<mat-table class='' [dataSource]="c.dataSourceTable">
 				<ng-container matColumnDef="id">
 					<mat-header-cell *matHeaderCellDef><strong>#</strong></mat-header-cell>
 					<mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
@@ -71,7 +71,18 @@
 				
 				<ng-container matColumnDef="valor">
 					<mat-header-cell *matHeaderCellDef>Valor</mat-header-cell>
-					<mat-cell *matCellDef="let element"> {{element.valor | currency :"BRL"}} </mat-cell>
+					<mat-cell *matCellDef="let element"> {{element.valor | currency :"BRL"}}</mat-cell>
+				</ng-container>
+				<ng-container matColumnDef="options">
+					<mat-header-cell *matHeaderCellDef></mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<ng-container *ngIf='canEstornarLancamento(c, element)'>
+							<button  #btn mat-icon-button (click)='estornarLancamento(btn, c, element)'><app-icon name='cancel' ></app-icon></button>
+						</ng-container>
+						<ng-container *ngIf='!canEstornarLancamento(c, element)'>
+							<app-icon name='cancel' color='grey'></app-icon>
+						</ng-container>
+					</mat-cell>
 				</ng-container>
 				<mat-header-row *matHeaderRowDef="detalheColumns"></mat-header-row>
 				<mat-row  class='row' *matRowDef="let row; columns: detalheColumns;"></mat-row>
