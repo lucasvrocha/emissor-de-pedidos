@@ -1,7 +1,7 @@
 export const CAIXAS = [
 	{
 		id: 3,
-		date: new Date(),
+		date: new Date().setFullYear(2018, 3, 25),
 		status: 'aberto',
 		author: 'lucas.rocha',
 		movimentacao: [
@@ -17,7 +17,7 @@ export const CAIXAS = [
 	},
 	{
 		id: 2,
-		date: new Date(),
+		date: new Date().setFullYear(2018,3,24),
 		status: 'encerrado',
 		author: 'lucas.rocha',
 		movimentacao: [
@@ -28,7 +28,7 @@ export const CAIXAS = [
 	},
 	{
 		id: 1,
-		date: new Date(),
+		date: new Date().setFullYear(2018,3,23),
 		status: 'encerrado',
 		author: 'lucas.rocha',
 		movimentacao: [

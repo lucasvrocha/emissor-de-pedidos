@@ -69,6 +69,30 @@ export class CaixaServiceApi {
 		this.db.insert(caixa);
 		return new HttpResponse({ status: 200, body: caixa });
 	}
+	@RequestMap('\\/api\\/pdv\\/caixa\\/\\d{1,}\\/lancamento\\/\\d{1,}', 'DELETE')
+	@Authenticate()
+	estornarLancamento(request) {
+		let caixaId = request.url.match('caixa\\/\\d{1,}')[0].split('/')[1];
+		let lancamentoId = request.url.match('lancamento\\/\\d{1,}')[0].split('/')[1];
+		let user = this.getCurrentUser(request);
+
+		let caixa = this.db.data.find(x => x.id == caixaId);
+		if(!caixa)
+			return new HttpResponse({ status: 404 });
+
+		let lancamento = caixa.movimentacao.find(x => x.id == lancamentoId);
+
+		let estorno = Object.assign(new Object(), lancamento);
+		estorno.descricao = 'Lancamento #' + lancamento.id + " estornado por " + user.usuario;
+		estorno.valor = lancamento.valor * -1;
+		estorno.id = +new Date();
+
+		caixa.movimentacao.push(estorno);
+
+		this.db.update(caixa);
+		return new HttpResponse({ status: 200, body: lancamento });
+	}
+
 
 
 	@RequestMap('\\/api\\/pdv\\/caixa\\/\\d{1,}\\/encerrar$', 'PUT')

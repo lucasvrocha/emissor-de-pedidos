@@ -39,10 +39,9 @@
 						<br>
 						<div class='sub-line'>{{c.status}} por {{c.author}}</div>
 					</div>
-					
 				</mat-panel-title>
 				<mat-panel-description class='description' >
-					{{total(c.movimentacao) | currency  }}
+					{{total(c.movimentacao) | currency : 'BRL' }}
 				</mat-panel-description>
 			</mat-expansion-panel-header>
 
@@ -52,31 +51,32 @@
 				</mat-grid-tile>
 				<ng-container *ngFor='let m of c.movimentacao'>
 					<mat-grid-tile>{{m.pagamento}}</mat-grid-tile>
-					<mat-grid-tile>{{m.valor | currency : 'R$ '}}</mat-grid-tile>
+					<mat-grid-tile>{{m.valor | currency : 'BRL'}}</mat-grid-tile>
 				</ng-container>
 				<mat-grid-tile colspan=2 rowspan=2>
 					<button mat-raised-button color='primary' [disabled]='c.status === "encerrado"' (click)='encerrar(c)' >ENCERRAR</button>
 				</mat-grid-tile>
 			</mat-grid-list>
 
+			
 			<mat-table class='' [dataSource]="c.detalhe">
+				<ng-container matColumnDef="id">
+					<mat-header-cell *matHeaderCellDef><strong>#</strong></mat-header-cell>
+					<mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
+				</ng-container>
 				<ng-container matColumnDef="descritivo">
-					<mat-header-cell *matHeaderCellDef><strong>Pagamentos</strong></mat-header-cell>
-					<mat-cell *matCellDef="let element"> {{element.descricao}} </mat-cell>
+					<mat-header-cell *matHeaderCellDef><strong>Descritivo</strong></mat-header-cell>
+					<mat-cell *matCellDef="let element">{{element.pagamento}}<br>{{element.descricao}} </mat-cell>
 				</ng-container>
-				<ng-container matColumnDef="pagamento">
-					<mat-header-cell *matHeaderCellDef>Valor</mat-header-cell>
-					<mat-cell *matCellDef="let element"> {{element.pagamento}} </mat-cell>
-				</ng-container>
+				
 				<ng-container matColumnDef="valor">
 					<mat-header-cell *matHeaderCellDef>Valor</mat-header-cell>
-					<mat-cell *matCellDef="let element"> {{element.valor | currency :" R$ "}} </mat-cell>
+					<mat-cell *matCellDef="let element"> {{element.valor | currency :"BRL"}} </mat-cell>
 				</ng-container>
-
 				<mat-header-row *matHeaderRowDef="detalheColumns"></mat-header-row>
 				<mat-row  class='row' *matRowDef="let row; columns: detalheColumns;"></mat-row>
 			</mat-table>
-
+			
 		</mat-expansion-panel>
 	</mat-accordion>
 

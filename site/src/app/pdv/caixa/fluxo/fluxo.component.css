@@ -1,21 +1,7 @@
-.headers-align .mat-expansion-panel-header-title, 
-.headers-align .mat-expansion-panel-header-description {
-}
-
-.headers-align .mat-expansion-panel-header-title{
-	text-align: left;
-}
-
-.headers-align .mat-expansion-panel-header-description {
-	align-items: center;
-	margin: 0px;
-	text-align: right;
-	flex-basis: 0;
-}
 
 .description { 
 	white-space: nowrap;
-    
+
 	text-align: right;
 	font-size: 1rem;
 	font-weight: 500;
@@ -23,10 +9,6 @@
 	font-style: italic;
 	margin-right: 10px !important;
 }
-
-.movimentacao-item >*{
-	font-size: 0.8rem !important;
-}			
 
 .title-total {
 	position: absolute;
@@ -57,4 +39,32 @@
 
 .sub-line:first-letter{
 	text-transform: capitalize;
+}
+
+.mat-column-id {
+	max-width: 50px;
+	text-align: left;
+}
+
+.mat-column-descritivo {
+	text-align: left;
+	padding-left: 4px;
+}
+
+
+.mat-column-valor {
+	max-width: 100px;
+	text-align: right;
+	padding-left: 4px;
+}
+
+.mat-header-row,
+.mat-row {
+	padding: 0px;
+	padding-right: 4px;
+	padding-left: 4px;
+}
+
+.row{
+	margin : 0px;
 }

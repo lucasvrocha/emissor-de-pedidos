@@ -18,7 +18,7 @@ export class FluxoComponent implements OnInit {
 	caixas: any[] = [];
 	chartCaixa: any[] = [];
 
-	detalheColumns = ['descritivo', 'pagamento', 'valor'];
+	detalheColumns = ['id','descritivo', 'valor'];
 
 	chart: any;
 	readonly chartBackgroundColor = [
@@ -64,7 +64,6 @@ export class FluxoComponent implements OnInit {
 		this.buildChartMensal();
 	}
 
-
 	total(data) {
 		return data.map(m => m.valor).reduce((a, b) => a + b, 0)
 	}
@@ -74,7 +73,7 @@ export class FluxoComponent implements OnInit {
 			let target = this.caixas.findIndex(x => x.id == data.id);
 			this.caixas[target].status = data.status;
 			this.ref.detectChanges();
-		})
+		});
 	}
 
 	private buildChartCaixa(data: any[]) {

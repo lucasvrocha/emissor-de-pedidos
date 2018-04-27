@@ -2,12 +2,13 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, LOCALE_ID } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { CommonModule  } from '@angular/common';
+import { CommonModule } from '@angular/common';
 
-import localePT from '@angular/common/locales/pt';
-import localeExtraPT from '@angular/common/locales/extra/pt';
-import { HashLocationStrategy, LocationStrategy, registerLocaleData } from '@angular/common';
-registerLocaleData(localePT, 'pt-BR', localeExtraPT);
+// deu problema no build
+// import localePT from '@angular/common/locales/pt';
+// import localeExtraPT from '@angular/common/locales/extra/pt';
+// import { registerLocaleData } from '@angular/common';
+// registerLocaleData(localePT, 'pt', localeExtraPT);
 
 import { MediaMatcher } from '@angular/cdk/layout';
 
@@ -48,7 +49,7 @@ import { CadastroComponent as FornecedorCadastroComponent } from './fornecedor/c
 import { ListaComponent as FornecedorListaComponent } from './fornecedor/lista/lista.component';
 import {
 	CadastroComponent as UsuarioCadastroComponent,
-	ListaComponent as UsuarioListaComponent, 
+	ListaComponent as UsuarioListaComponent,
 	UsuarioService
 } from './usuario';
 
@@ -143,7 +144,7 @@ import { LancamentoComponent } from './pdv/caixa/lancamento/lancamento.component
 		MatTooltipModule
 	],
 	providers: [
-		{ provide: LOCALE_ID, useValue: "pt-BR" },
+		{ provide: LOCALE_ID, useValue: "pt" },
 		MyErrorStateMatcherProvider,
 		AuthProviver,
 		AuthGuard,

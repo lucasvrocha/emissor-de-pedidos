@@ -34,5 +34,9 @@ export class CaixaService {
 		return this.http.post<any>(this.href + '/novo', null);
 	}
 
+	estornarLancamento(caixa, lancamento){
+		return this.http.delete<any>(this.href + '/' + caixa.id +'/lancamento/'+lancamento.id)
+	}
+
 
 }

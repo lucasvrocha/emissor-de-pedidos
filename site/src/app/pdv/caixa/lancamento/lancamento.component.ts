@@ -42,7 +42,10 @@ export class LancamentoComponent implements OnInit {
 
 		this.formGroup.disable({});
 		this.loadControls();
-		this.caixaService.getCurrentCaixa().subscribe(caixa => this.caixa = caixa);
+		this.caixaService.getCurrentCaixa().subscribe(caixa => {
+			this.caixa = caixa;
+			this.loadControls();
+		});
 	}
 
 	salvar() {
@@ -63,12 +66,18 @@ export class LancamentoComponent implements OnInit {
 				});
 	}
 
+	estornar(){
+		this.caixaService.estornarLancamento(this.caixa, this.lancamento)
+			.subscribe(lancamento => {
+				this.loadControls(lancamento);
+				this.formGroup.disable({});
+			});
+	}
 	cancelar() {
 		this.loadControls();
 	}
 
 	changeValue(){
-		//formGroup.controls["valor"].value = valor.value = valor.value * -1
 		let ctrValor = this.formGroup.controls["valor"];
 		ctrValor.setValue(ctrValor.value * -1);
 	}
@@ -77,7 +86,7 @@ export class LancamentoComponent implements OnInit {
 		if (!lancamento) {
 			for (let c in this.formGroup.controls)
 				this.formGroup.controls[c].reset({
-					value: c === 'id' ? 'Sera gerado automaticamente' : '',
+					value: c === 'id' ? 'Sera gerado automaticamente' : c === 'descricao' && this.caixa == null ?  'Abertura de Caixa' : '',
 					disabled: c === 'id' || !this.permission
 				});
 		} else {

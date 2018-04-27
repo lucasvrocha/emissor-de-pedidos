@@ -25,18 +25,6 @@
 		<mat-form-field class="full-width" >
 			<input matInput placeholder="#Código do Lancamento" formControlName='id'>
 		</mat-form-field>
-
-		<table class="full-width" cellspacing="0"><tr>
-			<td><mat-form-field class="full-width">
-				<mat-select placeholder="Pagamentos" formControlName='pagamento'  required >
-					<mat-option *ngFor="let p of pagamentos" [value]="p.value">
-						{{p.viewValue}}
-					</mat-option>	
-				</mat-select>
-			</mat-form-field></td>
-		</tr></table>
-
-
 		<table class="full-width" cellspacing="0"><tr>
 			<td><mat-form-field class="full-width" hintLabel="Maximo 50 caracteres"  >
 				<input type="text" matInput #descricao maxlength="50" placeholder="Descritivo" formControlName='descricao' required>
@@ -44,6 +32,16 @@
 				<mat-error *ngIf="formGroup.controls['descricao'].invalid">
 					Campo <strong>obrigatório</strong>.
 				</mat-error>
+			</mat-form-field></td>
+		</tr></table>
+
+		<table class="full-width" cellspacing="0"><tr>
+			<td><mat-form-field class="full-width">
+				<mat-select placeholder="Forma de Pagamento" formControlName='pagamento'  required >
+					<mat-option *ngFor="let p of pagamentos" [value]="p.value">
+						{{p.viewValue}}
+					</mat-option>	
+				</mat-select>
 			</mat-form-field></td>
 		</tr></table>
 
@@ -56,11 +54,12 @@
 				</mat-error>
 			</mat-form-field></td>
 			<td>
-				<button type='button' mat-button [disabled]='formGroup.disabled || valor.value?.length==0' (click)='changeValue()'>Saida/Entrada</button></td>
+				<button type='button' mat-button [disabled]='formGroup.disabled || valor.value?.length==0' (click)='changeValue()'><app-icon name='cached'></app-icon>  Saida/Entrada</button></td>
 			</tr></table>
 
 			<div class="full-width">
 				<button type='button' [disabled]='formGroup.disabled' mat-button (click)='cancelar()'>Cancelar</button>
+				<button type='button' [disabled]='!(lancamento && lancamento.id)' mat-button (click)='estornar()'>Estornar</button>
 				<button type='submit' [disabled]='formGroup.disabled || formGroup.invalid' mat-raised-button color="primary" >Salvar</button>
 			</div>
 		</form>
