@@ -33,8 +33,8 @@ public interface FornecedorInterfaceRepositorio
     
     
     void addFornecedor(Fornecedor fornecedor);
-    void updateFornecedor(Fornecedor Fornecedor);
-    void deleteFornecedor(long IdFornecedor);
+    void updateFornecedor(long id,Fornecedor Fornecedor);
+    void deleteFornecedor(long IDFornecedor);
     boolean fornecedorExists(String IE, String RazaoSocial);
     
 }

@@ -33,8 +33,8 @@ public interface UsuarioInterfaceRepositorio {
     
     
     void addUsuario(Usuario usuario);
-    void updateUsuario(Usuario usuario);
-    void deleteUsuario(int IdUsuario);
+    void updateUsuario(int id,Usuario usuario);
+    void deleteUsuario(int IDUsuario);
     boolean UsuarioExists(String Nome, String UsuarioNome);
     
 }

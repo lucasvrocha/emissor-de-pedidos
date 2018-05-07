@@ -12,15 +12,13 @@ import org.springframework.stereotype.*;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-/**
- *
- * @author 0040481422033
- */
-public class Usuario {
+@Entity
+public class Usuario implements Serializable{
     
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO) 
@@ -40,6 +38,9 @@ public class Usuario {
     
     @Column(nullable=false)
     private String  Foto;
+
+    public Usuario() {
+    }
 
     public Usuario(String Nome, String UsuarioNome, String Senha, String Roles,String Foto) {
         this.Nome           = Nome;

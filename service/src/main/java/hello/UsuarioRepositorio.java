@@ -28,7 +28,7 @@ public class UsuarioRepositorio implements UsuarioInterfaceRepositorio{
     
     @Override
     public Usuario findByIDUsuario(int IDUsuario) {
-        return entityManager.find(Usuario.class, IDUsuario);
+        return (Usuario) entityManager.find(Usuario.class, IDUsuario);
     }
 
     @Override
@@ -72,17 +72,22 @@ public class UsuarioRepositorio implements UsuarioInterfaceRepositorio{
     ********   ALTERACOES DE DADOS      **********
     *********************************************/
     
-    //Erro desconhcido aqui
+    //Erro desconhecido aqui
     @Override
     public void addUsuario(Usuario usuario){
         entityManager.persist(usuario);
     }
 
     @Override
-    public void updateUsuario(Usuario usuario) {
-        Usuario user = getUsuarioByIDUsuario((int) usuario.getIDUsuario());
-        user.setNome(usuario.getNome());
-        user.setUsuarioNome(usuario.getUsuarioNome());
+    public void updateUsuario(int id,Usuario usuario) {
+        Usuario novousuario = this.findByIDUsuario(id);
+        
+        novousuario.setNome(usuario.getNome());
+        novousuario.setUsuarioNome(usuario.getUsuarioNome());
+        novousuario.setSenha(usuario.getSenha());
+        novousuario.setFoto(usuario.getFoto());
+        novousuario.setRoles(usuario.getRoles());
+        
         entityManager.flush();
     }
 

@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @Controller
 @EnableAutoConfiguration
-public class Usuario {
+public class testedeUsuario {
 
     @ResponseBody
     @RequestMapping("usuarios")

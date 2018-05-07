@@ -21,7 +21,7 @@ public class FornecedorRepositorio implements FornecedorInterfaceRepositorio {
     @PersistenceContext
     private EntityManager entityManager;
 
-    public Fornecedor getFornecedorByIDFornecedor(int IDFornecedor) {
+    public Fornecedor getFornecedorByIDFornecedor(long IDFornecedor) {
         return entityManager.find(Fornecedor.class, IDFornecedor);
     }
     
@@ -35,10 +35,14 @@ public class FornecedorRepositorio implements FornecedorInterfaceRepositorio {
     }
 
     @Override
-    public void updateFornecedor(Fornecedor fornecedor) {
-        Fornecedor forn = getFornecedorByIDFornecedor((int) fornecedor.getIDFornecedor());
-        forn.setRazaoSocial(fornecedor.getRazaoSocial());
-        forn.setIE(fornecedor.getIE());
+    public void updateFornecedor(long id,Fornecedor fornecedor) {
+        Fornecedor novofornecedor = this.findByIDFornecedor(id);
+                
+                novofornecedor.setCNPJFornecedor(fornecedor.getCNPJFornecedor());
+                novofornecedor.setEmail(fornecedor.getEmail());
+                novofornecedor.setFantasia(fornecedor.getFantasia());
+                novofornecedor.setIE(fornecedor.getIE());
+                novofornecedor.setRazaoSocial(fornecedor.getRazaoSocial());
         entityManager.flush();
     }
 
