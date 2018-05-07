@@ -23,16 +23,16 @@ public class Fornecedor implements Serializable {
     
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO) 
-    private long     IDFornecedor;
+    private long     id;
     
     @Column(nullable=false)
-    private String  CNPJFornecedor;
+    private String  cnpj;
     
     @Column(nullable=false)
-    private String  IE;
+    private String  ie;
     
     @Column(nullable=false)
-    private String  RazaoSocial;
+    private String  razao;
     
     @Column(nullable=false)
     private String  fantasia;
@@ -46,9 +46,9 @@ public class Fornecedor implements Serializable {
     }
 
     public Fornecedor(String CNPJFornecedor, String IE, String RazaoSocial, String fantasia, String email) {
-        this.CNPJFornecedor = CNPJFornecedor;
-        this.IE             = IE;
-        this.RazaoSocial    = RazaoSocial;
+        this.cnpj = CNPJFornecedor;
+        this.ie             = IE;
+        this.razao    = RazaoSocial;
         this.fantasia       = fantasia;
         this.email          = email;
     }
@@ -59,16 +59,16 @@ public class Fornecedor implements Serializable {
      ***************************************************************************************************************/
     
     
-    public String getCNPJFornecedor() {
-        return CNPJFornecedor;
+    public String getCnpj() {
+        return cnpj;
     }
 
-    public String getIE() {
-        return IE;
+    public String getIe() {
+        return ie;
     }
 
-    public String getRazaoSocial() {
-        return RazaoSocial;
+    public String getRazao() {
+        return razao;
     }
 
     public String getEmail() {
@@ -79,8 +79,8 @@ public class Fornecedor implements Serializable {
         return fantasia;
     }
 
-    public long getIDFornecedor() {
-        return IDFornecedor;
+    public long getId() {
+        return id;
     }
 
     
@@ -88,20 +88,20 @@ public class Fornecedor implements Serializable {
      *******************************               SETTERS                 *****************************************
      ***************************************************************************************************************/
     
-    public void setCNPJFornecedor(String CNPJFornecedor) {
-        this.CNPJFornecedor = CNPJFornecedor;
+    public void setCnpj(String cnpj) {
+        this.cnpj = cnpj;
     }
 
-    public void setIE(String IE) {
-        this.IE = IE;
+    public void setIe(String ie) {
+        this.ie = ie;
     }
 
-    public void setRazaoSocial(String RazaoSocial) {
-        this.RazaoSocial = RazaoSocial;
+    public void setRazao(String razao) {
+        this.razao = razao;
     }
 
-    public void setIDFornecedor(long IDFornecedor) {
-        this.IDFornecedor = IDFornecedor;
+    public void setId(long id) {
+        this.id = id;
     }
 
     public void setEmail(String email) {
