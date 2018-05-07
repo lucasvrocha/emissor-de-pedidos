@@ -18,8 +18,8 @@ public class UsuarioRepositorio implements UsuarioInterfaceRepositorio{
     @PersistenceContext
     private EntityManager entityManager;
     
-    public Usuario getUsuarioByIDUsuario(int IDUsuario) {
-        return entityManager.find(Usuario.class, IDUsuario);
+    public Usuario getUsuarioByIDUsuario(int id) {
+        return entityManager.find(Usuario.class, id);
     }
     
     /*********************************************
@@ -27,26 +27,26 @@ public class UsuarioRepositorio implements UsuarioInterfaceRepositorio{
     *********************************************/
     
     @Override
-    public Usuario findByIDUsuario(int IDUsuario) {
-        return (Usuario) entityManager.find(Usuario.class, IDUsuario);
+    public Usuario findByIDUsuario(int id) {
+        return (Usuario) entityManager.find(Usuario.class, id);
     }
 
     @Override
-    public List<Usuario> findByNome(String Nome) {
-        String hql = "FROM Usuario as user where user.Nome=?";
-        return (List<Usuario>) entityManager.createQuery(hql).setParameter(1, Nome).getResultList();
+    public List<Usuario> findByNome(String nome) {
+        String hql = "FROM Usuario as user where user.nome=?";
+        return (List<Usuario>) entityManager.createQuery(hql).setParameter(1, nome).getResultList();
     }
 
     @Override
-    public List<Usuario> findByUsuarioNome(String UsuarioNome) {
-        String hql = "FROM Usuario as user where user.UsuarioNome=?";
-        return (List<Usuario>) entityManager.createQuery(hql).setParameter(1, UsuarioNome).getResultList();
+    public List<Usuario> findByUsuarioNome(String usuario) {
+        String hql = "FROM Usuario as user where user.usuario=?";
+        return (List<Usuario>) entityManager.createQuery(hql).setParameter(1, usuario).getResultList();
     }
 
     @Override
-    public List<Usuario> findBySenha(String Senha) {
-        String hql = "FROM Usuario as user where user.Senha=?";
-        return (List<Usuario>) entityManager.createQuery(hql).setParameter(1, Senha).getResultList();
+    public List<Usuario> findBySenha(String senha) {
+        String hql = "FROM Usuario as user where user.senha=?";
+        return (List<Usuario>) entityManager.createQuery(hql).setParameter(1, senha).getResultList();
     }
 
     @Override
@@ -56,15 +56,15 @@ public class UsuarioRepositorio implements UsuarioInterfaceRepositorio{
     }
 
     @Override
-    public List<Usuario> findByFoto(String Foto) {
-        String hql = "FROM Usuario as user where user.Foto=?";
-        return (List<Usuario>) entityManager.createQuery(hql).setParameter(1, Foto).getResultList();
+    public List<Usuario> findByFoto(String foto) {
+        String hql = "FROM Usuario as user where user.foto=?";
+        return (List<Usuario>) entityManager.createQuery(hql).setParameter(1, foto).getResultList();
     }
 
     @SuppressWarnings("unchecked")
     @Override
     public List<Usuario> findAllUsuario() {
-        String hql = "FROM Usuario as user ORDER BY user.IDUsuario";
+        String hql = "FROM Usuario as user ORDER BY user.id";
         return (List<Usuario>) entityManager.createQuery(hql).getResultList();
     }
 
@@ -72,7 +72,6 @@ public class UsuarioRepositorio implements UsuarioInterfaceRepositorio{
     ********   ALTERACOES DE DADOS      **********
     *********************************************/
     
-    //Erro desconhecido aqui
     @Override
     public void addUsuario(Usuario usuario){
         entityManager.persist(usuario);
@@ -83,7 +82,7 @@ public class UsuarioRepositorio implements UsuarioInterfaceRepositorio{
         Usuario novousuario = this.findByIDUsuario(id);
         
         novousuario.setNome(usuario.getNome());
-        novousuario.setUsuarioNome(usuario.getUsuarioNome());
+        novousuario.setUsuario(usuario.getUsuario());
         novousuario.setSenha(usuario.getSenha());
         novousuario.setFoto(usuario.getFoto());
         novousuario.setRoles(usuario.getRoles());
@@ -92,8 +91,8 @@ public class UsuarioRepositorio implements UsuarioInterfaceRepositorio{
     }
 
     @Override
-    public void deleteUsuario(int IdUsuario) {
-        entityManager.remove(getUsuarioByIDUsuario((int) IdUsuario));
+    public void deleteUsuario(int id) {
+        entityManager.remove(getUsuarioByIDUsuario((int) id));
     }
 
     
@@ -102,10 +101,10 @@ public class UsuarioRepositorio implements UsuarioInterfaceRepositorio{
     *********************************************/
     
     @Override
-    public boolean UsuarioExists(String Nome, String UsuarioNome) {
-        String hql = "FROM Usuario as user WHERE user.Nome = ? and user.UsuarioNome = ?";
-        int count = entityManager.createQuery(hql).setParameter(1, Nome)
-                .setParameter(2, UsuarioNome).getResultList().size();
+    public boolean UsuarioExists(String nome, String usuario) {
+        String hql = "FROM Usuario as user WHERE user.nome = ? and user.usuario = ?";
+        int count = entityManager.createQuery(hql).setParameter(1, nome)
+                .setParameter(2, usuario).getResultList().size();
         return count > 0 ? true : false;
     }
     

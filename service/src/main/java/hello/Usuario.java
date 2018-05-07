@@ -22,86 +22,86 @@ public class Usuario implements Serializable{
     
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO) 
-    private int     IDUsuario;
+    private int     id;
     
     @Column(nullable=false)
-    private String  Nome;
+    private String  nome;
     
     @Column(nullable=false)
-    private String  UsuarioNome;
+    private String  usuario;
     
     @Column(nullable=false)
-    private String  Senha;
+    private String  senha;
     
     @Column(nullable=false)
-    private String  Roles;
+    private String  roles;
     
     @Column(nullable=false)
-    private String  Foto;
+    private String  foto;
 
     public Usuario() {
     }
 
-    public Usuario(String Nome, String UsuarioNome, String Senha, String Roles,String Foto) {
-        this.Nome           = Nome;
-        this.UsuarioNome    = UsuarioNome;
-        this.Senha          = Senha;
-        this.Roles          = Roles;
-        this.Foto           = Foto;
+    public Usuario(String Nome, String usuario, String Senha, String Roles,String Foto) {
+        this.nome           = Nome;
+        this.usuario        = usuario;
+        this.senha          = Senha;
+        this.roles          = Roles;
+        this.foto           = Foto;
     }
     
     /*********************************************
     ************      GETTERS       **************
     *********************************************/
-    public int getIDUsuario() {
-        return IDUsuario;
+    public int getId() {
+        return id;
     }
 
     public String getNome() {
-        return Nome;
+        return nome;
     }
 
     public String getRoles() {
-        return Roles;
+        return roles;
     }
 
     public String getSenha() {
-        return Senha;
+        return senha;
     }
 
-    public String getUsuarioNome() {
-        return UsuarioNome;
+    public String getUsuario() {
+        return usuario;
     }
 
     public String getFoto() {
-        return Foto;
+        return foto;
     }
     
     /*********************************************
     ************      SETTERS       **************
     *********************************************/
-    public void setIDUsuario(int IDUsuario) {
-        this.IDUsuario = IDUsuario;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public void setNome(String Nome) {
-        this.Nome = Nome;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
-    public void setRoles(String Roles) {
-        this.Roles = Roles;
+    public void setRoles(String roles) {
+        this.roles = roles;
     }
 
-    public void setSenha(String Senha) {
-        this.Senha = Senha;
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
 
-    public void setUsuarioNome(String UsuarioNome) {
-        this.UsuarioNome = UsuarioNome;
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
     }
 
-    public void setFoto(String Foto) {
-        this.Foto = Foto;
+    public void setFoto(String foto) {
+        this.foto = foto;
     }
     
 }

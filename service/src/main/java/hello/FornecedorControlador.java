@@ -31,9 +31,9 @@ public class FornecedorControlador {
         
         // RETORNA FORNECEDOR DE DETERMINADO ID
         @ResponseBody
-        @RequestMapping(value = "/{idfornecedor}", method = RequestMethod.GET)
-        public Fornecedor fornecedor(@PathVariable("idfornecedor") String idfornecedor) {
-              Fornecedor fornecedor = fornecedorInterfaceRepositorio.findByIDFornecedor(Integer.parseInt(idfornecedor));
+        @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+        public Fornecedor fornecedor(@PathVariable("id") String id) {
+              Fornecedor fornecedor = fornecedorInterfaceRepositorio.findByIDFornecedor(Integer.parseInt(id));
               
               return fornecedor;
         };
@@ -41,8 +41,8 @@ public class FornecedorControlador {
         // ADICIONA UM NOVO FORNECEDOR
         @ResponseBody
         @RequestMapping( method = RequestMethod.POST)
-        public String adicionaFornecedorCNPJ(@PathVariable("CNPJFornecedor") String CNPJFornecedor, Fornecedor fornecedor) {
-              fornecedor.setCNPJFornecedor(CNPJFornecedor);
+        public String adicionaFornecedorCNPJ(@PathVariable("cnpj") String cnpj, Fornecedor fornecedor) {
+              fornecedor.setCnpj(cnpj);
               fornecedorInterfaceRepositorio.addFornecedor(fornecedor);
               return "redirect:/{CNPJFornecedor}";
         }
@@ -53,11 +53,11 @@ public class FornecedorControlador {
 	public ResponseEntity<Fornecedor> updateFornecedor(@PathVariable("id") String id, @RequestBody Fornecedor fornecedor) {
 		Fornecedor novofornecedor = fornecedorInterfaceRepositorio.findByIDFornecedor(Integer.parseInt(id));
                 
-                novofornecedor.setCNPJFornecedor(fornecedor.getCNPJFornecedor());
+                novofornecedor.setCnpj(fornecedor.getCnpj());
                 novofornecedor.setEmail(fornecedor.getEmail());
                 novofornecedor.setFantasia(fornecedor.getFantasia());
-                novofornecedor.setIE(fornecedor.getIE());
-                novofornecedor.setRazaoSocial(fornecedor.getRazaoSocial());
+                novofornecedor.setIe(fornecedor.getIe());
+                novofornecedor.setRazao(fornecedor.getRazao());
                 
                 fornecedorInterfaceRepositorio.updateFornecedor(Integer.parseInt(id),novofornecedor);
 		return new ResponseEntity<Fornecedor>(novofornecedor, HttpStatus.OK);

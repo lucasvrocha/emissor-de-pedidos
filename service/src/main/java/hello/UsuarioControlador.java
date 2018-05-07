@@ -39,9 +39,9 @@ public class UsuarioControlador {
         
     // RETORNA USUARIO DE DETERMINADO ID
         @ResponseBody
-        @RequestMapping(value = "/{idusuario}", method = RequestMethod.GET)
-        public Usuario usuario(@PathVariable("idusuario") String idusuario) {
-              Usuario usuario = usuarioInterfaceRepositorio.findByIDUsuario(Integer.parseInt(idusuario));
+        @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+        public Usuario usuario(@PathVariable("id") String id) {
+              Usuario usuario = usuarioInterfaceRepositorio.findByIDUsuario(Integer.parseInt(id));
               
               return usuario;
         }
@@ -50,9 +50,9 @@ public class UsuarioControlador {
         // ADICIONA UM NOVO USUARIO
         @ResponseBody
         @RequestMapping( method = RequestMethod.POST)
-        public String adicionaUsuarioString(@PathVariable("UsuarioNome") String UsuarioNome, Usuario usuario) {
-              usuario.setUsuarioNome(UsuarioNome);
-              usuarioInterfaceRepositorio.addUsuario(usuario);
+        public String adicionaUsuarioString(@PathVariable("usuario") String usuario, Usuario usuarioU) {
+              usuarioU.setUsuario(usuario);
+              usuarioInterfaceRepositorio.addUsuario(usuarioU);
               return "redirect:/{Nome}";
         }
         
@@ -64,7 +64,7 @@ public class UsuarioControlador {
             Usuario novousuario = usuarioInterfaceRepositorio.findByIDUsuario(id);
         
             novousuario.setNome(usuario.getNome());
-            novousuario.setUsuarioNome(usuario.getUsuarioNome());
+            novousuario.setUsuario(usuario.getUsuario());
             novousuario.setSenha(usuario.getSenha());
             novousuario.setFoto(usuario.getFoto());
             novousuario.setRoles(usuario.getRoles());
@@ -75,8 +75,8 @@ public class UsuarioControlador {
         
         // DELETE UM NOVO USUARIO
         @ResponseBody
-        @RequestMapping(value = "/{IDUsuario}", method = RequestMethod.DELETE)
-	public ResponseEntity<Void> deleteUser(@PathVariable("IDUsuario") Integer idusuario) {
+        @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+	public ResponseEntity<Void> deleteUser(@PathVariable("id") Integer idusuario) {
 		usuarioInterfaceRepositorio.deleteUsuario(idusuario);
 		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 	}

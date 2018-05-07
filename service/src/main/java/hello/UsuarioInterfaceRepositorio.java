@@ -12,29 +12,29 @@ public interface UsuarioInterfaceRepositorio {
     
     
     //      ENCONTRA O USUARIO PELO ID
-    Usuario findByIDUsuario(int IDUsuario);
+    Usuario findByIDUsuario(int id);
     
     //      ENCONTRA O USUARIO PELO NOME
-    List<Usuario> findByNome(String Nome);
+    List<Usuario> findByNome(String nome);
     
     //      ENCONTRA O USUARIO PELA USUARIO
-    List<Usuario> findByUsuarioNome(String UsuarioNome);
+    List<Usuario> findByUsuarioNome(String usuario);
     
     //      ENCONTRA O USUARIO PELA SENHA
-    List<Usuario> findBySenha(String Senha);
+    List<Usuario> findBySenha(String senha);
     
     //      ENCONTRA O USUARIO PELO EMAIL
     List<Usuario> findByEmail(String email);
     
     //      ENCONTRA O USUARIO PELA FOTO
-    List<Usuario> findByFoto(String Foto);
+    List<Usuario> findByFoto(String foto);
     
     List<Usuario> findAllUsuario();
     
     
     void addUsuario(Usuario usuario);
     void updateUsuario(int id,Usuario usuario);
-    void deleteUsuario(int IDUsuario);
-    boolean UsuarioExists(String Nome, String UsuarioNome);
+    void deleteUsuario(int id);
+    boolean UsuarioExists(String nome, String usuario);
     
 }
