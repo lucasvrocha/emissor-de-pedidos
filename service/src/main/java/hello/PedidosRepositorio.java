@@ -115,4 +115,16 @@ public class PedidosRepositorio implements PedidosInterfaceRepositorio{
         return (List<Pedidos>) entityManager.createQuery(hql).setParameter(1, qtd).getResultList();
     }
     
+    @Override
+    public List<Pedidos> Pagamentos(){
+        String hql = "SELECT ped.especie,ped.parcelas,ped.valor FROM Pedidos as ped ORDER BY ped.id";
+        return (List<Pedidos>) entityManager.createQuery(hql).getResultList();
+    }
+    
+    @Override
+    public List<Pedidos> Parcelas(){
+        String hql = "SELECT ped.value,ped.viewValue FROM Pedidos as ped ORDER BY ped.id";
+        return (List<Pedidos>) entityManager.createQuery(hql).getResultList();
+    }
+    
 }

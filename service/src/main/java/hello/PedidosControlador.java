@@ -46,6 +46,20 @@ public class PedidosControlador {
         return pedidos;
     }
     
+    //RETORNA O PAGAMENTO// especie, parcelas, valor
+    @ResponseBody
+    @RequestMapping(value = "/pagamentos", method = RequestMethod.GET)
+    public List<Pedidos> Pagamentos() {
+            return (List<Pedidos>) pedidosInterfaceRepositorio.Pagamentos();
+    }
+    
+    //RETORNA AS PARCELAS// value, viewValue
+    @ResponseBody
+    @RequestMapping(value = "/parcelas", method = RequestMethod.GET)
+    public List<Pedidos> Parcelas() {
+            return (List<Pedidos>) pedidosInterfaceRepositorio.Parcelas();
+    }
+    
     // ADICIONA UM NOVO PEDIDO
         @ResponseBody
         @RequestMapping( method = RequestMethod.POST)

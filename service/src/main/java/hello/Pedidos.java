@@ -51,20 +51,30 @@ public class Pedidos implements Serializable{
     
     @Column(nullable=false)
     String status;
+    
+    
+    //Váriaveis que são utilizadas na Parcela
+    @Column(nullable=false)
+    int value;
+    
+    @Column(nullable=false)
+    String viewValue;
 
     public Pedidos() {
     }
 
     public Pedidos(String tipo, int idproduto, String descricao, double valor, int qtd, String itens, String especie, int parcelas, String status) {
-        this.tipo = tipo;
-        this.idproduto = idproduto;
-        this.descricao = descricao;
-        this.valor = valor;
-        this.qtd = qtd;
-        this.itens = itens;
-        this.especie = especie;
-        this.parcelas = parcelas;
-        this.status = status;
+        this.tipo           = tipo;
+        this.idproduto      = idproduto;
+        this.descricao      = descricao;
+        this.valor          = valor;
+        this.qtd            = qtd;
+        this.itens          = itens;
+        this.especie        = especie;
+        this.parcelas       = parcelas;
+        this.value          = parcelas;
+        this.viewValue      = Integer.toString(parcelas)+"x";
+        this.status         = status;
     }
     
     
@@ -148,7 +158,9 @@ public class Pedidos implements Serializable{
     }
 
     public void setParcelas(int parcelas) {
-        this.parcelas = parcelas;
+        this.value      = parcelas;
+        this.viewValue  = Integer.toString(parcelas)+"x";
+        this.parcelas   = parcelas;
     }
 
     public void setStatus(String status) {
