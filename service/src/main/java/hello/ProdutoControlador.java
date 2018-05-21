@@ -36,7 +36,7 @@ public class ProdutoControlador {
         
         // RETORNA UMA LISTA CONTENDO TODOS OS REGISTROS 
         @ResponseBody
-        @RequestMapping(value = "?q=repo:angular/material2&sort={{sort}}&order={{order}}&page={{page}}", method = RequestMethod.GET)
+        @RequestMapping(value = "/prodforn", method = RequestMethod.GET)
         public List<Produto> listaProdutoFornecedor() {
               return (List<Produto>) produtoInterfaceRepositorio.findAllProdutoFornecedor();
         }
