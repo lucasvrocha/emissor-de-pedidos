@@ -29,6 +29,8 @@ public interface ProdutoInferfaceRepositorio {
     
     List<Produto> findAllProduto();
     
+    List<Produto> findAllProdutoFornecedor();
+    
     
     void addProduto(Produto produto);
     void updateProduto(int id,Produto produto);

@@ -72,6 +72,14 @@ public class ProdutoRepositorio implements ProdutoInferfaceRepositorio{
         return (List<Produto>) entityManager.createQuery(hql).getResultList();
     }
     
+    @Override
+    public List<Produto> findAllProdutoFornecedor() {
+        String hql = "SELECT prod, f.id FROM Produto as prod INNER JOIN Fornecedor  "
+                + "LEFT OUTER JOIN fornecedorid "
+                +"ORDER BY prod.fornecedorid";
+        return (List<Produto>) entityManager.createQuery(hql).getResultList();
+    }
+    
     /*********************************************
     ********   ALTERACOES DE DADOS      **********
     *********************************************/

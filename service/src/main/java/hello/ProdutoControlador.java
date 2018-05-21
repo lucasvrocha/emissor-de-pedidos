@@ -30,8 +30,15 @@ public class ProdutoControlador {
         // RETORNA UMA LISTA CONTENDO TODOS OS REGISTROS 
         @ResponseBody
         @RequestMapping(value = "/all", method = RequestMethod.GET)
-        public List<Produto> listaFornecedor() {
+        public List<Produto> listaProduto() {
               return (List<Produto>) produtoInterfaceRepositorio.findAllProduto();
+        }
+        
+        // RETORNA UMA LISTA CONTENDO TODOS OS REGISTROS 
+        @ResponseBody
+        @RequestMapping(value = "?q=repo:angular/material2&sort={{sort}}&order={{order}}&page={{page}}", method = RequestMethod.GET)
+        public List<Produto> listaProdutoFornecedor() {
+              return (List<Produto>) produtoInterfaceRepositorio.findAllProdutoFornecedor();
         }
         
         // RETORNA PRODUTO DE DETERMINADO ID
