@@ -103,9 +103,8 @@ public class PedidosControlador {
             novoPedido.setFornecedorId(pedidos.getFornecedorId());
             novoPedido.setItens(pedidos.getItens());
             novoPedido.setEspecie(pedidos.getEspecie());
-            novoPedido.setParcelas(0);
+            novoPedido.setParcelas(pedidos.getParcelas());
             novoPedido.setStatus("cancelado");
-            
             
             pedidosInterfaceRepositorio.updatePedidos(id,novoPedido);
             return new ResponseEntity<Pedidos>(novoPedido, HttpStatus.OK);
