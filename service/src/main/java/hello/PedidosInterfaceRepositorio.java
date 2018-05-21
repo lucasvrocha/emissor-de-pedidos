@@ -22,6 +22,7 @@ public interface PedidosInterfaceRepositorio {
     
     void addPedidos(Pedidos Pedidos);
     void updatePedidos(int id,Pedidos pedidos);
+    void cancelaPedido(int id,String status,Pedidos pedidos);
     void deletePedidos(int id);
     boolean pedidosExists(String tipo, String descricao);
     

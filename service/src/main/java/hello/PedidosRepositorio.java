@@ -43,10 +43,21 @@ public class PedidosRepositorio implements PedidosInterfaceRepositorio{
             novoPedido.setQtd(pedidos.getQtd());
             novoPedido.setTipo(pedidos.getTipo());
             novoPedido.setValor(pedidos.getValor());
-            novoPedido.setIdproduto(pedidos.getIdproduto());
+            novoPedido.setFornecedorId(pedidos.getFornecedorId());
             novoPedido.setItens(pedidos.getItens());
             novoPedido.setEspecie(pedidos.getEspecie());
             novoPedido.setParcelas(pedidos.getParcelas());
+            novoPedido.setStatus(pedidos.getStatus());
+            
+        entityManager.flush();
+    }
+    
+    @Override
+    public void cancelaPedido(int id, String status, Pedidos pedidos) {
+        
+        Pedidos novoPedido = (Pedidos) this.findByIdPedidos(id);
+        
+            
             novoPedido.setStatus(pedidos.getStatus());
             
         entityManager.flush();

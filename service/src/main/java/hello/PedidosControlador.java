@@ -69,7 +69,7 @@ public class PedidosControlador {
               return "redirect:/{descricao}";
         }
         
-        // ATUALIZA UM PEDIDOS
+        // ATUALIZA UM PEDIDO
         @ResponseBody
         @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Pedidos> updatePedido(@PathVariable("id") int id, @RequestBody Pedidos pedidos) {
@@ -79,11 +79,30 @@ public class PedidosControlador {
             novoPedido.setQtd(pedidos.getQtd());
             novoPedido.setTipo(pedidos.getTipo());
             novoPedido.setValor(pedidos.getValor());
-            novoPedido.setIdproduto(pedidos.getIdproduto());
+            novoPedido.setFornecedorId(pedidos.getFornecedorId());
             novoPedido.setItens(pedidos.getItens());
             novoPedido.setEspecie(pedidos.getEspecie());
             novoPedido.setParcelas(pedidos.getParcelas());
             novoPedido.setStatus(pedidos.getStatus());
+            
+            
+            pedidosInterfaceRepositorio.updatePedidos(id,novoPedido);
+            return new ResponseEntity<Pedidos>(novoPedido, HttpStatus.OK);
+        }
+        
+        // DELETA UM PEDIDO
+        @ResponseBody
+        @RequestMapping(value = "/cancelar/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<Pedidos> deletaPedido(@PathVariable("id") int id, @RequestBody Pedidos pedidos) {
+            Pedidos novoPedido = pedidosInterfaceRepositorio.findByIdPedidos(id);
+            if(pedidos.getStatus() == "cancelado"){
+                novoPedido.setParcelas(0);
+                novoPedido.setStatus("cancelado");
+            }
+            else if(pedidos.getStatus() == "finalizado"){
+                novoPedido.setParcelas(0);
+                novoPedido.setStatus("finalizado");
+            }
             
             
             pedidosInterfaceRepositorio.updatePedidos(id,novoPedido);

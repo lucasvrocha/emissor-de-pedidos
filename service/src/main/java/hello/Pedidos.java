@@ -28,7 +28,7 @@ public class Pedidos implements Serializable{
     String tipo;
     
     @Column(nullable=false)
-    int idproduto;
+    int fornecedorId;
     
     @Column(nullable=false)
     String descricao;
@@ -65,7 +65,7 @@ public class Pedidos implements Serializable{
 
     public Pedidos(String tipo, int idproduto, String descricao, double valor, int qtd, String itens, String especie, int parcelas, String status) {
         this.tipo           = tipo;
-        this.idproduto      = idproduto;
+        this.fornecedorId      = idproduto;
         this.descricao      = descricao;
         this.valor          = valor;
         this.qtd            = qtd;
@@ -89,8 +89,8 @@ public class Pedidos implements Serializable{
         return tipo;
     }
 
-    public int getIdproduto() {
-        return idproduto;
+    public int getFornecedorId() {
+        return fornecedorId;
     }
 
     public String getDescricao() {
@@ -133,8 +133,8 @@ public class Pedidos implements Serializable{
         this.tipo = tipo;
     }
 
-    public void setIdproduto(int idproduto) {
-        this.idproduto = idproduto;
+    public void setFornecedorId(int fornecedorId) {
+        this.fornecedorId = fornecedorId;
     }
 
     public void setDescricao(String descricao) {
