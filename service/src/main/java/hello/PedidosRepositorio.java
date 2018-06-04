@@ -43,10 +43,21 @@ public class PedidosRepositorio implements PedidosInterfaceRepositorio{
             novoPedido.setQtd(pedidos.getQtd());
             novoPedido.setTipo(pedidos.getTipo());
             novoPedido.setValor(pedidos.getValor());
-            novoPedido.setIdproduto(pedidos.getIdproduto());
+            novoPedido.setFornecedorId(pedidos.getFornecedorId());
             novoPedido.setItens(pedidos.getItens());
             novoPedido.setEspecie(pedidos.getEspecie());
             novoPedido.setParcelas(pedidos.getParcelas());
+            novoPedido.setStatus(pedidos.getStatus());
+            
+        entityManager.flush();
+    }
+    
+    @Override
+    public void cancelaPedido(int id, String status, Pedidos pedidos) {
+        
+        Pedidos novoPedido = (Pedidos) this.findByIdPedidos(id);
+        
+            
             novoPedido.setStatus(pedidos.getStatus());
             
         entityManager.flush();
@@ -113,6 +124,18 @@ public class PedidosRepositorio implements PedidosInterfaceRepositorio{
     public List<Pedidos> findByQTD(int qtd) {
         String hql = "FROM Pedidos as ped where ped.qtd=?";
         return (List<Pedidos>) entityManager.createQuery(hql).setParameter(1, qtd).getResultList();
+    }
+    
+    @Override
+    public List<Pedidos> Pagamentos(){
+        String hql = "SELECT ped.especie,ped.parcelas,ped.valor FROM Pedidos as ped ORDER BY ped.id";
+        return (List<Pedidos>) entityManager.createQuery(hql).getResultList();
+    }
+    
+    @Override
+    public List<Pedidos> Parcelas(){
+        String hql = "SELECT ped.value,ped.viewValue FROM Pedidos as ped ORDER BY ped.id";
+        return (List<Pedidos>) entityManager.createQuery(hql).getResultList();
     }
     
 }

@@ -46,6 +46,20 @@ public class PedidosControlador {
         return pedidos;
     }
     
+    //RETORNA O PAGAMENTO// especie, parcelas, valor
+    @ResponseBody
+    @RequestMapping(value = "/pagamentos", method = RequestMethod.GET)
+    public List<Pedidos> Pagamentos() {
+            return (List<Pedidos>) pedidosInterfaceRepositorio.Pagamentos();
+    }
+    
+    //RETORNA AS PARCELAS// value, viewValue
+    @ResponseBody
+    @RequestMapping(value = "/parcelas", method = RequestMethod.GET)
+    public List<Pedidos> Parcelas() {
+            return (List<Pedidos>) pedidosInterfaceRepositorio.Parcelas();
+    }
+    
     // ADICIONA UM NOVO PEDIDO
         @ResponseBody
         @RequestMapping( method = RequestMethod.POST)
@@ -55,7 +69,7 @@ public class PedidosControlador {
               return "redirect:/{descricao}";
         }
         
-        // ATUALIZA UM PEDIDOS
+        // ATUALIZA UM PEDIDO
         @ResponseBody
         @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Pedidos> updatePedido(@PathVariable("id") int id, @RequestBody Pedidos pedidos) {
@@ -65,13 +79,42 @@ public class PedidosControlador {
             novoPedido.setQtd(pedidos.getQtd());
             novoPedido.setTipo(pedidos.getTipo());
             novoPedido.setValor(pedidos.getValor());
-            novoPedido.setIdproduto(pedidos.getIdproduto());
+            novoPedido.setFornecedorId(pedidos.getFornecedorId());
             novoPedido.setItens(pedidos.getItens());
             novoPedido.setEspecie(pedidos.getEspecie());
             novoPedido.setParcelas(pedidos.getParcelas());
             novoPedido.setStatus(pedidos.getStatus());
             
             
+            pedidosInterfaceRepositorio.updatePedidos(id,novoPedido);
+            return new ResponseEntity<Pedidos>(novoPedido, HttpStatus.OK);
+        }
+        
+        // CANCELA UM PEDIDO
+        @ResponseBody
+        @RequestMapping(value = "/{id}/cancelar", method = RequestMethod.PUT)
+	public ResponseEntity<Pedidos> cancelaPedido(@PathVariable("id") int id, @RequestBody Pedidos pedidos) {
+            Pedidos novoPedido = pedidosInterfaceRepositorio.findByIdPedidos(id);
+        
+            novoPedido.setDescricao(pedidos.getDescricao());
+            novoPedido.setQtd(pedidos.getQtd());
+            novoPedido.setTipo(pedidos.getTipo());
+            novoPedido.setValor(pedidos.getValor());
+            novoPedido.setFornecedorId(pedidos.getFornecedorId());
+            novoPedido.setItens(pedidos.getItens());
+            novoPedido.setEspecie(pedidos.getEspecie());
+            novoPedido.setParcelas(pedidos.getParcelas());
+            novoPedido.setStatus("cancelado");
+            
+            pedidosInterfaceRepositorio.updatePedidos(id,novoPedido);
+            return new ResponseEntity<Pedidos>(novoPedido, HttpStatus.OK);
+        }
+        
+        // DELETA UM PEDIDO
+        @ResponseBody
+        @RequestMapping(value = "/cancelar/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<Pedidos> deletaPedido(@PathVariable("id") int id, @RequestBody Pedidos pedidos) {
+            Pedidos novoPedido = pedidosInterfaceRepositorio.findByIdPedidos(id);
             pedidosInterfaceRepositorio.updatePedidos(id,novoPedido);
             return new ResponseEntity<Pedidos>(novoPedido, HttpStatus.OK);
         }

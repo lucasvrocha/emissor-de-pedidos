@@ -15,11 +15,14 @@ public interface PedidosInterfaceRepositorio {
     List<Pedidos> findByDescricao(String descricao);
     List<Pedidos> findByValor(double valor);
     List<Pedidos> findByQTD(int qtd);
+    List<Pedidos> Pagamentos();
+    List<Pedidos> Parcelas();
     List<Pedidos> findAllPedidos();
     
     
     void addPedidos(Pedidos Pedidos);
     void updatePedidos(int id,Pedidos pedidos);
+    void cancelaPedido(int id,String status,Pedidos pedidos);
     void deletePedidos(int id);
     boolean pedidosExists(String tipo, String descricao);
     
