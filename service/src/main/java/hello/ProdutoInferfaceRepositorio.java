@@ -27,6 +27,9 @@ public interface ProdutoInferfaceRepositorio {
     //      ENCONTRA O PRODUTO PELO PRECO
     List<Produto> findByPreco(double preco);
     
+    //      ENCONTRA O PRODUTO PELO PRECO
+    List<Produto> findByFornecedor(String fornecedor);
+    
     List<Produto> findAllProduto();
     
     List<Produto> findAllProdutoFornecedor();

@@ -38,16 +38,20 @@ public class Produto implements Serializable{
     
     @Column(nullable=false)
     double preco;
+    
+    @Column(nullable=false)
+    String fornecedor;
 
     public Produto() {
     }
 
-    public Produto(String descritivo, int quantidade, int quantidadeMinima, long fornecedorId, double preco) {
-        this.descritivo = descritivo;
-        this.quantidade = quantidade;
-        this.quantidadeMinima = quantidadeMinima;
-        this.fornecedorId = fornecedorId;
-        this.preco = preco;
+    public Produto(String descritivo, int quantidade, int quantidadeMinima, long fornecedorId, double preco,String fornecedor) {
+        this.descritivo         = descritivo;
+        this.quantidade         = quantidade;
+        this.quantidadeMinima   = quantidadeMinima;
+        this.fornecedorId       = fornecedorId;
+        this.preco              = preco;
+        this.fornecedor         = fornecedor;
     }
     
     
@@ -77,6 +81,10 @@ public class Produto implements Serializable{
     public void setQuantidadeMinima(int quantidadeMinima) {
         this.quantidadeMinima = quantidadeMinima;
     }
+
+    public void setFornecedor(String fornecedor) {
+        this.fornecedor = fornecedor;
+    }
     
     
     /*********************************************
@@ -104,6 +112,10 @@ public class Produto implements Serializable{
 
     public double getPreco() {
         return preco;
+    }
+
+    public String getFornecedor() {
+        return fornecedor;
     }
     
     

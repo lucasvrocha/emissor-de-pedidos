@@ -65,18 +65,24 @@ public class ProdutoRepositorio implements ProdutoInferfaceRepositorio{
         String hql = "FROM Produto as prod where prod.preco=?";
         return (List<Produto>) entityManager.createQuery(hql).setParameter(1, preco).getResultList();
     }
+    
+    @Override
+    public List<Produto> findByFornecedor(String fornecedor) {
+        String hql = "FROM Produto as prod where prod.fornecedor=?";
+        return (List<Produto>) entityManager.createQuery(hql).setParameter(1, fornecedor).getResultList();
+    }
 
     @Override
     public List<Produto> findAllProduto() {
-        String hql = "FROM Produto as prod ORDER BY prod.id";
+        String hql = "SELECT prod.id,prod.descritivo,"
+                + " prod.quantidade, prod.quantidadeMinima,"
+                + "prod.fornecedorId, prod.preco FROM Produto as prod ORDER BY prod.id";
         return (List<Produto>) entityManager.createQuery(hql).getResultList();
     }
     
     @Override
     public List<Produto> findAllProdutoFornecedor() {
-        String hql = "SELECT prod,forn.razaosocial f.nome FROM Produto prod, Fornecedor forn "
-                +"WHERE prod.fornecedorid = forn.id"+
-                "ORDER BY prod.fornecedorid";
+        String hql = "FROM Produto prod ORDER BY prod.fornecedorId";
         return (List<Produto>) entityManager.createQuery(hql).getResultList();
     }
     
@@ -121,5 +127,7 @@ public class ProdutoRepositorio implements ProdutoInferfaceRepositorio{
                 .setParameter(4, preco).getResultList().size();
         return count > 0 ? true : false;
     }
+
+    
     
 }

@@ -34,9 +34,9 @@ public class ProdutoControlador {
               return (List<Produto>) produtoInterfaceRepositorio.findAllProduto();
         }
         
-        // RETORNA UMA LISTA CONTENDO TODOS OS REGISTROS 
+        // RETORNA UMA LISTA CONTENDO TODOS OS REGISTROS JUNTO COM O NOME DO FORNECEDOR 
         @ResponseBody
-        @RequestMapping(value = "/prodforn", method = RequestMethod.GET)
+        @RequestMapping(value = "/q=repo:angular/material2&sort={{sort}}&order={{order}}&page={{page}}", method = RequestMethod.GET)
         public List<Produto> listaProdutoFornecedor() {
               return (List<Produto>) produtoInterfaceRepositorio.findAllProdutoFornecedor();
         }
@@ -91,7 +91,7 @@ public class ProdutoControlador {
         @ResponseBody
         @RequestMapping(value="/testeinsercao")
         public void testeInsercao(){
-            Produto produto = new Produto("alguma", 2, 4, 6, 1);
+            Produto produto = new Produto("alguma", 2, 4, 3, 1,"ele la");
             produtoInterfaceRepositorio.addProduto(produto);
         }
         
